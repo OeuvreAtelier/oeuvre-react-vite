@@ -13,26 +13,28 @@ export default function CardPictureTileWithButtons({
   onDelete,
 }) {
   return (
-    <div className="card-border-shadow">
-      <img
-        className="rounded-t-lg hover:cursor-pointer object-cover"
-        src={image}
-        alt={name}
-        onClick={productOnClick}
-      />
-      <div className="p-5">
-        <p
-          className="sm-semibold-gray hover:underline hover:cursor-pointer"
-          onClick={categoryOnClick}
-        >
-          {category}
-        </p>
-        <p className="lg-semibold-black mt-2 mb-1 hover:underline hover:cursor-pointer">
-          {name}
-        </p>
-        <p className="lg-semibold-blue">Rp{price}</p>
+    <div className="card-border-shadow flex flex-col justify-between">
+      <div className="">
+        <img
+          className="rounded-t-lg hover:cursor-pointer object-cover"
+          src={image}
+          alt={name}
+          onClick={productOnClick}
+        />
+        <div className="p-5">
+          <p
+            className="sm-semibold-gray hover:underline hover:cursor-pointer"
+            onClick={categoryOnClick}
+          >
+            {category}
+          </p>
+          <p className="lg-semibold-black mt-2 mb-1 hover:underline hover:cursor-pointer">
+            {name}
+          </p>
+          <p className="lg-semibold-blue">Rp{price}</p>
+        </div>
       </div>
-      <div className="p-5">
+      <div className="ps-5 pb-5">
         <IconButton
           btnName="Edit"
           btnIcon={faFileEdit}

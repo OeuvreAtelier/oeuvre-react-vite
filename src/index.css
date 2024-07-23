@@ -22,6 +22,10 @@
   @apply text-sm text-indigo-600;
 }
 
+.md-gray {
+  @apply text-base text-gray-600;
+}
+
 .md-black {
   @apply text-base text-gray-800;
 }
