@@ -1,8 +1,24 @@
 import React from "react"
 import IconButton from "./IconButton"
-import { faPowerOff } from "@fortawesome/free-solid-svg-icons"
+import {
+  faGear,
+  faHeart,
+  faHistory,
+  faPowerOff,
+  faShoppingCart,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons"
+import { useAuth } from "../../context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 export default function Drawer({ isOpen, toggleDrawer }) {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    await logout()
+    navigate("/login")
+  }
   return (
     <>
       <div
@@ -29,34 +45,53 @@ export default function Drawer({ isOpen, toggleDrawer }) {
           </div>
         </div>
         <IconButton
-          btnName="Logout"
-          btnIcon={faPowerOff}
-          onClick={toggleDrawer}
+          btnName="Profile"
+          btnIcon={faUserCircle}
           color="bg-white"
+          onClick={() => {
+            toggleDrawer()
+            navigate("/my-store")
+          }}
         />
         <IconButton
-          btnName="Logout"
-          btnIcon={faPowerOff}
-          onClick={toggleDrawer}
+          btnName="My Cart"
+          btnIcon={faShoppingCart}
           color="bg-white"
+          onClick={() => {
+            toggleDrawer()
+            navigate("/my-store")
+          }}
         />
         <IconButton
-          btnName="Logout"
-          btnIcon={faPowerOff}
-          onClick={toggleDrawer}
+          btnName="Wishlist"
+          btnIcon={faHeart}
           color="bg-white"
+          onClick={toggleDrawer}
         />
         <IconButton
-          btnName="Logout"
-          btnIcon={faPowerOff}
-          onClick={toggleDrawer}
+          btnName="Transaction History"
+          btnIcon={faHistory}
           color="bg-white"
+          onClick={() => {
+            toggleDrawer()
+            navigate("/transaction-page")
+          }}
         />
         <IconButton
-          btnName="Logout"
-          btnIcon={faPowerOff}
-          onClick={toggleDrawer}
+          btnName="Settings"
+          btnIcon={faGear}
           color="bg-white"
+          onClick={toggleDrawer}
+        />
+        <IconButton
+          btnName="Log Out"
+          btnIcon={faPowerOff}
+          color="bg-white"
+          onClick={() => {
+            toggleDrawer()
+            handleLogout()
+            navigate("/")
+          }}
         />
       </div>
     </>

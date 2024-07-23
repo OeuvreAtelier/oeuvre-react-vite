@@ -12,7 +12,7 @@ export default function IconButton({
   return (
     <button
       onClick={onClick}
-      className={`shadow-md ${color} ${textColor} p-2 me-3 rounded-lg border hover:${hoverColor} hover:cursor-pointer`}
+      className={`shadow-md ${color} ${textColor} p-3 me-3 rounded-lg border hover:${hoverColor} hover:cursor-pointer`}
     >
       <div className="flex">
         <FontAwesomeIcon icon={btnIcon} className="mt-1 ps-2" />

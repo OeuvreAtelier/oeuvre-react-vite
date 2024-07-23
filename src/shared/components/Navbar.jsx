@@ -7,7 +7,7 @@ import AvatarFB from "./AvatarFB"
 import Drawer from "./Drawer"
 
 export default function Navbar() {
-  const { isLoggedIn, logout } = useAuth()
+  const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
 
   // Drawer
@@ -15,11 +15,6 @@ export default function Navbar() {
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
-  }
-
-  const handleLogout = async () => {
-    await logout()
-    navigate("/login")
   }
 
   return (
@@ -34,16 +29,6 @@ export default function Navbar() {
           />
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {isLoggedIn ? (
-              // <button
-              //   onClick={() => {
-              //     handleLogout()
-              //     navigate("/")
-              //   }}
-              //   type="button"
-              //   className="text-white font-semibold bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
-              // >
-              //   Log Out
-              // </button>
               <AvatarFB
                 img={
                   "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
@@ -79,18 +64,6 @@ export default function Navbar() {
                 title="About"
                 onClick={() => {
                   navigate("/about")
-                }}
-              />
-              <NavbarButton
-                title="My Store"
-                onClick={() => {
-                  navigate("/my-store")
-                }}
-              />
-              <NavbarButton
-                title="Transaction List"
-                onClick={() => {
-                  navigate("/transaction-page")
                 }}
               />
             </ul>
