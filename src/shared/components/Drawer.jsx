@@ -1,8 +1,8 @@
 import React from "react"
 import IconButton from "./IconButton"
 import {
+  faBookmark,
   faGear,
-  faHeart,
   faHistory,
   faPowerOff,
   faShoppingCart,
@@ -63,12 +63,12 @@ export default function Drawer({ isOpen, toggleDrawer }) {
           }}
         />
         <IconButton
-          btnName="Wishlist"
-          btnIcon={faHeart}
+          btnName="Bookmarks"
+          btnIcon={faBookmark}
           color="bg-white"
           onClick={() => {
             toggleDrawer()
-            navigate("/wishlist")
+            navigate("/bookmarks")
           }}
         />
         <IconButton

@@ -1,6 +1,7 @@
 import React from "react"
+import TextButton from "./TextButton"
 
-export default function CardPictureTile({
+export default function CardPictureTileBottomBtn({
   image,
   imageOnClick,
   category,
@@ -18,7 +19,7 @@ export default function CardPictureTile({
         alt={name}
         onClick={imageOnClick}
       />
-      <div className="p-5">
+      <div className="px-5 pt-5">
         <p
           className="sm-semibold-gray hover:underline hover:cursor-pointer"
           onClick={categoryOnClick}
@@ -38,6 +39,13 @@ export default function CardPictureTile({
           {seller}
         </p>
         <p className="md-semibold-blue">Rp{price}</p>
+      </div>
+      <div className="px-5 py-3">
+        <TextButton
+          btnName="Remove"
+          btnColor="bg-red-700"
+          textColor="text-white"
+        />
       </div>
     </div>
   )
