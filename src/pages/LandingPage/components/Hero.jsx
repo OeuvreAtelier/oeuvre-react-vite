@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../../shared/components/Logo";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -19,18 +19,18 @@ export default function Hero() {
           OEUVRE is a creator's market that connects people through creativity.
         </p>
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-          <a
-            href="/my-store"
+          <Link
+            to="/my-store"
             className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300"
           >
             Get started
-          </a>
-          <a
-            href="/about"
+          </Link>
+          <Link
+            to="/about"
             className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
           >
             Learn more
-          </a>
+          </Link>
         </div>
       </div>
     </section>
