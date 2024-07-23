@@ -30,7 +30,7 @@ export default function EmailPasswordContainer() {
   
   return (
     <div className="bg-fixed flex justify-center items-center min-h-screen bg-[url('https://images.unsplash.com/photo-1584505731268-3d498e37ee75?q=80&w=1560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-400 bg-blend-multiply">
-      <div className="mt-32 mb-20 w-full max-w-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-12 flex flex-col justify-center items-center rounded-3xl">
+      <div className="mt-32 mb-20 w-full max-w-lg bg-white border border-gray-200 p-12 flex flex-col justify-center items-center rounded-3xl">
         <Logo onClick={() => navigate("/")} />
         <form
           className="max-w-sm mx-auto flex flex-col w-full mt-5"
@@ -54,18 +54,18 @@ export default function EmailPasswordContainer() {
           />
           <TextButton
             btnName="Log In"
-            btnColor="bg-blue-500"
+            btnColor="bg-sky-500"
             textColor="text-white"
-            hoverColor={"bg-blue-600"}
+            hoverColor={"bg-sky-600"}
           />
           <TextButton
             btnName="Register"
             onClick={() => {
               navigate("/register");
             }}
-            btnColor="bg-gray-100 dark:bg-gray-600"
-            textColor="text-gray-800 dark:text-white"
-            hoverColor={"bg-gray-200 dark:bg-gray-700"}
+            btnColor="bg-gray-100"
+            textColor="text-gray-800"
+            hoverColor={"bg-slate-100"}
           />
         </form>
       </div>

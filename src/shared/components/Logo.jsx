@@ -6,7 +6,7 @@ export default function Logo({ onClick }) {
       onClick={onClick}
       className="text-2xl font-semibold italic whitespace-nowrap text-white bg-red-500 p-4 hover:bg-red-600 hover:cursor-pointer"
     >
-      BOOTH.
+      OEUVRE.
     </h5>
   );
 }
