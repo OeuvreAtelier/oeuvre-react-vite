@@ -7,7 +7,7 @@ import BestSeller from "./components/BestSeller";
 
 export default function LandingPage() {
   return (
-    <div className="bg-gray-200">
+    <div className="bg-slate-100">
       <Hero />
       <BestSeller />
       <Category />

@@ -4,7 +4,7 @@ import EditProfileContainer from "./components/EditProfileContainer";
 
 export default function EditProfilePage() {
   return (
-    <div className="bg-gray-200">
+    <div className="bg-slate-100">
       <Navbar />
       <EditProfileContainer />
     </div>

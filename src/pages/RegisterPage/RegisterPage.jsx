@@ -4,7 +4,7 @@ import RegisterContainer from "./components/RegisterContainer";
 
 export default function RegisterPage() {
   return (
-    <div className="bg-gray-200">
+    <div className="bg-slate-100">
       <RegisterContainer />
     </div>
   );

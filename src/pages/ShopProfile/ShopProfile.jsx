@@ -17,7 +17,7 @@ export default function ShopProfile() {
   }, [dispatch])
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-slate-100">
       <ProfileHeader artist={artist} />
       <ProductList artist={artist} merchandises={merchandises} />
       <Footer />

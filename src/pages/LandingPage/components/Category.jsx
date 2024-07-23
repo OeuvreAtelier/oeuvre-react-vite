@@ -4,8 +4,8 @@ import CategoryTiles from "../../../shared/components/CategoryTiles";
 
 export default function Category() {
   return (
-    <div className="bg-gray-200 flex flex-col justify-center items-center pb-16 pt-3">
-      <p className="text-3xl font-semibold py-10 tracking-wide text-gray-800 dark:text-white">Categories</p>
+    <div className="bg-slate-100 flex flex-col justify-center items-center pb-16 pt-3">
+      <p className="text-3xl font-semibold py-10 tracking-wide text-gray-800">Categories</p>
       <div className="grid grid-cols-4 grid-rows-4 gap-4 px-4">
         <CategoryTiles icon={faBookSkull} text="Comics" onClick={() => {}}/>
         <CategoryTiles icon={faDemocrat} text="Illustrations" onClick={() => {}}/>

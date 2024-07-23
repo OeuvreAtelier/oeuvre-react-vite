@@ -21,9 +21,9 @@ export default function ConfirmationModal({
           <FontAwesomeIcon
             icon={faWarning}
             size="5x"
-            className="mb-3 text-gray-500 dark:text-gray-400"
+            className="mb-3 text-gray-500"
           />
-          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+          <h3 className="mb-5 text-lg font-normal text-gray-500">
             {text}
           </h3>
           <div className="flex justify-center gap-4">

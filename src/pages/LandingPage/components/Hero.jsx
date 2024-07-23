@@ -16,12 +16,12 @@ export default function Hero() {
           beyond simple buying and selling.
         </p>
         <p className="mb-8 text-lg font-semibold text-gray-300">
-          BOOTH is a creator's market that connects people through creativity.
+          OEUVRE is a creator's market that connects people through creativity.
         </p>
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
           <a
             href="/my-store"
-            className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+            className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300"
           >
             Get started
           </a>

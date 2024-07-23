@@ -38,8 +38,8 @@ export default function ProfileHeader({ artist }) {
         </div>
       </section>
       {/* Profile description */}
-      <div className="bg-white dark:bg-gray-800 p-6 mb-10 rounded-b-lg">
-        <p className="mb-3 text-md font-semibold text-gray-800 dark:text-gray-400">
+      <div className="bg-white p-6 mb-10 rounded-b-lg shadow-md">
+        <p className="mb-3 text-md font-semibold text-gray-800">
           Welcome to {artist.name}'s Atelier 🎨 Explore a curated collection of my illustrations, meticulously crafted to ignite imagination and evoke emotions. Each piece is a reflection of my passion for Pixel Art and Anime, meticulously detailed and ready to bring beauty into your space. Whether you're a collector or seeking the perfect artwork, find your next masterpiece here. Start your journey into artistry today! ✨
         </p>
         {/* Profile buttons */}
@@ -47,11 +47,17 @@ export default function ProfileHeader({ artist }) {
           btnName="Pixiv"
           btnIcon={faBrush}
           onClick={() => window.open('https://www.pixiv.net/en/users/431873')}
+          color="bg-white"
+          hoverColor="bg-slate-100"
+          textColor="text-gray-600"
         />
         <IconButton
           btnName="Twitter"
           btnIcon={faKiwiBird}
           onClick={() => window.open('https://x.com/hololive_Id')}
+          color="bg-white"
+          hoverColor="bg-slate-100"
+          textColor="text-gray-600"
         />
       </div>
     </div>
