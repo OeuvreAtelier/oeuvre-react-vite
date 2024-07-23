@@ -52,21 +52,23 @@ export default function EmailPasswordContainer() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <TextButton
-            btnName="Log In"
-            btnColor="bg-sky-500"
-            textColor="text-white"
-            hoverColor={"bg-sky-600"}
-          />
-          <TextButton
-            btnName="Register"
-            onClick={() => {
-              navigate("/register");
-            }}
-            btnColor="bg-gray-100"
-            textColor="text-gray-800"
-            hoverColor={"bg-slate-100"}
-          />
+          <div className="login-register">
+            <TextButton
+              btnName="Log In"
+              btnColor="bg-sky-500"
+              textColor="text-white"
+              hoverColor={"bg-sky-600"}
+            />
+            <TextButton
+              btnName="Register"
+              onClick={() => {
+                navigate("/register");
+              }}
+              btnColor="bg-gray-100"
+              textColor="text-gray-800"
+              hoverColor={"bg-slate-100"}
+            />
+          </div>
         </form>
       </div>
     </div>

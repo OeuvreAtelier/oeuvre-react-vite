@@ -14,7 +14,6 @@ export default function ConfirmationModal({
 }) {
   return (
     <Modal show={show} size="sm" onClose={onClose} popup className="p-0 m-auto bg-gray-700 bg-opacity-60">
-      {/* <Modal.Backdrop className="bg-gradient-to-r from-gray-800 to-black opacity-75" /> */}
       <Modal.Header />
       <Modal.Body>
         <div className="text-center">

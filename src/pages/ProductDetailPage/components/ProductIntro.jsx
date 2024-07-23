@@ -13,7 +13,7 @@ export default function ProductIntro() {
             alt="Product"
             className="object-cover"
           />
-          <p className="text-md text-gray-800 my-10 pb-5">
+          <p className="md-black my-10 pb-5">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti
             suscipit cupiditate animi unde autem optio eaque? Architecto
             reiciendis blanditiis similique. Excepturi, aliquam rem laborum eos
@@ -30,13 +30,13 @@ export default function ProductIntro() {
           </p>
         </div>
         <div className="w-1/4 me-20 flex flex-col">
-          <p className="text-sm text-gray-600 mb-1 hover:cursor-pointer">
+          <p className="sm-semibold-gray mb-1 hover:underline hover:cursor-pointer">
             Category
           </p>
-          <p className="text-md text-gray-600 mb-1 font-semibold hover:cursor-pointer">
+          <p className="md-semibold-black mb-1 hover:underline hover:cursor-pointer">
             Seller Name
           </p>
-          <h1 className="text-2xl font-semibold mb-5">
+          <h1 className="xxl-semibold-black mb-5">
             Product Name: Lorem Ipsum
           </h1>
           <div>

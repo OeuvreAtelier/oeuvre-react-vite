@@ -10,7 +10,7 @@ export default function Footer() {
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
               Start selling on OEUVRE
             </h2>
-            <ul className="text-gray-500 font-medium">
+            <ul className="sm-lightgray">
               <LinkText href="#" text="OEUVRE First Step Guide" />
               <LinkText href="#" text="Listing an Item" />
               <LinkText href="#" text="OEUVRE Apps (expanded features)" />
@@ -26,7 +26,7 @@ export default function Footer() {
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
               Shop on OEUVRE
             </h2>
-            <ul className="text-gray-500 font-medium">
+            <ul className="sm-lightgray">
               <LinkText href="#" text="About OEUVRE" />
               <LinkText href="#" text="Shopping Guide" />
               <LinkText href="#" text="Payment Methods" />
@@ -39,7 +39,7 @@ export default function Footer() {
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
               Support
             </h2>
-            <ul className="text-gray-500 font-medium">
+            <ul className="sm-lightgray">
               <LinkText href="#" text="Announcements" />
               <LinkText href="#" text="FAQ" />
               <LinkText href="#" text="Contact OEUVRE Support" />
@@ -49,7 +49,7 @@ export default function Footer() {
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
               Our Socials
             </h2>
-            <ul className="text-gray-500 font-medium">
+            <ul className="sm-lightgray">
               <LinkText href="#" text="X (Twitter)" />
               <LinkText href="#" text="Pixiv" />
               <LinkText href="#" text="Instagram" />
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="px-4 py-6 mb-5 bg-gray-100 rounded-lg md:items-center md:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center">
+          <span className="sm-lightgray">
             © 2024 <a href="https://booth.pm/">OEUVRE</a>. All rights reserved.
           </span>
         </div>

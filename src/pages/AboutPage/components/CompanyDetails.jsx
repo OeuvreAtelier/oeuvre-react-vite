@@ -10,7 +10,7 @@ export default function CompanyDetails() {
           <h1 class="text-gray-900 text-5xl font-semibold mb-5">
             About Us
           </h1>
-          <p class="text-lg font-normal text-gray-800 mb-2">
+          <p class="lg-black mb-2">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
             similique exercitationem iure in deleniti cumque vel velit, fugit
             laborum non amet. Totam rerum aliquam saepe quis sit fugiat, sunt
@@ -18,7 +18,7 @@ export default function CompanyDetails() {
             cum maxime molestiae illum error est nobis unde necessitatibus
             deserunt ratione? Totam, consectetur.
           </p>
-          <p class="text-lg font-normal text-gray-800 mb-6">
+          <p class="lg-black mb-6">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit,
             voluptatibus accusantium nihil reiciendis modi itaque soluta unde
             nobis consequuntur aperiam corrupti necessitatibus asperiores fuga
