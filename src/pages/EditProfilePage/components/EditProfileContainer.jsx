@@ -54,7 +54,7 @@ export default function EditProfileContainer() {
   return (
     <div className="bg-fixed flex justify-center items-center min-h-screen bg-[url('https://images.unsplash.com/photo-1482160549825-59d1b23cb208?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-400 bg-blend-multiply">
       <div className="mt-40 mb-20 w-full max-w-lg bg-white border border-gray-200 p-12 flex flex-col justify-center items-center rounded-3xl">
-        <h1 className="text-2xl font-semibold">Edit Profile</h1>
+        <h1 className="xxl-semibold-black">Edit Profile</h1>
         <form
           className="flex w-full flex-col gap-4 pt-6 px-4"
           onSubmit={handleSubmit}
@@ -62,7 +62,7 @@ export default function EditProfileContainer() {
           <TextInputWithHeaderFB
             isDisabled={true}
             id="username"
-            nameLabel="Userame"
+            nameLabel="Username"
             nameInput="username"
             type="text"
             placeholder="Example: myanimestore"

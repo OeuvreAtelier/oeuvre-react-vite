@@ -11,9 +11,7 @@ export default function RegisterContainer() {
     name: "",
     password: ""
   });
-  // const [username, setUsername] = useState("");
-  // const [name, setName] = useState("");
-  // const [password, setPassword] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
   const { register } = useAuth();
 
@@ -32,7 +30,6 @@ export default function RegisterContainer() {
 
     try {
       const success = await register(form.username, form.name, form.password);
-      // console.log("success...", success);
       if (success) {
         navigate("/login");
       } else {
@@ -78,21 +75,23 @@ export default function RegisterContainer() {
             onChange={handleChange}
             required
           />
-          <TextButton
-            btnName="Register"
-            btnColor="bg-sky-500"
-            textColor="text-white"
-            hoverColor={"bg-sky-600"}
-          />
-          <TextButton
-            btnName="Log In"
-            onClick={() => {
-              navigate("/login");
-            }}
-            btnColor="bg-gray-100"
-            textColor="text-gray-800"
-            hoverColor={"bg-slate-100"}
-          />
+          <div className="login-register">
+            <TextButton
+              btnName="Register"
+              btnColor="bg-sky-500"
+              textColor="text-white"
+              hoverColor={"bg-sky-600"}
+            />
+            <TextButton
+              btnName="Log In"
+              onClick={() => {
+                navigate("/login");
+              }}
+              btnColor="bg-gray-100"
+              textColor="text-gray-800"
+              hoverColor={"bg-slate-100"}
+            />
+          </div>
         </form>
       </div>
     </div>

@@ -17,8 +17,7 @@ export default function ProfileHeader({ artist }) {
   const navigate = useNavigate()
   return (
     <div className="mx-40">
-      {/* Profile image & header */}
-      <section className="h-96 mt-10 bg-top bg-no-repeat bg-[url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1494&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-500 bg-blend-multiply">
+      <section className="h-96 mt-10 bg-top bg-no-repeat shadow bg-[url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1494&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-400 bg-blend-multiply">
         <div className="flex flex-row items-end">
           <div className="bg-white ms-20 size-32 mb-5 rounded-full p-1">
             <img
@@ -37,9 +36,8 @@ export default function ProfileHeader({ artist }) {
           </div>
         </div>
       </section>
-      {/* Profile description */}
-      <div className="bg-white p-6 mb-10 rounded-b-lg shadow-md">
-        <p className="mb-3 text-md font-semibold text-gray-800">
+      <div className="card-border-shadow-bottom p-6 mb-10">
+        <p className="md-semibold-black mb-8">
           Welcome to {artist.name}'s Atelier 🎨 Explore a curated collection of my illustrations, meticulously crafted to ignite imagination and evoke emotions. Each piece is a reflection of my passion for Pixel Art and Anime, meticulously detailed and ready to bring beauty into your space. Whether you're a collector or seeking the perfect artwork, find your next masterpiece here. Start your journey into artistry today! ✨
         </p>
         {/* Profile buttons */}
