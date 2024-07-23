@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import EditProfilePage from "./pages/EditProfilePage/EditProfilePage"
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage"
 import TransactionPage from "./pages/TransactionPage/TransactionPage"
+import WishlistPage from "./pages/WishlistPage/WishlistPage"
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,6 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-
       {
         path: "/transaction-page",
         element: (
@@ -65,6 +65,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/wishlist",
+        element: (
+          <ProtectedRoute>
+            <WishlistPage />
+          </ProtectedRoute>
+        )
+      }
     ],
   },
   {

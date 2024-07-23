@@ -66,7 +66,10 @@ export default function Drawer({ isOpen, toggleDrawer }) {
           btnName="Wishlist"
           btnIcon={faHeart}
           color="bg-white"
-          onClick={toggleDrawer}
+          onClick={() => {
+            toggleDrawer()
+            navigate("/wishlist")
+          }}
         />
         <IconButton
           btnName="Transaction History"

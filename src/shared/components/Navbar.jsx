@@ -44,7 +44,7 @@ export default function Navbar() {
                 type="button"
                 className="text-white font-semibold bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
               >
-                Log In
+                Log In / Register
               </button>
             )}
           </div>
