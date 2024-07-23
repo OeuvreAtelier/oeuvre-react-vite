@@ -34,7 +34,6 @@ export default function Navbar() {
                   "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
                 }
                 username="Enigma"
-                width="10"
                 onClick={() => toggleDrawer()}
               />
             ) : (

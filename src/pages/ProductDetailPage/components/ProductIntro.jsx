@@ -11,7 +11,7 @@ export default function ProductIntro() {
           <img
             src="https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
             alt="Product"
-            className="object-cover"
+            className="object-cover rounded-lg"
           />
           <p className="md-black my-10 pb-5">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti
