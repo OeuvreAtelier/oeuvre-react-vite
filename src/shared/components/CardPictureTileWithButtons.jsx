@@ -28,7 +28,10 @@ export default function CardPictureTileWithButtons({
           >
             {category}
           </p>
-          <p className="lg-semibold-black mt-2 mb-1 hover:underline hover:cursor-pointer">
+          <p
+            className="lg-semibold-black mt-2 mb-1 hover:underline hover:cursor-pointer"
+            onClick={productOnClick}
+          >
             {name}
           </p>
           <p className="lg-semibold-blue">Rp{price}</p>
