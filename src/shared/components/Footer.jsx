@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-screen-xl">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-gray-800 uppercase">
               Start selling on OEUVRE
             </h2>
             <ul className="sm-lightgray">
@@ -23,7 +23,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-gray-800 uppercase">
               Shop on OEUVRE
             </h2>
             <ul className="sm-lightgray">
@@ -36,7 +36,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-gray-800 uppercase">
               Support
             </h2>
             <ul className="sm-lightgray">
@@ -46,7 +46,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+            <h2 className="mb-6 text-sm font-semibold text-gray-800 uppercase">
               Our Socials
             </h2>
             <ul className="sm-lightgray">

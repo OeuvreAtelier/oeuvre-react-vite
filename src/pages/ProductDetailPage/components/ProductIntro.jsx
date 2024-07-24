@@ -1,6 +1,6 @@
 import React from "react"
 import IconButton from "../../../shared/components/IconButton"
-import { faHeart, faShoppingBasket } from "@fortawesome/free-solid-svg-icons"
+import { faHeart, faShoppingBasket, faBookmark } from "@fortawesome/free-solid-svg-icons"
 import AddToCart from "../../../shared/components/AddToCart"
 
 export default function ProductIntro() {
@@ -43,6 +43,14 @@ export default function ProductIntro() {
             <IconButton
               btnName="1000"
               btnIcon={faHeart}
+              onClick={() => {}}
+              color="bg-white"
+              hoverColor="bg-gray-300"
+              textColor="text-gray-600"
+            />
+            <IconButton
+              btnName="Bookmark Item"
+              btnIcon={faBookmark}
               onClick={() => {}}
               color="bg-white"
               hoverColor="bg-gray-300"

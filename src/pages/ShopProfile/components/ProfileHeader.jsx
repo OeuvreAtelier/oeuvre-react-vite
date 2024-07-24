@@ -30,7 +30,7 @@ export default function ProfileHeader({ artist }) {
               {artist.name}
             </h1>
             <p onClick={() => handleEdit(artist)}
-            className="border my-4 text-md font-semibold bg-gray-800 tracking-wide leading-none text-white p-3 rounded-lg hover:cursor-pointer hover:bg-gray-900">
+            className="border my-4 text-md font-semibold bg-gray-800 tracking-wide leading-none text-white p-3 rounded-lg hover:cursor-pointer hover:bg-gray-800">
               Edit Profile
             </p>
           </div>
