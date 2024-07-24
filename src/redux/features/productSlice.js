@@ -11,7 +11,7 @@ export const fetchMerchandises = createAsyncThunk(
     'merchandises/fetchMerchandises',
     async (_, {rejectedWithValue}) => {
         try {
-            const response = await axiosInstance.get('/merchandises')
+            const response = await axiosInstance.get('/products')
             return response.data
         } catch (error) {
             return rejectedWithValue(error.response.data)
@@ -23,7 +23,7 @@ export const createProduct = createAsyncThunk(
     'merchandises/createMerchandises', 
     async (merchandise, {rejectedWithValue}) => {
         try {
-            const response = await axiosInstance.post('/merchandises', merchandise, {
+            const response = await axiosInstance.post('/products', merchandise, {
                 headers: {}
             });
             return response.data
@@ -37,7 +37,7 @@ export const updateProduct = createAsyncThunk(
     'merchandises/updateMerchandises',
     async (merchandise, {rejectedWithValue}) => {
         try {
-            const response = await axiosInstance.put('/merchandises', merchandise)
+            const response = await axiosInstance.put('/products', merchandise)
             return response.data
         } catch (error) {
            return rejectedWithValue(error.response.data)
@@ -49,7 +49,7 @@ export const deleteProduct = createAsyncThunk(
     'merchandises/deleteMerchandises',
     async (id, {rejectedWithValue}) => {
         try {
-            const response = await axiosInstance.delete(`/merchandises/${id}`)
+            const response = await axiosInstance.delete(`/products/${id}`)
             return response.data
         } catch (error) {
            return rejectedWithValue(error.response.data)
