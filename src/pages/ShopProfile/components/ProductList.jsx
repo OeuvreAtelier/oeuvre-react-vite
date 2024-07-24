@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import ConfirmationModal from "../../../shared/components/ConfirmationModal.jsx"
 import Lottie from "lottie-react"
 import Animation from "../../../assets/empty.json"
+import convertEnum from "../../../constants/convertEnum.js"
 
 export default function ProductList({ artist, merchandises }) {
   const [openModal, setOpenModal] = useState(false)
@@ -104,11 +105,7 @@ export default function ProductList({ artist, merchandises }) {
                   "https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
                 }
                 name={merchandise.name}
-                category={
-                  merchandise.category
-                    ? merchandise.category.category
-                    : "Uncategorized"
-                }
+                category={convertEnum[merchandise.category]}
                 price={merchandise.price}
                 onEdit={() => handleEdit(artist, merchandise)}
                 onDelete={() => handleDeleteModal(merchandise.id)}

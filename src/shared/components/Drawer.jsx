@@ -12,7 +12,7 @@ import {
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 
-export default function Drawer({ isOpen, toggleDrawer }) {
+export default function Drawer({ isOpen, toggleDrawer, artist }) {
   const { logout } = useAuth()
   const navigate = useNavigate()
 
@@ -41,8 +41,8 @@ export default function Drawer({ isOpen, toggleDrawer }) {
             />
           </div>
           <div className="flex flex-col justify-center">
-            <p className="lg-semibold-black">Profile Name</p>
-            <p className="md-gray">Email Address</p>
+            <p className="lg-semibold-black">{artist.firstName}{" "}{artist.lastName}</p>
+            <p className="md-gray">{artist.email}</p>
           </div>
         </div>
         <IconButton

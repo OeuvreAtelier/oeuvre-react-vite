@@ -17,14 +17,15 @@ export default function AddEditContainer() {
   useEffect(() => {
     if (state !== null) {
       if (state.merchandise) {
+        console.log(state.merchandise)
         setFormData({
           id: state.merchandise.id,
           name: state.merchandise.name,
-          category: state.merchandise.category.category,
+          category: state.merchandise.category,
           price: state.merchandise.price,
           stock: state.merchandise.stock,
-          artistId: state.merchandise.artist.id,
-          type: state.merchandise.type.type,
+          artistId: state.merchandise.user.id,
+          type: state.merchandise.type,
         })
       } else {
         setFormData({
@@ -110,26 +111,26 @@ export default function AddEditContainer() {
               className="pb-3"
             >
               <option value="">Select a category</option>
-              <option value="AUDIO">AUDIO</option>
-              <option value="COSPLAY">COSPLAY</option>
-              <option value="FASHION">FASHION</option>
-              <option value="FIGURES">FIGURES</option>
-              <option value="GAMES">GAMES</option>
-              <option value="GOODS">GOODS</option>
-              <option value="ILLUSTRATION">ILLUSTRATION</option>
-              <option value="NOVEL_BOOKS">NOVEL_BOOKS</option>
-              <option value="MUSIC">MUSIC</option>
-              <option value="PHOTOGRAPH">PHOTOGRAPH</option>
-              <option value="SOFTWARE_HARDWARE">SOFTWARE_HARDWARE</option>
-              <option value="VIDEO">VIDEO</option>
+              <option value="AUDIO">Audio</option>
+              <option value="COSPLAY">Cosplay</option>
+              <option value="FASHION">Fashion</option>
+              <option value="FIGURES">Figures, Plushies & Dolls</option>
+              <option value="GAMES">Games</option>
+              <option value="GOODS">Goods</option>
+              <option value="ILLUSTRATION">Illustration</option>
+              <option value="NOVEL_BOOKS">Novel & Books</option>
+              <option value="MUSIC">Music</option>
+              <option value="PHOTOGRAPH">Photograph</option>
+              <option value="SOFTWARE_HARDWARE">Software & Hardware</option>
+              <option value="VIDEO">Video</option>
             </Select>
           </div>
           <TextInputWithHeaderFB
             id="price"
             nameInput="price"
-            nameLabel="Price"
+            nameLabel="Price (Rp)"
             type="number"
-            placeholder="Example: 69000"
+            placeholder="Example: 123000"
             value={formData.price}
             onChange={handleNumber}
           />
@@ -138,7 +139,7 @@ export default function AddEditContainer() {
             nameLabel="Stock"
             nameInput="stock"
             type="number"
-            placeholder="Example: 420"
+            placeholder="Example: 45"
             value={formData.stock}
             onChange={handleNumber}
           />
@@ -157,8 +158,8 @@ export default function AddEditContainer() {
               required
             >
               <option value="">Select a type</option>
-              <option value="DIGITAL">DIGITAL</option>
-              <option value="PHYSICAL">PHYSICAL</option>
+              <option value="DIGITAL">Digital</option>
+              <option value="PHYSICAL">Physical</option>
             </Select>
           </div>
           <Button

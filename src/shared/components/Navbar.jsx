@@ -1,16 +1,31 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import NavbarButton from "./NavbarButton"
 import Logo from "./Logo"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 import AvatarFB from "./AvatarFB"
 import Drawer from "./Drawer"
+import { useDispatch, useSelector } from "react-redux"
+import { jwtDecode } from "jwt-decode"
+import { fetchArtists } from "../../redux/features/profileSlice"
+import secureLocalStorage from "react-secure-storage"
 
 export default function Navbar() {
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
+  const { data: artist } = useSelector((state) => state.artist)
+  const dispatch = useDispatch()
 
-  // Drawer
+  if (isLoggedIn === true) {
+    useEffect(() => {
+      const token = secureLocalStorage.getItem("token")
+      const decodedToken = jwtDecode(token)
+      const decodedUserId = decodedToken.sub
+  
+      dispatch(fetchArtists(decodedUserId))
+    }, [dispatch])
+  }
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const toggleDrawer = () => {
@@ -19,7 +34,16 @@ export default function Navbar() {
 
   return (
     <>
-      <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      {artist === null ? (
+        <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      ) : (
+        <Drawer
+          isOpen={isDrawerOpen}
+          toggleDrawer={toggleDrawer}
+          artist={artist}
+        />
+      )}
+
       <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4">
           <Logo
