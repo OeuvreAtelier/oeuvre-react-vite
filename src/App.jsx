@@ -11,6 +11,7 @@ import EditProfilePage from "./pages/EditProfilePage/EditProfilePage"
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage"
 import TransactionPage from "./pages/TransactionPage/TransactionPage"
 import BookmarksPage from "./pages/BookmarksPage/BookmarksPage"
+import FansPage from "./pages/FansPage/FansPage"
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/transaction-page",
+        path: "/transaction",
         element: (
           <ProtectedRoute>
             <TransactionPage />
@@ -71,8 +72,16 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <BookmarksPage />
           </ProtectedRoute>
-        )
-      }
+        ),
+      },
+      {
+        path: "/fans",
+        element: (
+          <ProtectedRoute>
+            <FansPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {

@@ -1,13 +1,13 @@
-import React from "react";
-import Logo from "../../../shared/components/Logo";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react"
+import Logo from "../../../shared/components/Logo"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Hero() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
-    <section className="bg-top bg-no-repeat bg-[url('https://wallpapercave.com/wp/wp12471560.jpg')] bg-gray-700 bg-blend-multiply">
+    <section className="bg-top bg-no-repeat bg-[url('https://wallpapercave.com/wp/wp12471560.jpg')] bg-gray-700 bg-blend-multiply rounded-b-2xl">
       <div className="px-4 mx-auto max-w-screen-xl flex flex-col justify-start items-start py-48">
-        <Logo onClick= {() => navigate("/")} />
+        <Logo onClick={() => navigate("/")} />
         <h1 className="mb-4 mt-8 text-6xl font-light tracking-wide text-white">
           Where arts meet culture.
         </h1>
@@ -34,5 +34,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -7,6 +7,7 @@ import {
   faPowerOff,
   faShoppingCart,
   faUserCircle,
+  faUserGroup,
 } from "@fortawesome/free-solid-svg-icons"
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
@@ -54,6 +55,15 @@ export default function Drawer({ isOpen, toggleDrawer }) {
           }}
         />
         <IconButton
+          btnName="My Fans"
+          btnIcon={faUserGroup}
+          color="bg-white"
+          onClick={() => {
+            toggleDrawer()
+            navigate("/fans")
+          }}
+        />
+        <IconButton
           btnName="My Cart"
           btnIcon={faShoppingCart}
           color="bg-white"
@@ -77,7 +87,7 @@ export default function Drawer({ isOpen, toggleDrawer }) {
           color="bg-white"
           onClick={() => {
             toggleDrawer()
-            navigate("/transaction-page")
+            navigate("/transaction")
           }}
         />
         <IconButton

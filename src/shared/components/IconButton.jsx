@@ -14,9 +14,9 @@ export default function IconButton({
       onClick={onClick}
       className={`shadow-md ${color} ${textColor} p-3 me-3 rounded-lg border hover:${hoverColor} hover:cursor-pointer`}
     >
-      <div className="flex">
+      <div className="flex flex-row gap-3">
         <FontAwesomeIcon icon={btnIcon} className="mt-1 ps-2" />
-        <p className="font-semibold ps-3 pe-2 text-sm">{btnName}</p>
+        <p className="sm-semibold-gray pe-2">{btnName}</p>
       </div>
     </button>
   )

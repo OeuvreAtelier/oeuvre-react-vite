@@ -28,7 +28,7 @@ export default function TransactionList() {
             color="bg-white"
             hoverColor="bg-slate-100"
             onClick={() => {
-              navigate("/transaction-page")
+              navigate("/transaction")
             }}
           />
           <IconButton

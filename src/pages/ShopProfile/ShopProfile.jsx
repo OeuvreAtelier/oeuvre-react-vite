@@ -5,6 +5,7 @@ import ProductList from './components/ProductList'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchArtists } from '../../redux/features/profileSlice'
 import { fetchMerchandises } from '../../redux/features/productSlice'
+import secureLocalStorage from 'react-secure-storage'
 
 export default function ShopProfile() {
   const { data: artist } = useSelector(state => state.artist);
@@ -12,7 +13,7 @@ export default function ShopProfile() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchArtists(localStorage.getItem("id")))
+    dispatch(fetchArtists(secureLocalStorage.getItem("id")))
     dispatch(fetchMerchandises())
   }, [dispatch])
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../../shared/components/Navbar'
 import EmailPasswordContainer from './components/EmailPasswordContainer'
 
 export default function LoginPage() {
