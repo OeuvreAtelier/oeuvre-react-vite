@@ -1,6 +1,7 @@
 import React from "react"
 import IconButton from "./IconButton"
 import { faFileEdit, faTrash } from "@fortawesome/free-solid-svg-icons"
+import TextButton from "./TextButton"
 
 export default function CardPictureTileWithButtons({
   image,
@@ -37,22 +38,18 @@ export default function CardPictureTileWithButtons({
           <p className="lg-semibold-blue">Rp{price}</p>
         </div>
       </div>
-      <div className="ps-5 pb-5">
-        <IconButton
+      <div className="ps-5 pb-5 flex flex-row gap-3">
+        <TextButton
           btnName="Edit"
-          btnIcon={faFileEdit}
           onClick={onEdit}
-          color="bg-white"
-          hoverColor="bg-slate-100"
-          textColor="text-gray-600"
+          btnColor="bg-sky-600"
+          textColor="text-white"
         />
-        <IconButton
+        <TextButton
           btnName="Delete"
-          btnIcon={faTrash}
           onClick={onDelete}
-          color="bg-white"
-          hoverColor="bg-slate-100"
-          textColor="text-gray-600"
+          btnColor="bg-red-600"
+          textColor="text-white"
         />
       </div>
     </div>

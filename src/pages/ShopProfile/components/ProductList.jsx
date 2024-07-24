@@ -97,7 +97,7 @@ export default function ProductList({ artist, merchandises }) {
             btnName="Add Merchandise"
             onClick={() => handleAdd(artist)}
           />
-          <div className="grid grid-cols-3 grid-rows-1 gap-8 px-40">
+          <div className="grid grid-cols-4 grid-rows-1 gap-3 px-40">
             {merchandises.map((merchandise) => (
               <CardPictureTileWithButtons
                 key={merchandise.id}

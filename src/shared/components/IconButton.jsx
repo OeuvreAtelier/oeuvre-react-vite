@@ -16,7 +16,7 @@ export default function IconButton({
     >
       <div className="flex flex-row gap-3">
         <FontAwesomeIcon icon={btnIcon} className="mt-1 ps-2" />
-        <p className="sm-semibold-gray pe-2">{btnName}</p>
+        <p className="sm-semibold pe-2">{btnName}</p>
       </div>
     </button>
   )
