@@ -64,7 +64,7 @@ export default function ProductList({ artist, merchandises }) {
       {merchandises.length === 0 ? (
         <div className="px-40 mb-10 mx-auto flex flex-row">
           <div className="bg-gray-50 border border-gray-200 p-8 rounded-l-lg shadow-md">
-            <h1 className="text-gray-900 text-4xl font-semibold mb-5 mt-16">
+            <h1 className="text-gray-800 text-4xl font-semibold mb-5 mt-16">
               {"There's nothing in here..."}
             </h1>
             <p className="text-lg font-normal text-gray-800 mb-2">

@@ -6,9 +6,9 @@ export default function Hero() {
   const navigate = useNavigate();
   return (
     <section className="bg-top bg-no-repeat bg-[url('https://wallpapercave.com/wp/wp12471560.jpg')] bg-gray-700 bg-blend-multiply">
-      <div className="px-4 mx-auto max-w-screen-xl flex flex-col justify-start items-start py-24 lg:py-56">
+      <div className="px-4 mx-auto max-w-screen-xl flex flex-col justify-start items-start py-48">
         <Logo onClick= {() => navigate("/")} />
-        <h1 className="my-4 text-3xl font-light tracking-wide leading-none text-white md:text-5xl lg:text-6xl">
+        <h1 className="mb-4 mt-8 text-6xl font-light tracking-wide text-white">
           Where arts meet culture.
         </h1>
         <p className="text-lg font-semibold text-gray-300">
@@ -27,7 +27,7 @@ export default function Hero() {
           </Link>
           <Link
             to="/about"
-            className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
+            className="inline-flex justify-center hover:text-gray-800 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
           >
             Learn more
           </Link>
