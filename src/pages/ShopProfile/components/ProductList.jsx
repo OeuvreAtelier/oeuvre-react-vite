@@ -17,9 +17,9 @@ export default function ProductList({ artist, merchandises }) {
   const [deleteId, setDeleteId] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(2)
 
-  const { data, totalPages } = useSelector((state) => state.merchandises)
+  const { paging: totalPages } = useSelector((state) => state.merchandises)
 
   useEffect(() => {
     dispatch(fetchMerchandises({ page: currentPage }))
@@ -28,6 +28,9 @@ export default function ProductList({ artist, merchandises }) {
   const handlePageChange = (page) => {
     setCurrentPage(page)
   }
+
+  console.log("Current Page (PL):", currentPage)
+  console.log("Total Pages (PL):", totalPages.totalPages)
 
   const handleEdit = (artist, merchandise) => {
     navigate("/register-update", {
@@ -125,7 +128,7 @@ export default function ProductList({ artist, merchandises }) {
             ))}
           </div>
           <div className="pagination">
-            {[...Array(totalPages)].map((_, index) => (
+            {[...Array(totalPages.totalPages)].map((_, index) => (
               <button
                 key={index}
                 onClick={() => handlePageChange(index + 1)}

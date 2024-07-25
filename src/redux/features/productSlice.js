@@ -6,6 +6,7 @@ export const fetchMerchandises = createAsyncThunk(
   async ({ page }, { rejectedWithValue }) => {
     try {
       const response = await axiosInstance.get(`/products?page=${page}`)
+      console.log("PAGE (SLICE):", page)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
@@ -57,7 +58,7 @@ const productSlice = createSlice({
     statusCode: null,
     message: null,
     data: [],
-    totalPages: 1,
+    paging: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -65,7 +66,7 @@ const productSlice = createSlice({
       .addCase(fetchMerchandises.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
-        state.totalPages = action.payload.totalPages
+        state.paging = action.payload.paging
       })
       .addCase(createProduct.fulfilled, (state, action) => {
         state.status = "succeeded"
