@@ -1,10 +1,10 @@
 import React from 'react'
-import EmailPasswordContainer from './components/EmailPasswordContainer'
+import LoginContainer from './components/LoginContainer'
 
 export default function LoginPage() {
   return (
     <div className="bg-slate-100">
-      <EmailPasswordContainer />
+      <LoginContainer />
     </div>
   )
 }
