@@ -14,6 +14,18 @@ export const fetchMerchandises = createAsyncThunk(
   }
 )
 
+export const fetchProductsByName = createAsyncThunk(
+  "merchandises/fetchProductsByName",
+  async ({ productName, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/products/search?name=${productName}&page=${page}`)
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
 export const createProduct = createAsyncThunk(
   "merchandises/createMerchandises",
   async (merchandise, { rejectedWithValue }) => {
@@ -64,6 +76,11 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchMerchandises.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
+      .addCase(fetchProductsByName.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
         state.paging = action.payload.paging

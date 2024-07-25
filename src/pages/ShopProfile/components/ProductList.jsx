@@ -18,7 +18,6 @@ export default function ProductList({ artist, merchandises }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1)
-
   const { paging: totalPages } = useSelector((state) => state.merchandises)
 
   useEffect(() => {
