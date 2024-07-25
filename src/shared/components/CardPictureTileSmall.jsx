@@ -20,7 +20,7 @@ export default function CardPictureTileSmall({
       />
       <div className="p-3 ms-1">
         <p
-          className="sm-semibold-gray hover:underline hover:cursor-pointer"
+          className="xs-semibold-gray hover:underline hover:cursor-pointer"
           onClick={categoryOnClick}
         >
           {category}
