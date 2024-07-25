@@ -14,6 +14,7 @@ import TransactionPage from "./pages/TransactionPage/TransactionPage"
 import BookmarksPage from "./pages/BookmarksPage/BookmarksPage"
 import FansPage from "./pages/FansPage/FansPage"
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage"
+import RateReviewPage from "./pages/RateReviewPage/RateReviewPage"
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <DiscoverPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/rate-review",
+        element: (
+          <ProtectedRoute>
+            <RateReviewPage />
           </ProtectedRoute>
         ),
       },

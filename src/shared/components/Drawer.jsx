@@ -7,6 +7,7 @@ import {
   faShop,
   faShoppingCart,
   faSignOut,
+  faStar,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import { useAuth } from "../../context/AuthContext"
@@ -96,11 +97,14 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           }}
         />
         <IconButton
-          btnName="Settings"
-          btnIcon={faGear}
+          btnName="Rate & Review"
+          btnIcon={faStar}
           color="bg-white"
           textColor="text-gray-800"
-          onClick={toggleDrawer}
+          onClick={() => {
+            toggleDrawer()
+            navigate("/rate-review")
+          }}
         />
         <IconButton
           btnName="Log Out"
