@@ -5,6 +5,7 @@ import {
   faGear,
   faHistory,
   faPowerOff,
+  faShop,
   faShoppingCart,
   faUserCircle,
   faUserGroup,
@@ -55,12 +56,12 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           }}
         />
         <IconButton
-          btnName="My Fans"
-          btnIcon={faUserGroup}
+          btnName="Discover Items"
+          btnIcon={faShop}
           color="bg-white"
           onClick={() => {
             toggleDrawer()
-            navigate("/fans")
+            navigate("/discover")
           }}
         />
         <IconButton
