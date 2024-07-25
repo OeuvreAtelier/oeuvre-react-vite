@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import CardPictureTileWithButtons from "../../../shared/components/CardPictureTileWithButtons"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {
   deleteProduct,
   fetchMerchandises,
@@ -17,6 +17,20 @@ export default function ProductList({ artist, merchandises }) {
   const [deleteId, setDeleteId] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [currentPage, setCurrentPage] = useState(2)
+
+  const { paging: totalPages } = useSelector((state) => state.merchandises)
+
+  useEffect(() => {
+    dispatch(fetchMerchandises({ page: currentPage }))
+  }, [dispatch, currentPage])
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+  }
+
+  console.log("Current Page (PL):", currentPage)
+  console.log("Total Pages (PL):", totalPages.totalPages)
 
   const handleEdit = (artist, merchandise) => {
     navigate("/register-update", {
@@ -44,7 +58,7 @@ export default function ProductList({ artist, merchandises }) {
     dispatch(deleteProduct(deleteId))
       .unwrap()
       .then(() => {
-        dispatch(fetchMerchandises())
+        dispatch(fetchMerchandises({ page: currentPage }))
       })
       .catch((error) => console.error("Deletion failed:", error))
     setOpenModal(false)
@@ -111,6 +125,17 @@ export default function ProductList({ artist, merchandises }) {
                 onDelete={() => handleDeleteModal(merchandise.id)}
                 productOnClick={() => navigate("/product-detail")}
               />
+            ))}
+          </div>
+          <div className="pagination">
+            {[...Array(totalPages.totalPages)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                disabled={currentPage === index + 1}
+              >
+                {index + 1}
+              </button>
             ))}
           </div>
         </div>

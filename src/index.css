@@ -6,12 +6,24 @@
   @apply gap-2 flex flex-col mt-2;
 }
 
+.xs-semibold-gray {
+  @apply text-xs font-semibold text-gray-700;
+}
+
 .sm-semibold {
   @apply text-sm font-semibold;
 }
 
 .sm-semibold-gray {
   @apply text-sm font-semibold text-gray-700;
+}
+
+.sm-semibold-blue {
+  @apply text-sm font-semibold text-indigo-600;
+}
+
+.sm-semibold-black {
+  @apply text-sm font-semibold text-gray-800;
 }
 
 .sm-lightgray {

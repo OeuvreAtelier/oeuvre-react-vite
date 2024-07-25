@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function CardPictureTile({
+export default function CardPictureTileSmall({
   image,
   imageOnClick,
   category,
@@ -13,12 +13,12 @@ export default function CardPictureTile({
   return (
     <div className="card-border-shadow">
       <img
-        className="rounded-t-lg hover:cursor-pointer w-64 h-60 object-cover"
+        className="rounded-t-lg hover:cursor-pointer w-64 h-44 object-cover"
         src={image}
         alt={name}
         onClick={imageOnClick}
       />
-      <div className="p-5">
+      <div className="p-3 ms-1">
         <p
           className="sm-semibold-gray hover:underline hover:cursor-pointer"
           onClick={categoryOnClick}
@@ -26,7 +26,7 @@ export default function CardPictureTile({
           {category}
         </p>
         <p
-          className="md-semibold-black mt-1 hover:underline hover:cursor-pointer"
+          className="sm-semibold-black mt-1 hover:underline hover:cursor-pointer"
           onClick={imageOnClick}
         >
           {name}
@@ -37,7 +37,7 @@ export default function CardPictureTile({
         >
           {seller}
         </p>
-        <p className="md-semibold-blue">Rp{price}</p>
+        <p className="sm-semibold-blue">Rp{price}</p>
       </div>
     </div>
   )
