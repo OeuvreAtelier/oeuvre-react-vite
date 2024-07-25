@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { faRefresh, faSearch } from "@fortawesome/free-solid-svg-icons"
-import { useNavigate } from "react-router-dom"
 import CardPictureTileSmall from "../../../shared/components/CardPictureTileSmall"
 import {
   fetchMerchandises,
+  fetchProductByType,
+  fetchProductsByCategory,
   fetchProductsByName,
 } from "../../../redux/features/productSlice"
 import { useDispatch, useSelector } from "react-redux"
@@ -14,7 +15,6 @@ import { Accordion, Label, Radio } from "flowbite-react"
 
 export default function DiscoverProductList({ merchandises }) {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1)
   const { paging: totalPages } = useSelector((state) => state.merchandises)
 
@@ -54,6 +54,34 @@ export default function DiscoverProductList({ merchandises }) {
     dispatch(fetchMerchandises({ page: currentPage }))
   }
 
+  const handleCategoryChange = (e) => {
+    const { name, value } = e.target
+    setForm({
+      ...form,
+      [name]: value,
+    })
+    console.log("SELECTED RADIO (CATEGORY):", form.category)
+  }
+
+  const handleTypeChange = (e) => {
+    const { name, value } = e.target
+    setForm({
+      ...form,
+      [name]: value,
+    })
+    console.log("SELECTED RADIO (TYPE):", form.type)
+  }
+
+  const handleFilterByCategory = (category) => {
+    dispatch(fetchProductsByCategory({ category: category, page: currentPage }))
+    console.log("CATEGORY:", category)
+  }
+
+  const handleFilterByType = (type) => {
+    dispatch(fetchProductByType({ type: type, page: currentPage }))
+    console.log("TYPE:", type)
+  }
+
   return (
     <div className="container mx-auto pt-28 pb-8">
       <div className="flex flex-row justify-center mx-10">
@@ -64,31 +92,67 @@ export default function DiscoverProductList({ merchandises }) {
               <Accordion.Content>
                 <fieldset className="flex max-w-md flex-col gap-4">
                   <div className="flex items-center gap-2">
-                    <Radio id="" name="category" value="" defaultChecked />
+                    <Radio
+                      id=""
+                      name="category"
+                      value=""
+                      defaultChecked
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="">All Categories</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="AUDIO" name="category" value="AUDIO" />
+                    <Radio
+                      id="AUDIO"
+                      name="category"
+                      value="AUDIO"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="AUDIO">Audio</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="COSPLAY" name="category" value="COSPLAY" />
+                    <Radio
+                      id="COSPLAY"
+                      name="category"
+                      value="COSPLAY"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="COSPLAY">Cosplay</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="FASHION" name="category" value="FASHION" />
+                    <Radio
+                      id="FASHION"
+                      name="category"
+                      value="FASHION"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="FASHION">Fashion</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="FIGURES" name="category" value="FIGURES" />
+                    <Radio
+                      id="FIGURES"
+                      name="category"
+                      value="FIGURES"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="FIGURES">Figures, Plushies & Dolls</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="GAMES" name="category" value="GAMES" />
+                    <Radio
+                      id="GAMES"
+                      name="category"
+                      value="GAMES"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="GAMES">Games</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="GOODS" name="category" value="GOODS" />
+                    <Radio
+                      id="GOODS"
+                      name="category"
+                      value="GOODS"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="GOODS">Goods</Label>
                   </div>
                   <div className="flex items-center gap-2">
@@ -96,11 +160,17 @@ export default function DiscoverProductList({ merchandises }) {
                       id="ILLUSTRATION"
                       name="category"
                       value="ILLUSTRATION"
+                      onChange={handleCategoryChange}
                     />
                     <Label htmlFor="ILLUSTRATION">Illustration</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="MUSIC" name="category" value="MUSIC" />
+                    <Radio
+                      id="MUSIC"
+                      name="category"
+                      value="MUSIC"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="MUSIC">Music</Label>
                   </div>
                   <div className="flex items-center gap-2">
@@ -108,11 +178,17 @@ export default function DiscoverProductList({ merchandises }) {
                       id="NOVEL_BOOKS"
                       name="category"
                       value="NOVEL_BOOKS"
+                      onChange={handleCategoryChange}
                     />
                     <Label htmlFor="NOVEL_BOOKS">Novel & Books</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="PHOTOGRAPH" name="category" value="PHOTOGRAPH" />
+                    <Radio
+                      id="PHOTOGRAPH"
+                      name="category"
+                      value="PHOTOGRAPH"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="PHOTOGRAPH">Photograph</Label>
                   </div>
                   <div className="flex items-center gap-2">
@@ -120,13 +196,19 @@ export default function DiscoverProductList({ merchandises }) {
                       id="SOFTWARE_HARDWARE"
                       name="category"
                       value="SOFTWARE_HARDWARE"
+                      onChange={handleCategoryChange}
                     />
                     <Label htmlFor="SOFTWARE_HARDWARE">
                       Software & Hardware
                     </Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="VIDEO" name="category" value="VIDEO" />
+                    <Radio
+                      id="VIDEO"
+                      name="category"
+                      value="VIDEO"
+                      onChange={handleCategoryChange}
+                    />
                     <Label htmlFor="VIDEO">Video</Label>
                   </div>
                 </fieldset>
@@ -137,15 +219,31 @@ export default function DiscoverProductList({ merchandises }) {
               <Accordion.Content>
                 <fieldset className="flex max-w-md flex-col gap-4">
                   <div className="flex items-center gap-2">
-                    <Radio id="" name="type" value="" defaultChecked />
+                    <Radio
+                      id=""
+                      name="type"
+                      value=""
+                      defaultChecked
+                      onChange={handleTypeChange}
+                    />
                     <Label htmlFor="">All Types</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="DIGITAL" name="type" value="DIGITAL" />
+                    <Radio
+                      id="DIGITAL"
+                      name="type"
+                      value="DIGITAL"
+                      onChange={handleTypeChange}
+                    />
                     <Label htmlFor="DIGITAL">Digital</Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio id="PHYSICAL" name="type" value="PHYSICAL" />
+                    <Radio
+                      id="PHYSICAL"
+                      name="type"
+                      value="PHYSICAL"
+                      onChange={handleTypeChange}
+                    />
                     <Label htmlFor="PHYSICAL">Physical</Label>
                   </div>
                 </fieldset>

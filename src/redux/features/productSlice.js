@@ -18,7 +18,37 @@ export const fetchProductsByName = createAsyncThunk(
   "merchandises/fetchProductsByName",
   async ({ productName, page }, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/products/search?name=${productName}&page=${page}`)
+      const response = await axiosInstance.get(
+        `/products/search?name=${productName}&page=${page}`
+      )
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
+export const fetchProductsByCategory = createAsyncThunk(
+  "merchandises/fetchProductsByCategory",
+  async ({ category, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/products/search?category=${category}?page=${page}`
+      )
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
+export const fetchProductByType = createAsyncThunk(
+  "merchandises/fetchProductByType",
+  async ({ type, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/products/search?type=${type}?page=${page}`
+      )
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)

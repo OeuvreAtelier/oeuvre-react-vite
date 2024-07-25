@@ -4,11 +4,10 @@ import {
   faBookmark,
   faGear,
   faHistory,
-  faPowerOff,
   faShop,
   faShoppingCart,
+  faSignOut,
   faUserCircle,
-  faUserGroup,
 } from "@fortawesome/free-solid-svg-icons"
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
@@ -50,6 +49,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           btnName="Profile"
           btnIcon={faUserCircle}
           color="bg-white"
+          textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
             navigate("/my-store")
@@ -59,6 +59,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           btnName="Discover Items"
           btnIcon={faShop}
           color="bg-white"
+          textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
             navigate("/discover")
@@ -68,6 +69,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           btnName="My Cart"
           btnIcon={faShoppingCart}
           color="bg-white"
+          textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
             navigate("/my-store")
@@ -77,6 +79,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           btnName="Bookmarks"
           btnIcon={faBookmark}
           color="bg-white"
+          textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
             navigate("/bookmarks")
@@ -86,6 +89,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           btnName="Transaction History"
           btnIcon={faHistory}
           color="bg-white"
+          textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
             navigate("/transaction")
@@ -95,12 +99,14 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           btnName="Settings"
           btnIcon={faGear}
           color="bg-white"
+          textColor="text-gray-800"
           onClick={toggleDrawer}
         />
         <IconButton
           btnName="Log Out"
-          btnIcon={faPowerOff}
+          btnIcon={faSignOut}
           color="bg-white"
+          textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
             handleLogout()

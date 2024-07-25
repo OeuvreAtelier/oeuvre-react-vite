@@ -35,7 +35,7 @@ export default function ProfileHeader({ artist }) {
           </div>
         </div>
       </section>
-      <div className="card-border-shadow-bottom p-6 mb-10">
+      <div className="card-border-shadow-bottom p-6 mb-6">
         <p className="md-semibold-black mb-8">
           Welcome to {artist.displayName}'s Atelier 🎨 Explore a curated collection of my illustrations, meticulously crafted to ignite imagination and evoke emotions. Each piece is a reflection of my passion for Pixel Art and Anime, meticulously detailed and ready to bring beauty into your space. Whether you're a collector or seeking the perfect artwork, find your next masterpiece here. Start your journey into artistry today! ✨
         </p>

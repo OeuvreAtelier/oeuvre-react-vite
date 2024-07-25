@@ -70,12 +70,8 @@
   @apply text-lg font-semibold text-indigo-600;
 }
 
-.card-border-shadow {
-  @apply bg-white border border-gray-200 rounded-lg shadow;
-}
-
-.card-border-shadow-bottom {
-  @apply bg-white border border-gray-200 rounded-b-lg shadow;
+.xl-semibold-black {
+  @apply text-xl font-semibold text-gray-800;
 }
 
 .xxl-semibold-black {
@@ -84,4 +80,12 @@
 
 .xxxl-semibold-black {
   @apply text-3xl font-semibold text-gray-800;
+}
+
+.card-border-shadow {
+  @apply bg-white border border-gray-200 rounded-lg shadow;
+}
+
+.card-border-shadow-bottom {
+  @apply bg-white border border-gray-200 rounded-b-lg shadow;
 }

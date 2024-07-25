@@ -22,7 +22,7 @@ export default function CardPictureTileWithButtons({
           alt={name}
           onClick={productOnClick}
         />
-        <div className="p-5">
+        <div className="mx-5 my-3">
           <p
             className="sm-semibold-gray hover:underline hover:cursor-pointer"
             onClick={categoryOnClick}
@@ -30,7 +30,7 @@ export default function CardPictureTileWithButtons({
             {category}
           </p>
           <p
-            className="lg-semibold-black mt-2 mb-1 hover:underline hover:cursor-pointer"
+            className="md-semibold-black my-1 hover:underline hover:cursor-pointer"
             onClick={productOnClick}
           >
             {name}
@@ -38,7 +38,7 @@ export default function CardPictureTileWithButtons({
           <p className="lg-semibold-blue">Rp{price}</p>
         </div>
       </div>
-      <div className="ps-5 pb-5 flex flex-row gap-3">
+      <div className="ps-5 pb-3 flex flex-row gap-3">
         <TextButton
           btnName="Edit"
           onClick={onEdit}
