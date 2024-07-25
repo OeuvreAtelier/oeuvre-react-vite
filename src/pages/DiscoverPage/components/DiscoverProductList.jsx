@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react"
-import {
-  faBookmark,
-  faGear,
-  faHistory,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons"
-import IconButton from "../../../shared/components/IconButton"
-import { useNavigate } from "react-router-dom"
+import { faRefresh, faSearch } from "@fortawesome/free-solid-svg-icons"
 import CardPictureTileSmall from "../../../shared/components/CardPictureTileSmall"
-import { fetchMerchandises, fetchProductsByName } from "../../../redux/features/productSlice"
+import {
+  fetchMerchandises,
+  fetchProductByType,
+  fetchProductsByCategory,
+  fetchProductsByName,
+} from "../../../redux/features/productSlice"
 import { useDispatch, useSelector } from "react-redux"
 import convertEnum from "../../../constants/convertEnum"
 import TextInputForm from "../../../shared/components/TextInputForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Accordion, Label, Radio } from "flowbite-react"
 
 export default function DiscoverProductList({ merchandises }) {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1)
   const { paging: totalPages } = useSelector((state) => state.merchandises)
 
@@ -43,38 +41,215 @@ export default function DiscoverProductList({ merchandises }) {
 
   const handleSearch = (e) => {
     e.preventDefault()
-    dispatch(fetchProductsByName({ productName: form.search, page: currentPage }))
+    dispatch(
+      fetchProductsByName({ productName: form.search, page: currentPage })
+    )
     console.log("Searching:", form.search)
+  }
+
+  const resetSearchFilter = () => {
+    setForm({
+      search: "",
+    })
+    dispatch(fetchMerchandises({ page: currentPage }))
+  }
+
+  const handleCategoryChange = (e) => {
+    const { name, value } = e.target
+    setForm({
+      ...form,
+      [name]: value,
+    })
+    console.log("SELECTED RADIO (CATEGORY):", form.category)
+  }
+
+  const handleTypeChange = (e) => {
+    const { name, value } = e.target
+    setForm({
+      ...form,
+      [name]: value,
+    })
+    console.log("SELECTED RADIO (TYPE):", form.type)
+  }
+
+  const handleFilterByCategory = (category) => {
+    dispatch(fetchProductsByCategory({ category: category, page: currentPage }))
+    console.log("CATEGORY:", category)
+  }
+
+  const handleFilterByType = (type) => {
+    dispatch(fetchProductByType({ type: type, page: currentPage }))
+    console.log("TYPE:", type)
   }
 
   return (
     <div className="container mx-auto pt-28 pb-8">
       <div className="flex flex-row justify-center mx-10">
-        <div className="w-1/4 px-5 flex flex-col gap-4">
-          <IconButton
-            btnName="Bookmarks"
-            btnIcon={faBookmark}
-            color="bg-white"
-            hoverColor="bg-slate-100"
-            onClick={() => {
-              navigate("/bookmarks")
-            }}
-          />
-          <IconButton
-            btnName="Transaction History"
-            btnIcon={faHistory}
-            color="bg-white"
-            hoverColor="bg-slate-100"
-            onClick={() => {
-              navigate("/transaction")
-            }}
-          />
-          <IconButton
-            btnName="Settings"
-            btnIcon={faGear}
-            color="bg-white"
-            hoverColor="bg-slate-100"
-          />
+        <div className="w-1/4 mx-5 flex flex-col rounded-lg">
+          <Accordion className="bg-white">
+            <Accordion.Panel>
+              <Accordion.Title>Filter by category:</Accordion.Title>
+              <Accordion.Content>
+                <fieldset className="flex max-w-md flex-col gap-4">
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id=""
+                      name="category"
+                      value=""
+                      defaultChecked
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="">All Categories</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="AUDIO"
+                      name="category"
+                      value="AUDIO"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="AUDIO">Audio</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="COSPLAY"
+                      name="category"
+                      value="COSPLAY"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="COSPLAY">Cosplay</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="FASHION"
+                      name="category"
+                      value="FASHION"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="FASHION">Fashion</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="FIGURES"
+                      name="category"
+                      value="FIGURES"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="FIGURES">Figures, Plushies & Dolls</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="GAMES"
+                      name="category"
+                      value="GAMES"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="GAMES">Games</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="GOODS"
+                      name="category"
+                      value="GOODS"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="GOODS">Goods</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="ILLUSTRATION"
+                      name="category"
+                      value="ILLUSTRATION"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="ILLUSTRATION">Illustration</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="MUSIC"
+                      name="category"
+                      value="MUSIC"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="MUSIC">Music</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="NOVEL_BOOKS"
+                      name="category"
+                      value="NOVEL_BOOKS"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="NOVEL_BOOKS">Novel & Books</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="PHOTOGRAPH"
+                      name="category"
+                      value="PHOTOGRAPH"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="PHOTOGRAPH">Photograph</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="SOFTWARE_HARDWARE"
+                      name="category"
+                      value="SOFTWARE_HARDWARE"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="SOFTWARE_HARDWARE">
+                      Software & Hardware
+                    </Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="VIDEO"
+                      name="category"
+                      value="VIDEO"
+                      onChange={handleCategoryChange}
+                    />
+                    <Label htmlFor="VIDEO">Video</Label>
+                  </div>
+                </fieldset>
+              </Accordion.Content>
+            </Accordion.Panel>
+            <Accordion.Panel>
+              <Accordion.Title>Filter by type:</Accordion.Title>
+              <Accordion.Content>
+                <fieldset className="flex max-w-md flex-col gap-4">
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id=""
+                      name="type"
+                      value=""
+                      defaultChecked
+                      onChange={handleTypeChange}
+                    />
+                    <Label htmlFor="">All Types</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="DIGITAL"
+                      name="type"
+                      value="DIGITAL"
+                      onChange={handleTypeChange}
+                    />
+                    <Label htmlFor="DIGITAL">Digital</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="PHYSICAL"
+                      name="type"
+                      value="PHYSICAL"
+                      onChange={handleTypeChange}
+                    />
+                    <Label htmlFor="PHYSICAL">Physical</Label>
+                  </div>
+                </fieldset>
+              </Accordion.Content>
+            </Accordion.Panel>
+          </Accordion>
         </div>
         <div className="w-3/4 flex flex-col ps-4">
           <div className="flex flex-row justify-between">
@@ -91,8 +266,14 @@ export default function DiscoverProductList({ merchandises }) {
                 onChange={handleKeyboardChange}
                 value={form.search}
               />
-              <div className="p-2 ms-2 me-1 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white">
+              <div className="p-2 ms-2 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white">
                 <FontAwesomeIcon icon={faSearch} />
+              </div>
+              <div
+                className="p-2 ms-2 me-1 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white"
+                onClick={resetSearchFilter}
+              >
+                <FontAwesomeIcon icon={faRefresh} />
               </div>
             </form>
           </div>
@@ -110,7 +291,7 @@ export default function DiscoverProductList({ merchandises }) {
               />
             ))}
           </div>
-          <div className="flex flex-row gap-2 mt-6">
+          <div className="flex flex-row gap-2 mt-6 justify-end">
             {[...Array(totalPages.totalPages)].map((_, index) => (
               <div
                 className={
@@ -126,14 +307,6 @@ export default function DiscoverProductList({ merchandises }) {
               </div>
             ))}
           </div>
-          {/* <div className="grid grid-cols-4 grid-rows-1 gap-3 mb-5">
-            <CardPictureTileSmall
-              image={"https://static.zerochan.net/Arlecchino.full.3705545.jpg"}
-              category="GAMES"
-              name="Honkai Star Rail"
-              seller="Mihoyo"
-              price="250000"
-            /> */}
         </div>
       </div>
     </div>

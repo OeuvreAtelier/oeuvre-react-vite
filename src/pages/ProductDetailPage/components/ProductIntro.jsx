@@ -36,7 +36,7 @@ export default function ProductIntro() {
           <p className="md-semibold-black mb-1 hover:underline hover:cursor-pointer">
             Seller Name
           </p>
-          <h1 className="xxl-semibold-black mb-5">
+          <h1 className="xl-semibold-black mb-5">
             Product Name: Lorem Ipsum
           </h1>
           <div>

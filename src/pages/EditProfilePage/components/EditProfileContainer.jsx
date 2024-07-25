@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "flowbite-react"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
 import { updateArtist } from "../../../redux/features/profileSlice.js"
-import RadioFB from "../../../shared/components/RadioFB.jsx"
+import GenderRadioFB from "../../../shared/components/GenderRadioFB.jsx"
 
 export default function EditProfileContainer() {
   const [formData, setFormData] = useState({})
@@ -109,7 +109,7 @@ export default function EditProfileContainer() {
             value={formData.lastName}
             onChange={handleChange}
           />
-          <RadioFB
+          <GenderRadioFB
             id="gender"
             nameLabel="Gender"
             valueA="male"

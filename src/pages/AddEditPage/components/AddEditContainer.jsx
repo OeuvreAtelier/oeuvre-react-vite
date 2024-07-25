@@ -122,8 +122,8 @@ export default function AddEditContainer() {
               <option value="GAMES">Games</option>
               <option value="GOODS">Goods</option>
               <option value="ILLUSTRATION">Illustration</option>
-              <option value="NOVEL_BOOKS">Novel & Books</option>
               <option value="MUSIC">Music</option>
+              <option value="NOVEL_BOOKS">Novel & Books</option>
               <option value="PHOTOGRAPH">Photograph</option>
               <option value="SOFTWARE_HARDWARE">Software & Hardware</option>
               <option value="VIDEO">Video</option>

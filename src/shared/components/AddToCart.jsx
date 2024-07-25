@@ -28,18 +28,16 @@ export default function AddToCart({
       />
       <p className="sm-semibold-gray pt-5 my-4">About shipping:</p>
       <p className="sm-semibold-gray font-semibold mb-2">
-        - Ships within X days
+        1. Ships within X days
       </p>
       <p className="sm-black mb-4">
         The product will be shipped in X days after the seller packed and sealed
         the item, to ensure that it will be delivered safely.
       </p>
-      <p className="sm-semibold-gray mb-2">
-        - Available to download
-      </p>
+      <p className="sm-semibold-gray mb-2">2. Available to download</p>
       <p className="sm-black mb-4">
-        You will be able to download the digital product at any time after payment is
-        confirmed.
+        You will be able to download the digital product at any time after
+        payment is confirmed.
       </p>
     </div>
   )
