@@ -5,6 +5,7 @@ import { Button } from "flowbite-react"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
 import { updateArtist } from "../../../redux/features/profileSlice.js"
 import GenderRadioFB from "../../../shared/components/GenderRadioFB.jsx"
+import TextAreaWithHeaderFB from "../../../shared/components/TextAreaWithHeaderFB.jsx"
 
 export default function EditProfileContainer() {
   const [formData, setFormData] = useState({})
@@ -135,6 +136,14 @@ export default function EditProfileContainer() {
             type="text"
             placeholder="08765432100"
             value={formData.phoneNo}
+            onChange={handleChange}
+          />
+          <TextAreaWithHeaderFB
+            id="description"
+            nameInput="description"
+            nameLabel="Description"
+            placeholder="Write something about your store, whether if you're new in the field or already established."
+            value={formData.bio}
             onChange={handleChange}
           />
           <Button

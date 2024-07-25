@@ -72,7 +72,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
-            navigate("/my-store")
+            navigate("/transaction")
           }}
         />
         <IconButton
@@ -92,7 +92,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
-            navigate("/transaction")
+            navigate("/transaction-history")
           }}
         />
         <IconButton

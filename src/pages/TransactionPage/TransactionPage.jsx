@@ -1,12 +1,12 @@
-import React from "react"
-import Footer from "../../shared/components/Footer"
-import TransactionList from "./components/TransactionList"
+import React from 'react'
+import TransactionConfirmation from './components/TransactionConfirmation'
+import Footer from '../../shared/components/Footer'
 
 export default function TransactionPage() {
   return (
     <div className="bg-slate-100">
-      <TransactionList />
-      <Footer />
-    </div>
+    <TransactionConfirmation />
+    <Footer />
+  </div>
   )
 }

@@ -7,7 +7,7 @@ import {
   faHistory,
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
-export default function TransactionList() {
+export default function TransactionHistoryList() {
   const navigate = useNavigate()
   return (
     <div className="container mx-auto pt-28 pb-8">
@@ -28,7 +28,7 @@ export default function TransactionList() {
             color="bg-white"
             hoverColor="bg-slate-100"
             onClick={() => {
-              navigate("/transaction")
+              navigate("/transaction-history")
             }}
           />
           <IconButton
