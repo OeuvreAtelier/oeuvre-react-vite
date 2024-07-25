@@ -53,7 +53,11 @@ export default function AddEditContainer() {
   const handleNumber = (event) => {
     const { name, value } = event.target
     const updatedValue =
-      (name === "price" || name === "stock") && value < 0 ? 0 : value
+      (name === "price" || name === "stock") &&
+      value < 0 &&
+      event.replace(/[^0-9]/g, "")
+        ? 0
+        : value
     setFormData({
       ...formData,
       [name]: updatedValue,

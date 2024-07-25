@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .login-register {
-  @apply gap-2 flex flex-col mt-2;
+  @apply gap-2 flex flex-col;
 }
 
 .xs-semibold-gray {

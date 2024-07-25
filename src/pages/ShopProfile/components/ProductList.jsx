@@ -17,7 +17,7 @@ export default function ProductList({ artist, merchandises }) {
   const [deleteId, setDeleteId] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [currentPage, setCurrentPage] = useState(2)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const { paging: totalPages } = useSelector((state) => state.merchandises)
 
@@ -74,6 +74,7 @@ export default function ProductList({ artist, merchandises }) {
         no="No"
         onYesClick={handleDelete}
         onNoClick={() => setOpenModal(false)}
+        isHidden={false}
       />
 
       {merchandises.length === 0 ? (
@@ -127,15 +128,20 @@ export default function ProductList({ artist, merchandises }) {
               />
             ))}
           </div>
-          <div className="pagination">
+          <div className="flex flex-row gap-2 mt-6">
             {[...Array(totalPages.totalPages)].map((_, index) => (
-              <button
+              <div
+                className={
+                  currentPage === index + 1
+                    ? `p-2 cursor-pointer rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold`
+                    : `p-2 cursor-pointer rounded-lg bg-white hover:bg-gray-100 text-gray-600`
+                }
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
                 disabled={currentPage === index + 1}
               >
                 {index + 1}
-              </button>
+              </div>
             ))}
           </div>
         </div>
