@@ -9,10 +9,12 @@ import AddEditPage from "./pages/AddEditPage/AddEditPage"
 import ProtectedRoute from "./components/ProtectedRoute"
 import EditProfilePage from "./pages/EditProfilePage/EditProfilePage"
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage"
+import TransactionHistoryPage from "./pages/TransactionHistoryPage/TransactionHistoryPage"
 import TransactionPage from "./pages/TransactionPage/TransactionPage"
 import BookmarksPage from "./pages/BookmarksPage/BookmarksPage"
 import FansPage from "./pages/FansPage/FansPage"
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage"
+import RateReviewPage from "./pages/RateReviewPage/RateReviewPage"
 
 const router = createBrowserRouter([
   {
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/transaction-history",
+        element: (
+          <ProtectedRoute>
+            <TransactionHistoryPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "/transaction",
         element: (
           <ProtectedRoute>
@@ -88,6 +98,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <DiscoverPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/rate-review",
+        element: (
+          <ProtectedRoute>
+            <RateReviewPage />
           </ProtectedRoute>
         ),
       },
