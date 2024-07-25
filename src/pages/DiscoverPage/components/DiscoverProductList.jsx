@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react"
-import {
-  faBookmark,
-  faGear,
-  faHistory,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons"
-import IconButton from "../../../shared/components/IconButton"
+import { faRefresh, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
 import CardPictureTileSmall from "../../../shared/components/CardPictureTileSmall"
-import { fetchMerchandises, fetchProductsByName } from "../../../redux/features/productSlice"
+import {
+  fetchMerchandises,
+  fetchProductsByName,
+} from "../../../redux/features/productSlice"
 import { useDispatch, useSelector } from "react-redux"
 import convertEnum from "../../../constants/convertEnum"
 import TextInputForm from "../../../shared/components/TextInputForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Accordion, Label, Radio } from "flowbite-react"
 
 export default function DiscoverProductList({ merchandises }) {
   const dispatch = useDispatch()
@@ -43,38 +41,117 @@ export default function DiscoverProductList({ merchandises }) {
 
   const handleSearch = (e) => {
     e.preventDefault()
-    dispatch(fetchProductsByName({ productName: form.search, page: currentPage }))
+    dispatch(
+      fetchProductsByName({ productName: form.search, page: currentPage })
+    )
     console.log("Searching:", form.search)
+  }
+
+  const resetSearchFilter = () => {
+    setForm({
+      search: "",
+    })
+    dispatch(fetchMerchandises({ page: currentPage }))
   }
 
   return (
     <div className="container mx-auto pt-28 pb-8">
       <div className="flex flex-row justify-center mx-10">
-        <div className="w-1/4 px-5 flex flex-col gap-4">
-          <IconButton
-            btnName="Bookmarks"
-            btnIcon={faBookmark}
-            color="bg-white"
-            hoverColor="bg-slate-100"
-            onClick={() => {
-              navigate("/bookmarks")
-            }}
-          />
-          <IconButton
-            btnName="Transaction History"
-            btnIcon={faHistory}
-            color="bg-white"
-            hoverColor="bg-slate-100"
-            onClick={() => {
-              navigate("/transaction")
-            }}
-          />
-          <IconButton
-            btnName="Settings"
-            btnIcon={faGear}
-            color="bg-white"
-            hoverColor="bg-slate-100"
-          />
+        <div className="w-1/4 mx-5 flex flex-col rounded-lg">
+          <Accordion className="bg-white">
+            <Accordion.Panel>
+              <Accordion.Title>Filter by category:</Accordion.Title>
+              <Accordion.Content>
+                <fieldset className="flex max-w-md flex-col gap-4">
+                  <div className="flex items-center gap-2">
+                    <Radio id="" name="category" value="" defaultChecked />
+                    <Label htmlFor="">All Categories</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="AUDIO" name="category" value="AUDIO" />
+                    <Label htmlFor="AUDIO">Audio</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="COSPLAY" name="category" value="COSPLAY" />
+                    <Label htmlFor="COSPLAY">Cosplay</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="FASHION" name="category" value="FASHION" />
+                    <Label htmlFor="FASHION">Fashion</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="FIGURES" name="category" value="FIGURES" />
+                    <Label htmlFor="FIGURES">Figures, Plushies & Dolls</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="GAMES" name="category" value="GAMES" />
+                    <Label htmlFor="GAMES">Games</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="GOODS" name="category" value="GOODS" />
+                    <Label htmlFor="GOODS">Goods</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="ILLUSTRATION"
+                      name="category"
+                      value="ILLUSTRATION"
+                    />
+                    <Label htmlFor="ILLUSTRATION">Illustration</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="MUSIC" name="category" value="MUSIC" />
+                    <Label htmlFor="MUSIC">Music</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="NOVEL_BOOKS"
+                      name="category"
+                      value="NOVEL_BOOKS"
+                    />
+                    <Label htmlFor="NOVEL_BOOKS">Novel & Books</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="PHOTOGRAPH" name="category" value="PHOTOGRAPH" />
+                    <Label htmlFor="PHOTOGRAPH">Photograph</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio
+                      id="SOFTWARE_HARDWARE"
+                      name="category"
+                      value="SOFTWARE_HARDWARE"
+                    />
+                    <Label htmlFor="SOFTWARE_HARDWARE">
+                      Software & Hardware
+                    </Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="VIDEO" name="category" value="VIDEO" />
+                    <Label htmlFor="VIDEO">Video</Label>
+                  </div>
+                </fieldset>
+              </Accordion.Content>
+            </Accordion.Panel>
+            <Accordion.Panel>
+              <Accordion.Title>Filter by type:</Accordion.Title>
+              <Accordion.Content>
+                <fieldset className="flex max-w-md flex-col gap-4">
+                  <div className="flex items-center gap-2">
+                    <Radio id="" name="type" value="" defaultChecked />
+                    <Label htmlFor="">All Types</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="DIGITAL" name="type" value="DIGITAL" />
+                    <Label htmlFor="DIGITAL">Digital</Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Radio id="PHYSICAL" name="type" value="PHYSICAL" />
+                    <Label htmlFor="PHYSICAL">Physical</Label>
+                  </div>
+                </fieldset>
+              </Accordion.Content>
+            </Accordion.Panel>
+          </Accordion>
         </div>
         <div className="w-3/4 flex flex-col ps-4">
           <div className="flex flex-row justify-between">
@@ -91,8 +168,14 @@ export default function DiscoverProductList({ merchandises }) {
                 onChange={handleKeyboardChange}
                 value={form.search}
               />
-              <div className="p-2 ms-2 me-1 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white">
+              <div className="p-2 ms-2 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white">
                 <FontAwesomeIcon icon={faSearch} />
+              </div>
+              <div
+                className="p-2 ms-2 me-1 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white"
+                onClick={resetSearchFilter}
+              >
+                <FontAwesomeIcon icon={faRefresh} />
               </div>
             </form>
           </div>
