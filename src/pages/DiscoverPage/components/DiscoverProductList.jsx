@@ -291,7 +291,7 @@ export default function DiscoverProductList({ merchandises }) {
               />
             ))}
           </div>
-          <div className="flex flex-row gap-2 mt-6">
+          <div className="flex flex-row gap-2 mt-6 justify-end">
             {[...Array(totalPages.totalPages)].map((_, index) => (
               <div
                 className={
@@ -307,14 +307,6 @@ export default function DiscoverProductList({ merchandises }) {
               </div>
             ))}
           </div>
-          {/* <div className="grid grid-cols-4 grid-rows-1 gap-3 mb-5">
-            <CardPictureTileSmall
-              image={"https://static.zerochan.net/Arlecchino.full.3705545.jpg"}
-              category="GAMES"
-              name="Honkai Star Rail"
-              seller="Mihoyo"
-              price="250000"
-            /> */}
         </div>
       </div>
     </div>
