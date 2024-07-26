@@ -59,6 +59,7 @@ export default function Navbar() {
                 }
                 username="Enigma"
                 onClick={() => toggleDrawer()}
+                size="10"
               />
             ) : (
               <button
