@@ -14,7 +14,7 @@ export default function CardPictureTileBottomBtn({
   return (
     <div className="card-border-shadow">
       <img
-        className="rounded-t-lg hover:cursor-pointer w-64 h-64 object-cover"
+        className="rounded-t-lg hover:cursor-pointer w-64 h-48 object-cover"
         src={image}
         alt={name}
         onClick={imageOnClick}

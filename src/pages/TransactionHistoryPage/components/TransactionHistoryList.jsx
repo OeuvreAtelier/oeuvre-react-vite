@@ -45,20 +45,28 @@ export default function TransactionHistoryList() {
             seller="My Anime Store"
             quantity="3"
             initPrice="100000"
-            isHidden
+            isHidden={false}
+            onClick={() => {
+              navigate("/rate-review")
+            }}
           />
           <TransactionCard
             title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
             seller="My Anime Store"
             quantity="3"
             initPrice="100000"
+            isHidden={false}
+            onClick={() => {
+              navigate("/rate-review")
+            }}
           />
           <TransactionCard
             title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
             seller="My Anime Store"
             quantity="3"
             initPrice="100000"
-            isHidden
+            isHidden={true}
+            onClick={null}
           />
         </div>
       </div>
