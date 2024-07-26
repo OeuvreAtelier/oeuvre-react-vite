@@ -2,8 +2,10 @@ import React from "react"
 import TransactionCard from "../../../shared/components/TransactionCard"
 import IconButton from "../../../shared/components/IconButton"
 import { faCashRegister, faGear } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from "react-router-dom"
 
 export default function TransactionConfirmation() {
+  const navigate = useNavigate()
   return (
     <div className="container mx-auto pt-28 pb-8">
       <div className="flex flex-row justify-center mx-10">
@@ -77,6 +79,9 @@ export default function TransactionConfirmation() {
               btnIcon={faCashRegister}
               color="bg-indigo-700"
               textColor="text-white"
+              onClick={() => {
+                navigate("/success")
+              }}
             />
           </div>
         </div>

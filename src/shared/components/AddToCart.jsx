@@ -10,7 +10,7 @@ export default function AddToCart({
   onClick,
 }) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mb-4">
       <div className="flex flex-row justify-between mt-10">
         <p className="mb-2">
           <p className="sm-blue">{header}</p>
