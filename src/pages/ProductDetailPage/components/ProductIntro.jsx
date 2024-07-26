@@ -120,13 +120,13 @@ export default function ProductIntro() {
           </div>
           <div className="w-1/4 me-20 flex flex-col">
             <p className="sm-semibold-gray mb-1 hover:underline hover:cursor-pointer">
-              Category
+              Games
             </p>
             <p className="md-semibold-black mb-1 hover:underline hover:cursor-pointer">
-              Seller Name
+              Kuro Games
             </p>
             <h1 className="xl-semibold-black mb-5">
-              Product Name: Lorem Ipsum
+              Wuthering Waves Premium Battle Pass (30 days)
             </h1>
             <div>
               <IconButton

@@ -15,6 +15,7 @@ import BookmarksPage from "./pages/BookmarksPage/BookmarksPage"
 import FansPage from "./pages/FansPage/FansPage"
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage"
 import RateReviewPage from "./pages/RateReviewPage/RateReviewPage"
+import TransactionSuccessful from "./pages/TransactionPage/TransactionSuccessful"
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <RateReviewPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/success",
+        element: (
+          <ProtectedRoute>
+            <TransactionSuccessful />
           </ProtectedRoute>
         ),
       },
