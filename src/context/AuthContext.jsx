@@ -59,18 +59,15 @@ export const AuthProvider = ({ children }) => {
     secureLocalStorage.removeItem("isLoggedIn")
     secureLocalStorage.removeItem("id")
     secureLocalStorage.removeItem("username")
-    // localStorage.removeItem("token")
-    // localStorage.removeItem("isLoggedIn")
-    // localStorage.removeItem("id")
-    // localStorage.removeItem("username")
     dispatch({ type: "LOGOUT" })
   }
 
-  const register = async (username, name, password) => {
+  const register = async (username, displayName, email, password) => {
     try {
       const response = await axiosInstance.post("/auth/register-customer", {
         username,
-        name,
+        displayName,
+        email,
         password,
       })
       if (response.status === 201) {

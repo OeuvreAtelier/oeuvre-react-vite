@@ -1,7 +1,7 @@
 import React from "react"
 import { Label, Radio } from "flowbite-react"
 
-export default function GenderRadioFB({
+export default function DualRadioFB({
   id,
   nameLabel,
   valueA,

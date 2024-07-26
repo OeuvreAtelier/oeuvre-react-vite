@@ -9,9 +9,9 @@ const initialState = {
 
 export const fetchArtists = createAsyncThunk(
   "artists/fetchArtists",
-  async (userId, { rejectedWithValue }) => {
+  async (userAccountId, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/users/user/${userId}`)
+      const response = await axiosInstance.get(`/users/account/${userAccountId}`)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
@@ -23,7 +23,7 @@ export const updateArtist = createAsyncThunk(
   "artists/updateArtist",
   async (artist, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.put("/artists", artist)
+      const response = await axiosInstance.put("/users/account", artist)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)

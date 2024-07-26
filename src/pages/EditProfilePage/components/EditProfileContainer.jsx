@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "flowbite-react"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
 import { updateArtist } from "../../../redux/features/profileSlice.js"
-import GenderRadioFB from "../../../shared/components/GenderRadioFB.jsx"
+import DualRadioFB from "../../../shared/components/DualRadioFB.jsx"
 import TextAreaWithHeaderFB from "../../../shared/components/TextAreaWithHeaderFB.jsx"
 
 export default function EditProfileContainer() {
@@ -17,14 +17,13 @@ export default function EditProfileContainer() {
     if (state !== null) {
       setFormData({
         id: state.artist.id,
-        username: state.artist.username,
         email: state.artist.email,
         displayName: state.artist.displayName,
         firstName: state.artist.firstName,
         lastName: state.artist.lastName,
-        gender: state.artist.gender,
+        // gender: state.artist.gender,
         birthDate: state.artist.birthDate,
-        phoneNo: state.artist.phoneNo,
+        phoneNumber: state.artist.phoneNumber,
       })
     } else {
       navigate("/my-store")
@@ -60,16 +59,6 @@ export default function EditProfileContainer() {
           className="flex w-full flex-col gap-4 pt-6 px-4"
           onSubmit={handleSubmit}
         >
-          <TextInputWithHeaderFB
-            isDisabled={true}
-            id="username"
-            nameLabel="Username"
-            nameInput="username"
-            type="text"
-            placeholder="Example: myanimestore"
-            value={formData.username}
-            onChange={handleChange}
-          />
           <TextInputWithHeaderFB
             isDisabled={true}
             id="email"
@@ -110,14 +99,14 @@ export default function EditProfileContainer() {
             value={formData.lastName}
             onChange={handleChange}
           />
-          <GenderRadioFB
+          {/* <DualRadioFB
             id="gender"
             nameLabel="Gender"
             valueA="male"
             optionA="Male"
             valueB="female"
             optionB="Female"
-          />
+          /> */}
           <TextInputWithHeaderFB
             isDisabled={false}
             id="birthDate"
@@ -135,17 +124,17 @@ export default function EditProfileContainer() {
             nameLabel="Phone Number"
             type="text"
             placeholder="08765432100"
-            value={formData.phoneNo}
+            value={formData.phoneNumber}
             onChange={handleChange}
           />
-          <TextAreaWithHeaderFB
+          {/* <TextAreaWithHeaderFB
             id="description"
             nameInput="description"
             nameLabel="Description"
             placeholder="Write something about your store, whether if you're new in the field or already established."
             value={formData.bio}
             onChange={handleChange}
-          />
+          /> */}
           <Button
             type="submit"
             className="w-full bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-xl"

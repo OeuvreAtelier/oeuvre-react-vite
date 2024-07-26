@@ -13,7 +13,8 @@ export default function RegisterContainer() {
 
   const [form, setForm] = useState({
     username: "",
-    name: "",
+    displayName: "",
+    email: "",
     password: "",
     confirmPassword: "",
   })
@@ -41,7 +42,12 @@ export default function RegisterContainer() {
       handleInvalidPasswords()
     } else {
       try {
-        const success = await register(form.username, form.name, form.password)
+        const success = await register(
+          form.username,
+          form.displayName,
+          form.email,
+          form.password
+        )
         if (success) {
           navigate("/login")
         } else {
@@ -92,12 +98,21 @@ export default function RegisterContainer() {
               onChange={handleChange}
             />
             <TextInputWithHeaderFB
-              id="name"
-              nameInput="name"
-              nameLabel="Store Name / Display Name"
+              id="displayName"
+              nameInput="displayName"
+              nameLabel="Display Name"
               type="text"
               placeholder="Fantasy World"
-              value={form.name}
+              value={form.displayName}
+              onChange={handleChange}
+            />
+            <TextInputWithHeaderFB
+              id="email"
+              nameInput="email"
+              nameLabel="Email Address"
+              type="email"
+              placeholder="dasha@example.com"
+              value={form.email}
               onChange={handleChange}
             />
             <TextInputWithHeaderFB
