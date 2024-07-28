@@ -1,27 +1,28 @@
-                                        import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "axios"
+import secureLocalStorage from "react-secure-storage"
 
 const axiosInstance = axios.create({
   baseURL: "/api/v3",
-});
+})
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = secureLocalStorage.getItem("token")
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`
   }
-  return config;
-});
+  return config
+})
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      window.location = "/login";
+      window.location = "/login"
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -31,15 +32,15 @@ export const register = createAsyncThunk(
         username,
         name,
         password,
-      });
-      return response.data;
+      })
+      return response.data
     } catch (error) {
       if (!error.response) {
-        throw error;
+        throw error
       }
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data)
     }
   }
-);
+)
 
-export default axiosInstance;
+export default axiosInstance

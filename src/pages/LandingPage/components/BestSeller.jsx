@@ -3,8 +3,8 @@ import CardPictureTile from "../../../shared/components/CardPictureTile";
 
 export default function BestSeller() {
   return (
-    <div className="bg-gray-200 flex flex-col justify-center items-center pt-3">
-      <p className="text-3xl font-semibold py-10 tracking-wide text-gray-800 dark:text-white">Best Seller</p>
+    <div className="bg-slate-100 flex flex-col justify-center items-center pt-3">
+      <p className="xxxl-semibold-black py-10 tracking-wide">Best Seller</p>
       
       <div className="grid grid-cols-4 grid-rows-1 gap-4 px-40">
         <CardPictureTile
