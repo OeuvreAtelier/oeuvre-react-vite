@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "flowbite-react"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
-import { updateArtist } from "../../../redux/features/profileSlice.js"
-import GenderRadioFB from "../../../shared/components/GenderRadioFB.jsx"
-import TextAreaWithHeaderFB from "../../../shared/components/TextAreaWithHeaderFB.jsx"
+import {
+  fetchArtists,
+  updateArtist,
+} from "../../../redux/features/profileSlice.js"
+import DualRadioFB from "../../../shared/components/DualRadioFB.jsx"
 
 export default function EditProfileContainer() {
   const [formData, setFormData] = useState({})
@@ -17,19 +19,20 @@ export default function EditProfileContainer() {
     if (state !== null) {
       setFormData({
         id: state.artist.id,
-        username: state.artist.username,
-        email: state.artist.email,
-        displayName: state.artist.displayName,
         firstName: state.artist.firstName,
         lastName: state.artist.lastName,
-        gender: state.artist.gender,
+        displayName: state.artist.displayName,
+        email: state.artist.email,
+        gender: 'MALE',
         birthDate: state.artist.birthDate,
-        phoneNo: state.artist.phoneNo,
+        phoneNumber: state.artist.phoneNumber,
       })
+      console.log("Artist ID", state.artist)
+
     } else {
       navigate("/my-store")
     }
-    console.log(state)
+    // console.log(state)
   }, [navigate, state])
 
   const handleChange = (e) => {
@@ -42,10 +45,14 @@ export default function EditProfileContainer() {
   }
 
   const handleSubmit = async (e) => {
+    // console.log("Form submitted", formData);
     e.preventDefault()
     try {
-      const action = updateArtist(formData)
-      await dispatch(action).unwrap()
+      const data = new FormData()
+      data.append("user", JSON.stringify(formData))
+      dispatch(updateArtist(data)).then(() => {
+        // console.log("Data submitted successfully 2", data)
+      })
       navigate("/my-store")
     } catch (error) {
       console.error("Error submitting form:", error)
@@ -60,36 +67,6 @@ export default function EditProfileContainer() {
           className="flex w-full flex-col gap-4 pt-6 px-4"
           onSubmit={handleSubmit}
         >
-          <TextInputWithHeaderFB
-            isDisabled={true}
-            id="username"
-            nameLabel="Username"
-            nameInput="username"
-            type="text"
-            placeholder="Example: myanimestore"
-            value={formData.username}
-            onChange={handleChange}
-          />
-          <TextInputWithHeaderFB
-            isDisabled={true}
-            id="email"
-            nameLabel="Email Address"
-            nameInput="email"
-            type="text"
-            placeholder="Example: myartist@booth.art"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <TextInputWithHeaderFB
-            isDisabled={false}
-            id="displayName"
-            nameLabel="Display Name"
-            nameInput="displayName"
-            type="text"
-            placeholder="Example: My Anime Store"
-            value={formData.displayName}
-            onChange={handleChange}
-          />
           <TextInputWithHeaderFB
             isDisabled={false}
             id="firstName"
@@ -110,14 +87,36 @@ export default function EditProfileContainer() {
             value={formData.lastName}
             onChange={handleChange}
           />
-          <GenderRadioFB
+          <TextInputWithHeaderFB
+            isDisabled={false}
+            id="displayName"
+            nameLabel="Display Name"
+            nameInput="displayName"
+            type="text"
+            placeholder="Example: My Anime Store"
+            value={formData.displayName}
+            onChange={handleChange}
+          />
+          <TextInputWithHeaderFB
+            isDisabled={true}
+            id="email"
+            nameLabel="Email Address"
+            nameInput="email"
+            type="text"
+            placeholder="Example: myartist@booth.art"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {/* <DualRadioFB
             id="gender"
             nameLabel="Gender"
-            valueA="male"
+            valueA="MALE"
             optionA="Male"
-            valueB="female"
+            valueB="FEMALE"
             optionB="Female"
-          />
+            onChangeA={handleChange}
+            onChangeB={handleChange}
+          /> */}
           <TextInputWithHeaderFB
             isDisabled={false}
             id="birthDate"
@@ -130,20 +129,12 @@ export default function EditProfileContainer() {
           />
           <TextInputWithHeaderFB
             isDisabled={false}
-            id="phoneNo"
-            nameInput="phoneNo"
+            id="phoneNumber"
+            nameInput="phoneNumber"
             nameLabel="Phone Number"
-            type="text"
+            type="number"
             placeholder="08765432100"
-            value={formData.phoneNo}
-            onChange={handleChange}
-          />
-          <TextAreaWithHeaderFB
-            id="description"
-            nameInput="description"
-            nameLabel="Description"
-            placeholder="Write something about your store, whether if you're new in the field or already established."
-            value={formData.bio}
+            value={formData.phoneNumber}
             onChange={handleChange}
           />
           <Button

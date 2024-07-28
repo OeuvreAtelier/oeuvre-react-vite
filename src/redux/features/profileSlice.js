@@ -9,9 +9,11 @@ const initialState = {
 
 export const fetchArtists = createAsyncThunk(
   "artists/fetchArtists",
-  async (userId, { rejectedWithValue }) => {
+  async (userAccountId, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/users/user/${userId}`)
+      const response = await axiosInstance.get(
+        `/users/account/${userAccountId}`
+      )
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
@@ -21,9 +23,13 @@ export const fetchArtists = createAsyncThunk(
 
 export const updateArtist = createAsyncThunk(
   "artists/updateArtist",
-  async (artist, { rejectedWithValue }) => {
+  async (user, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.put("/artists", artist)
+      const response = await axiosInstance.put("/users", user, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
@@ -44,6 +50,7 @@ const profileSlice = createSlice({
       .addCase(updateArtist.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
+        state.message = action.payload.message
       })
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),

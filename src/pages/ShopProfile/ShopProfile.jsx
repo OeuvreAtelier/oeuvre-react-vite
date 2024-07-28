@@ -27,6 +27,7 @@ export default function ShopProfile() {
     // console.log("3. User ID:", decodedUserId)
 
     dispatch(fetchArtists(decodedUserId))
+    console.log("3. User ID After Update:", decodedUserId)
     dispatch(fetchMerchandises())
   }, [dispatch])
 

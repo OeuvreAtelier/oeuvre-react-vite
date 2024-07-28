@@ -14,13 +14,17 @@ export default function EmailPasswordContainer() {
 
   const handleLogin = async (e) => {
     e.preventDefault()
-
     try {
       const success = await login(username, password)
       if (success) {
-        navigate("/my-store")
+        // TODO
+        // if (users.firstName === null) {
+        //   navigate("/onboarding")
+        // } else {
+          navigate("/my-store")
+        // }
       } else {
-        setErrorMessage("Invalid username or password")
+        setErrorMessage("Invalid username or password!")
       }
     } catch (error) {
       console.error(error)

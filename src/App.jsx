@@ -16,6 +16,7 @@ import FansPage from "./pages/FansPage/FansPage"
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage"
 import RateReviewPage from "./pages/RateReviewPage/RateReviewPage"
 import TransactionSuccessful from "./pages/TransactionPage/TransactionSuccessful"
+import OnboardingPage from "./pages/OnboardingPage/OnboardingPage"
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutPage />,
+      },
+      {
+        path: "/onboarding",
+        element: (
+          <ProtectedRoute>
+            <OnboardingPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/my-store",
