@@ -6,7 +6,7 @@ import Footer from '../../shared/components/Footer'
 
 export default function AboutPage() {
   return (
-    <div className="bg-slate-100">
+    <div className="bg-gray-200">
       <AboutHero />
       <CompanyDetails />
       <Footer />
