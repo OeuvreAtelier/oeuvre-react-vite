@@ -1,15 +1,14 @@
-import { createContext, useContext, useReducer } from "react"
-import axiosInstance from "../api/axiosInstance"
-import secureLocalStorage from "react-secure-storage"
+import { createContext, useContext, useReducer } from "react";
+import axiosInstance from "../api/axiosInstance";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 const initialState = {
-  isLoggedIn: !!secureLocalStorage.getItem("token"),
-  token: secureLocalStorage.getItem("token"),
-  id: secureLocalStorage.getItem("id"),
-  username: secureLocalStorage.getItem("username"),
-}
+  isLoggedIn: !!localStorage.getItem("token"),
+  token: localStorage.getItem("token"),
+  id: localStorage.getItem("id"),
+  username: localStorage.getItem("username")
+};
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -19,73 +18,72 @@ const authReducer = (state, action) => {
         isLoggedIn: true,
         token: action.payload.token,
         user: action.payload.user,
-      }
+      };
     case "LOGOUT":
-      return { ...state, isLoggedIn: false, token: null, user: null }
+      return { ...state, isLoggedIn: false, token: null, user: null};
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const AuthProvider = ({ children }) => {
-  const [authState, dispatch] = useReducer(authReducer, initialState)
+  const [authState, dispatch] = useReducer(authReducer, initialState);
 
   const login = async (username, password) => {
     try {
       const response = await axiosInstance.post("/auth/login", {
         username,
         password,
-      })
-      const { data } = response.data
+      });
+      const { data } = response.data;
       if (data) {
-        secureLocalStorage.setItem("token", data.token)
-        secureLocalStorage.setItem("id", data.id)
-        secureLocalStorage.setItem("username", data.username)
-        secureLocalStorage.setItem("isLoggedIn", true)
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("id", data.id);
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("isLoggedIn", true);
         dispatch({
           type: "LOGIN",
           payload: { token: data.token, id: data.id, username: data.username },
-        })
-        return true
+        });
+        return true;
       }
     } catch (error) {
-      console.error("Login Failed: ", error)
-      throw error
+      console.error("Login Failed: ", error);
+      throw error;
     }
-  }
+  };
 
   const logout = () => {
-    secureLocalStorage.removeItem("token")
-    secureLocalStorage.removeItem("isLoggedIn")
-    secureLocalStorage.removeItem("id")
-    secureLocalStorage.removeItem("username")
-    dispatch({ type: "LOGOUT" })
-  }
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("id");
+    localStorage.removeItem("username");
+    dispatch({ type: "LOGOUT" });
+  };
 
-  const register = async (username, displayName, email, password) => {
+  const register = async (username, name, password) => {
     try {
-      const response = await axiosInstance.post("/auth/register-customer", {
+      const response = await axiosInstance.post("/auth/register", {
         username,
-        displayName,
-        email,
+        name,
         password,
-      })
+      });
       if (response.status === 201) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     } catch (error) {
-      console.error("Register error:", error)
-      return false
+      console.error("Register error:", error);
+      return false;
     }
-  }
+  };
 
-  const value = { ...authState, login, logout, register }
+  const value = { ...authState, login, logout, register };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
