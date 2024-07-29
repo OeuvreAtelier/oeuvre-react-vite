@@ -27,9 +27,19 @@ export default function ProfileHeader({ artist }) {
   }
 
   const navigate = useNavigate()
+  const banner = artist.imageBanner.path
+  console.log("Banner:", banner)
   return (
     <div className="mx-40">
-      <section className="h-96 mt-10 bg-top bg-no-repeat shadow bg-[url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1494&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-400 bg-blend-multiply">
+      <section
+        className="dynamic-bg"
+        style={{
+          backgroundImage: `url(${banner})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
         <div className="flex flex-row items-end">
           <img
             className="bg-white ms-20 size-32 mb-5 rounded-full p-1 object-cover"

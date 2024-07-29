@@ -89,3 +89,7 @@
 .card-border-shadow-bottom {
   @apply bg-white border border-gray-200 rounded-b-lg shadow;
 }
+
+.dynamic-bg {
+  @apply h-96 mt-10 shadow bg-gray-400 bg-blend-multiply object-scale-down;
+}

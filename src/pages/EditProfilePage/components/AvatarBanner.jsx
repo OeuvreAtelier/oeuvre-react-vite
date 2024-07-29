@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import FileUploadButton from "../../../shared/components/FileUploadButton"
 import { Button, Tabs } from "flowbite-react"
-import { updateImage } from "../../../redux/features/profileSlice"
+import { updateBanner, updateImage } from "../../../redux/features/profileSlice"
 
 export default function AvatarBanner() {
   const [formData, setFormData] = useState({})
@@ -29,7 +29,7 @@ export default function AvatarBanner() {
     console.log("Selected Avatar", event.target.files[0])
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmitAvatar = async (e) => {
     e.preventDefault()
     if (!selectedAvatar) {
       alert("Please upload an image!")
@@ -50,6 +50,32 @@ export default function AvatarBanner() {
     }
   }
 
+  const handleBanner = (event) => {
+    setSelectedBanner(event.target.files[0])
+    console.log("Selected Banner", event.target.files[0])
+  }
+
+  const handleSubmitBanner = async (e) => {
+    e.preventDefault()
+    if (!selectedBanner) {
+      alert("Please upload an image!")
+      return
+    }
+    try {
+      const data = new FormData()
+      console.log("Initial form data:", formData)
+      console.log("Selected Banner", selectedBanner)
+      data.append("user", JSON.stringify(formData))
+      data.append("image", selectedBanner)
+      console.log("Appended form data:", data)
+      const action = updateBanner(data)
+      await dispatch(action).unwrap()
+      navigate("/my-store")
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
+  }
+
   return (
     <div className="bg-fixed flex justify-center items-center min-h-screen bg-[url('https://images.unsplash.com/photo-1482160549825-59d1b23cb208?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-400 bg-blend-multiply">
       <div className="mt-40 mb-20 w-full max-w-lg bg-white border border-gray-200 p-12 justify-center items-center rounded-3xl">
@@ -58,7 +84,7 @@ export default function AvatarBanner() {
             <h1 className="xxl-semibold-black text-center mt-3">Edit Avatar</h1>
             <form
               className="flex w-full flex-col gap-4 pt-6 px-4"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitAvatar}
             >
               <div
                 style={{
@@ -87,7 +113,7 @@ export default function AvatarBanner() {
             <h1 className="xxl-semibold-black text-center mt-3">Edit Banner</h1>
             <form
               className="flex w-full flex-col gap-4 pt-6 px-4"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitBanner}
             >
               <div className="bg-slate-100 w-full h-48 rounded-lg"></div>
 
@@ -95,7 +121,7 @@ export default function AvatarBanner() {
                 id="imageBanner"
                 label="Upload Banner"
                 helper="This will be used for the banner on your profile."
-                onChange={handleAvatar}
+                onChange={handleBanner}
               />
               <Button
                 type="submit"
