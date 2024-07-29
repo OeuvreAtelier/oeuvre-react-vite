@@ -101,7 +101,7 @@ export default function ProductList({ artist, merchandises }) {
                 key={merchandise.id}
                 image={
                   merchandise.image
-                    ? merchandise.image
+                    ? merchandise.image.path
                     : "https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
                 }
                 name={merchandise.name}
