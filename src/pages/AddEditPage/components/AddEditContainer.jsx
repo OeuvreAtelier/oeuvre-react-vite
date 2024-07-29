@@ -28,7 +28,7 @@ export default function AddEditContainer() {
           category: state.merchandise.category,
           price: state.merchandise.price,
           stock: state.merchandise.stock,
-          artistId: state.merchandise.user.id,
+          user_id: state.merchandise.user.id,
           type: state.merchandise.type,
           description: state.merchandise.description,
         })
@@ -38,7 +38,7 @@ export default function AddEditContainer() {
           category: "",
           price: "",
           stock: "",
-          artistId: state.artist.id,
+          user_id: state.artist.id,
           type: "",
           description: "",
         })

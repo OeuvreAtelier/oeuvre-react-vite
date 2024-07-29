@@ -100,7 +100,9 @@ export default function ProductList({ artist, merchandises }) {
               <CardPictureTileWithButtons
                 key={merchandise.id}
                 image={
-                  "https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
+                  merchandise.image
+                    ? merchandise.image
+                    : "https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
                 }
                 name={merchandise.name}
                 category={convertEnum[merchandise.category]}
