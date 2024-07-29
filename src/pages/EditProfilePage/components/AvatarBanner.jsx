@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import FileUploadButton from "../../../shared/components/FileUploadButton"
 import { Button, Tabs } from "flowbite-react"
-import { updateImage } from "../../../redux/features/profileSlice"
+import { updateBanner, updateImage } from "../../../redux/features/profileSlice"
 
 export default function AvatarBanner() {
   const [formData, setFormData] = useState({})
@@ -11,6 +11,7 @@ export default function AvatarBanner() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [selectedAvatar, setSelectedAvatar] = useState(null)
+  const [selectedBanner, setSelectedBanner] = useState(null)
 
   console.log("STATE", state)
 
@@ -23,12 +24,12 @@ export default function AvatarBanner() {
     }
   }, [state])
 
-  const handleChange = (event) => {
+  const handleAvatar = (event) => {
     setSelectedAvatar(event.target.files[0])
-    console.log("Selected File", event.target.files[0])
+    console.log("Selected Avatar", event.target.files[0])
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmitAvatar = async (e) => {
     e.preventDefault()
     if (!selectedAvatar) {
       alert("Please upload an image!")
@@ -36,11 +37,38 @@ export default function AvatarBanner() {
     }
     try {
       const data = new FormData()
+      console.log("Initial form data:", formData)
       console.log("Selected Avatar", selectedAvatar)
       data.append("user", JSON.stringify(formData))
       data.append("image", selectedAvatar)
-      console.log("Form Data", data)
+      console.log("Appended form data:", data)
       const action = updateImage(data)
+      await dispatch(action).unwrap()
+      navigate("/my-store")
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
+  }
+
+  const handleBanner = (event) => {
+    setSelectedBanner(event.target.files[0])
+    console.log("Selected Banner", event.target.files[0])
+  }
+
+  const handleSubmitBanner = async (e) => {
+    e.preventDefault()
+    if (!selectedBanner) {
+      alert("Please upload an image!")
+      return
+    }
+    try {
+      const data = new FormData()
+      console.log("Initial form data:", formData)
+      console.log("Selected Banner", selectedBanner)
+      data.append("user", JSON.stringify(formData))
+      data.append("image", selectedBanner)
+      console.log("Appended form data:", data)
+      const action = updateBanner(data)
       await dispatch(action).unwrap()
       navigate("/my-store")
     } catch (error) {
@@ -56,7 +84,7 @@ export default function AvatarBanner() {
             <h1 className="xxl-semibold-black text-center mt-3">Edit Avatar</h1>
             <form
               className="flex w-full flex-col gap-4 pt-6 px-4"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitAvatar}
             >
               <div
                 style={{
@@ -71,7 +99,7 @@ export default function AvatarBanner() {
                 id="imagePicture"
                 label="Upload Avatar"
                 helper="Upload your picture with a smile!"
-                onChange={handleChange}
+                onChange={handleAvatar}
               />
               <Button
                 type="submit"
@@ -85,7 +113,7 @@ export default function AvatarBanner() {
             <h1 className="xxl-semibold-black text-center mt-3">Edit Banner</h1>
             <form
               className="flex w-full flex-col gap-4 pt-6 px-4"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitBanner}
             >
               <div className="bg-slate-100 w-full h-48 rounded-lg"></div>
 
@@ -93,7 +121,7 @@ export default function AvatarBanner() {
                 id="imageBanner"
                 label="Upload Banner"
                 helper="This will be used for the banner on your profile."
-                onChange={handleChange}
+                onChange={handleBanner}
               />
               <Button
                 type="submit"

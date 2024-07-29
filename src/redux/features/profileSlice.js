@@ -49,6 +49,22 @@ export const updateImage = createAsyncThunk(
   }
 )
 
+export const updateBanner = createAsyncThunk(
+  "artists/updateUserBanner",
+  async (user, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.put("/users/banner", user, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
 const profileSlice = createSlice({
   name: "artists",
   initialState: initialState,
