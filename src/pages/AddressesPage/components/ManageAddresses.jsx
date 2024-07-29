@@ -57,32 +57,32 @@ export default function ManageAddresses({ artist, addresses }) {
   // const [address, setAddress] = useState({})
 
   // useEffect(() => {
-  //   console.log("State Address:", state)
-  //   if (state !== null) {
-  //     if (state.address) {
-  //       console.log("Address:", state.address)
-  //       setFormData({
-  //         id: state.address.id,
-  //         userId: state.address.user.id,
-  //         country: state.address.country,
-  //         state: state.address.state,
-  //         city: state.address.stock,
-  //         detail: state.address.detail,
-  //         postalCode: state.address.postalCode,
-  //         phoneNumber: state.address.phoneNumber,
-  //       })
-  //     } else {
-  //       setFormData({
-  //         userId: state.address.user.id,
-  //         country: "",
-  //         state: "",
-  //         city: "",
-  //         detail: "",
-  //         postalCode: "",
-  //         phoneNumber: "",
-  //       })
-  //     }
-  //   }
+    // console.log("State Address:", state)
+    // if (state !== null) {
+    //   if (state.address) {
+    //     console.log("Address:", state.address)
+    //     setFormData({
+    //       id: state.address.id,
+    //       userId: state.address.user.id,
+    //       country: state.address.country,
+    //       state: state.address.state,
+    //       city: state.address.stock,
+    //       detail: state.address.detail,
+    //       postalCode: state.address.postalCode,
+    //       phoneNumber: state.address.phoneNumber,
+    //     })
+    //   } else {
+    //     setFormData({
+    //       userId: state.address.user.id,
+    //       country: "",
+    //       state: "",
+    //       city: "",
+    //       detail: "",
+    //       postalCode: "",
+    //       phoneNumber: "",
+    //     })
+    //   }
+    // }
   // }, [state])
 
   // const handleChange = (e) => {
@@ -192,105 +192,13 @@ export default function ManageAddresses({ artist, addresses }) {
                 upperText={address.city}
                 middleText={`${address.state}, ${address.country} ${address.postalCode}`}
                 lowerText={address.phoneNumber}
-                onEdit={handleEdit}
+                onEdit={() => handleEdit(artist, address)}
                 onDelete={() => handleDeleteModal(address.id)}
               />
             ))}
           </div>
         </div>
       )}
-
-      {/* <div className="container mx-auto pt-28 pb-8">
-        <h1 className="xxl-semibold-black text-center mb-6">
-          Manage Addresses
-        </h1>
-        <div className="flex flex-row justify-center mx-10">
-          <form
-            className="w-3/12 px-5 flex flex-col gap-4"
-            onSubmit={handleSubmit}
-          >
-            <TextInputWithHeaderFB
-              id="country"
-              nameInput="country"
-              nameLabel="Country/Region"
-              type="text"
-              placeholder="Example: Indonesia"
-              value={formData.country}
-              onChange={handleChange}
-            />
-            <TextInputWithHeaderFB
-              id="state"
-              nameInput="state"
-              nameLabel="State/Province"
-              type="text"
-              placeholder="Example: DKI Jakarta"
-              value={formData.state}
-              onChange={handleChange}
-            />
-            <TextInputWithHeaderFB
-              id="city"
-              nameInput="city"
-              nameLabel="City"
-              type="text"
-              placeholder="Example: South Jakarta"
-              value={formData.city}
-              onChange={handleChange}
-            />
-            <TextAreaWithHeaderFB
-              id="detail"
-              nameInput="detail"
-              nameLabel="Detailed Address"
-              placeholder="Example: 10 Downing Street, Croydon Borough, Stamford Bridge, etc."
-              value={formData.detail}
-              onChange={handleChange}
-            />
-            <TextInputWithHeaderFB
-              id="postalCode"
-              nameInput="postalCode"
-              nameLabel="Postal/Zip Code"
-              type="text"
-              placeholder="Example: 12345, SW1A 2AA, etc."
-              value={formData.postalCode}
-              onChange={handleChange}
-            />
-            <TextInputWithHeaderFB
-              id="phoneNumber"
-              nameInput="phoneNumber"
-              nameLabel="Phone Number"
-              type="number"
-              placeholder="Example: 081234567890"
-              value={formData.phoneNumber}
-              onChange={handleNumber}
-            />
-            <Button
-              type="submit"
-              className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-xl"
-            >
-              Submit Address
-            </Button>
-          </form>
-          <div className="w-9/12 flex flex-col ps-4">
-            {addresses.length === 0 ? (
-              <div className="text-center">
-                <p className="text-lg font-bold">No addresses found</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 grid-rows-1 gap-3 mb-5 justify-between">
-                {addresses.map((address) => (
-                  <CardText
-                    heading={address.detail}
-                    upperText={address.city}
-                    middleText={`${address.state}, ${address.country} ${address.postalCode}`}
-                    lowerText={address.phoneNumber}
-                    onEdit={handleEdit}
-                    onDelete={() => handleDeleteModal(address.id)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div> */}
     </>
   )
 }
