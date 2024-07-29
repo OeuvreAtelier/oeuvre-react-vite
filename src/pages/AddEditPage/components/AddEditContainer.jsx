@@ -21,7 +21,7 @@ export default function AddEditContainer() {
     console.log("State AddEdit:", state)
     if (state !== null) {
       if (state.merchandise) {
-        console.log(state.merchandise)
+        console.log("State to be updated:", state.merchandise)
         setFormData({
           id: state.merchandise.id,
           name: state.merchandise.name,
@@ -79,14 +79,17 @@ export default function AddEditContainer() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!selectedImage) {
-      alert("Please upload an image!")
-      return
-    }
     try {
-      formData.id === undefined
-        ? handleCreateProduct()
-        : handleUpdateProduct
+      if (formData.id === undefined) {
+        if (!selectedImage) {
+          alert("Please upload an image!")
+          return
+        } else {
+          handleCreateProduct()
+        }
+      } else {
+        handleUpdateProduct()
+      }
     } catch (error) {
       console.error("Error submitting form:", error)
     }
@@ -98,7 +101,7 @@ export default function AddEditContainer() {
       console.log("Initial form data:", formData)
       data.append("product", JSON.stringify(formData))
       data.append("image", selectedImage)
-      console.log("Appended form data:", data);
+      console.log("Appended form data:", data)
       const action = createProduct(data)
       await dispatch(action).unwrap()
       navigate("/my-store")
@@ -110,8 +113,12 @@ export default function AddEditContainer() {
   const handleUpdateProduct = async () => {
     try {
       const data = new FormData()
+      console.log("Form data to be updated:", formData)
       data.append("product", JSON.stringify(formData))
-      data.append("image", selectedImage)
+      if (selectedImage) {
+        data.append("image", selectedImage)
+      }
+      console.log("Appended form data:", data)
       const action = updateProduct(data)
       await dispatch(action).unwrap()
       navigate("/my-store")
@@ -213,7 +220,14 @@ export default function AddEditContainer() {
             nameLabel="Description"
             nameInput="description"
             placeholder="Describe your product here..."
-            value={formData.description}
+            value={
+                // state?.merchandise
+                //   ? JSON.stringify(
+                //       state.merchandise.description.description
+                //     ).slice(1, -1)
+                //   :
+                formData.description
+            }
             onChange={handleChange}
           />
           <div className="bg-slate-100 w-full h-96 rounded-lg"></div>
