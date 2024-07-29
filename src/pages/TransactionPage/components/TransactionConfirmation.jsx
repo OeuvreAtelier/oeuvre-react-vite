@@ -3,51 +3,37 @@ import TransactionCard from "../../../shared/components/TransactionCard"
 import IconButton from "../../../shared/components/IconButton"
 import { faCashRegister, faGear } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
+import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 
-export default function TransactionConfirmation() {
+export default function TransactionConfirmation({ transactions }) {
   const navigate = useNavigate()
   return (
     <div className="container mx-auto pt-28 pb-8">
+      <h1 className="text-2xl font-semibold mb-6">Transaction Confirmation</h1>
+      {transactions.length === 0 ? (
+        <EmptyContentSmall title="No Transaction" />
+      ) : (
+        <TransactionCard
+          title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
+          seller="My Anime Store"
+          quantity="3"
+          initPrice="100000"
+          isHidden
+        />
+      )}
       <div className="flex flex-row justify-center mx-10">
         <div className="w-8/12 flex flex-col ps-4 pe-5">
-          <h1 className="text-2xl font-semibold mb-6">
-            Transaction Confirmation
-          </h1>
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden
-          />
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden
-          />
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden
-          />
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden
-          />
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden
-          />
+          {/* {transactions.length === 0 ? ( */}
+          <EmptyContentSmall title="No Transaction" />
+          {/* ) : (
+            <TransactionCard
+              title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
+              seller="My Anime Store"
+              quantity="3"
+              initPrice="100000"
+              isHidden
+            />
+          )} */}
         </div>
         <div className="w-4/12">
           <div className="card-border-shadow flex flex-col ps-7 pt-4 pb-7 pe-4 mx-4">

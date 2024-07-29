@@ -2,31 +2,35 @@ import React, { useEffect, useState } from "react"
 import { Button, Label, Select } from "flowbite-react"
 import { useLocation, useNavigate } from "react-router-dom"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
+import TextAreaWithHeaderFB from "../../../shared/components/TextAreaWithHeaderFB"
 import { useDispatch } from "react-redux"
 import {
   createProduct,
   updateProduct,
 } from "../../../redux/features/productSlice"
+import FileUploadButton from "../../../shared/components/FileUploadButton"
 
 export default function AddEditContainer() {
   const [formData, setFormData] = useState({})
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { state } = useLocation()
+  const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
     console.log("State AddEdit:", state)
     if (state !== null) {
       if (state.merchandise) {
-        console.log(state.merchandise)
+        console.log("State to be updated:", state.merchandise)
         setFormData({
           id: state.merchandise.id,
           name: state.merchandise.name,
           category: state.merchandise.category,
           price: state.merchandise.price,
           stock: state.merchandise.stock,
-          artistId: state.merchandise.user.id,
+          user_id: state.merchandise.user.id,
           type: state.merchandise.type,
+          description: state.merchandise.description,
         })
       } else {
         setFormData({
@@ -34,8 +38,9 @@ export default function AddEditContainer() {
           category: "",
           price: "",
           stock: "",
-          artistId: state.artist.id,
+          user_id: state.artist.id,
           type: "",
+          description: "",
         })
       }
     } else {
@@ -49,6 +54,7 @@ export default function AddEditContainer() {
       ...formData,
       [name]: value,
     })
+    console.log("Form:", formData)
   }
 
   const handleNumber = (event) => {
@@ -63,15 +69,57 @@ export default function AddEditContainer() {
       ...formData,
       [name]: updatedValue,
     })
+    console.log("Form:", formData)
   }
 
-  const handleSubmit = async (e) => {
+  const handleImage = (event) => {
+    setSelectedImage(event.target.files[0])
+    console.log("Selected File", event.target.files[0])
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault()
     try {
-      const action =
-        formData.id === undefined
-          ? createProduct(formData)
-          : updateProduct(formData)
+      if (formData.id === undefined) {
+        if (!selectedImage) {
+          alert("Please upload an image!")
+          return
+        } else {
+          handleCreateProduct()
+        }
+      } else {
+        handleUpdateProduct()
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
+  }
+
+  const handleCreateProduct = async () => {
+    try {
+      const data = new FormData()
+      console.log("Initial form data:", formData)
+      data.append("product", JSON.stringify(formData))
+      data.append("image", selectedImage)
+      console.log("Appended form data:", data)
+      const action = createProduct(data)
+      await dispatch(action).unwrap()
+      navigate("/my-store")
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
+  }
+
+  const handleUpdateProduct = async () => {
+    try {
+      const data = new FormData()
+      console.log("Form data to be updated:", formData)
+      data.append("product", JSON.stringify(formData))
+      if (selectedImage) {
+        data.append("image", selectedImage)
+      }
+      console.log("Appended form data:", data)
+      const action = updateProduct(data)
       await dispatch(action).unwrap()
       navigate("/my-store")
     } catch (error) {
@@ -167,6 +215,28 @@ export default function AddEditContainer() {
               <option value="PHYSICAL">Physical</option>
             </Select>
           </div>
+          <TextAreaWithHeaderFB
+            id="description"
+            nameLabel="Description"
+            nameInput="description"
+            placeholder="Describe your product here..."
+            value={
+                // state?.merchandise
+                //   ? JSON.stringify(
+                //       state.merchandise.description.description
+                //     ).slice(1, -1)
+                //   :
+                formData.description
+            }
+            onChange={handleChange}
+          />
+          <div className="bg-slate-100 w-full h-96 rounded-lg"></div>
+          <FileUploadButton
+            id="image"
+            label="Product Image"
+            helper="Upload the image of your product here."
+            onChange={handleImage}
+          />
           <Button
             type="submit"
             className="w-full bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-xl"

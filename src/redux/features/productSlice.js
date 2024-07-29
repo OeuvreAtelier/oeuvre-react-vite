@@ -61,7 +61,9 @@ export const createProduct = createAsyncThunk(
   async (merchandise, { rejectedWithValue }) => {
     try {
       const response = await axiosInstance.post("/products", merchandise, {
-        headers: {},
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       return response.data
     } catch (error) {
@@ -74,7 +76,11 @@ export const updateProduct = createAsyncThunk(
   "merchandises/updateMerchandises",
   async (merchandise, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.put("/products", merchandise)
+      const response = await axiosInstance.put("/products", merchandise, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
