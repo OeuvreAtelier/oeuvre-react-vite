@@ -3,9 +3,7 @@ import { useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import FileUploadButton from "../../../shared/components/FileUploadButton"
 import { Button, Tabs } from "flowbite-react"
-import { updateArtist, updateImage } from "../../../redux/features/profileSlice"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faImage, faUser } from "@fortawesome/free-solid-svg-icons"
+import { updateImage } from "../../../redux/features/profileSlice"
 
 export default function AvatarBanner() {
   const [formData, setFormData] = useState({})
