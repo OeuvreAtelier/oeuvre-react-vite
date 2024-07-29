@@ -11,6 +11,7 @@ export default function AvatarBanner() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [selectedAvatar, setSelectedAvatar] = useState(null)
+  const [selectedBanner, setSelectedBanner] = useState(null)
 
   console.log("STATE", state)
 
@@ -23,9 +24,9 @@ export default function AvatarBanner() {
     }
   }, [state])
 
-  const handleChange = (event) => {
+  const handleAvatar = (event) => {
     setSelectedAvatar(event.target.files[0])
-    console.log("Selected File", event.target.files[0])
+    console.log("Selected Avatar", event.target.files[0])
   }
 
   const handleSubmit = async (e) => {
@@ -36,10 +37,11 @@ export default function AvatarBanner() {
     }
     try {
       const data = new FormData()
+      console.log("Initial form data:", formData)
       console.log("Selected Avatar", selectedAvatar)
       data.append("user", JSON.stringify(formData))
       data.append("image", selectedAvatar)
-      console.log("Form Data", data)
+      console.log("Appended form data:", data)
       const action = updateImage(data)
       await dispatch(action).unwrap()
       navigate("/my-store")
@@ -71,7 +73,7 @@ export default function AvatarBanner() {
                 id="imagePicture"
                 label="Upload Avatar"
                 helper="Upload your picture with a smile!"
-                onChange={handleChange}
+                onChange={handleAvatar}
               />
               <Button
                 type="submit"
@@ -93,7 +95,7 @@ export default function AvatarBanner() {
                 id="imageBanner"
                 label="Upload Banner"
                 helper="This will be used for the banner on your profile."
-                onChange={handleChange}
+                onChange={handleAvatar}
               />
               <Button
                 type="submit"

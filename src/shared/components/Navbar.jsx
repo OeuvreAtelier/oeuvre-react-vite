@@ -16,12 +16,14 @@ export default function Navbar() {
   const { data: artist } = useSelector((state) => state.artist)
   const dispatch = useDispatch()
 
+  console.log("Artist:", artist)
+
   if (isLoggedIn === true) {
     useEffect(() => {
       const token = secureLocalStorage.getItem("token")
       const decodedToken = jwtDecode(token)
       const decodedUserId = decodedToken.sub
-  
+
       dispatch(fetchArtists(decodedUserId))
     }, [dispatch])
   }

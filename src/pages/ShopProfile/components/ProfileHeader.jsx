@@ -31,12 +31,11 @@ export default function ProfileHeader({ artist }) {
     <div className="mx-40">
       <section className="h-96 mt-10 bg-top bg-no-repeat shadow bg-[url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1494&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-400 bg-blend-multiply">
         <div className="flex flex-row items-end">
-          <div className="bg-white ms-20 size-32 mb-5 rounded-full p-1">
-            <img
-              src="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-              alt="profile"
-            />
-          </div>
+          <img
+            className="bg-white ms-20 size-32 mb-5 rounded-full p-1 object-cover"
+            src={artist.imagePicture.path}
+            alt="profile"
+          />
           <div className="h-96 ps-6 pb-2 max-w-screen-xl flex flex-col items-start justify-end">
             <h1 className="text-3xl font-semibold bg-white tracking-wide leading-none text-gray-800 p-4 rounded-lg">
               {artist.displayName}
