@@ -1,12 +1,12 @@
 import React from "react"
+import AvatarBanner from "./components/AvatarBanner"
 import Navbar from "../../shared/components/Navbar"
-import EditProfileContainer from "./components/EditProfileContainer"
 
-export default function EditProfilePage() {
+export default function EditProfileAvatarBanner() {
   return (
     <div className="bg-slate-100">
       <Navbar />
-      <EditProfileContainer />
+      <AvatarBanner />
     </div>
   )
 }

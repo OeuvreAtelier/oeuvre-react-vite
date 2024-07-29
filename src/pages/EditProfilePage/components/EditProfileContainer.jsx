@@ -46,12 +46,6 @@ export default function EditProfileContainer() {
       const action = updateArtist(formData)
       await dispatch(action).unwrap()
       navigate("/my-store")
-      // const data = new FormData()
-      // data.append("user", JSON.stringify(formData))
-      // dispatch(updateArtist(data)).then(() => {
-      //   console.log("Data submitted successfully 2", data)
-      // })
-      // navigate("/my-store")
     } catch (error) {
       console.error("Error submitting form:", error)
     }

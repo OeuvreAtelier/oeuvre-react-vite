@@ -19,6 +19,7 @@ import TransactionSuccessful from "./pages/TransactionPage/TransactionSuccessful
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage"
 import AddressesPage from "./pages/AddressesPage/AddressesPage"
 import AddressForm from "./pages/AddressesPage/components/AddressForm"
+import EditProfileAvatarBanner from "./pages/EditProfilePage/EditProfileAvatarBanner"
 
 const router = createBrowserRouter([
   {
@@ -142,6 +143,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <AddressForm />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/edit-profile-image",
+        element: (
+          <ProtectedRoute>
+            <EditProfileAvatarBanner />
           </ProtectedRoute>
         ),
       },

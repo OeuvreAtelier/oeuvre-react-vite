@@ -12,6 +12,9 @@ import convertEnum from "../../../constants/convertEnum"
 import TextInputForm from "../../../shared/components/TextInputForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Accordion, Label, Radio } from "flowbite-react"
+import EmptyContent from "../../../shared/components/EmptyContent"
+import Animation from "../../../assets/nothing.json"
+import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 
 export default function DiscoverProductList({ merchandises }) {
   const dispatch = useDispatch()
@@ -277,20 +280,31 @@ export default function DiscoverProductList({ merchandises }) {
               </div>
             </form>
           </div>
-          <div className="grid grid-cols-4 grid-rows-1 gap-3 mb-5">
-            {merchandises.map((merchandise) => (
-              <CardPictureTileSmall
-                key={merchandise.id}
-                image={
-                  "https://static.zerochan.net/Arlecchino.full.3705545.jpg"
-                }
-                category={convertEnum[merchandise.category]}
-                name={merchandise.name}
-                seller="Mihoyo"
-                price={merchandise.price}
-              />
-            ))}
-          </div>
+          {merchandises.length === 0 ? (
+            <EmptyContentSmall
+              title={"Nothing to show here..."}
+              middleText={
+                "Try changing your filters or reset your search first, to make sure the product you want is available."
+              }
+              lowerText={"Or perhaps, there's nothing to sell in here..."}
+              animation={Animation}
+            />
+          ) : (
+            <div className="grid grid-cols-4 grid-rows-1 gap-3 mb-5">
+              {merchandises.map((merchandise) => (
+                <CardPictureTileSmall
+                  key={merchandise.id}
+                  image={
+                    "https://static.zerochan.net/Arlecchino.full.3705545.jpg"
+                  }
+                  category={convertEnum[merchandise.category]}
+                  name={merchandise.name}
+                  seller="Mihoyo"
+                  price={merchandise.price}
+                />
+              ))}
+            </div>
+          )}
           <div className="flex flex-row gap-2 mt-6 justify-end">
             {[...Array(totalPages.totalPages)].map((_, index) => (
               <div
