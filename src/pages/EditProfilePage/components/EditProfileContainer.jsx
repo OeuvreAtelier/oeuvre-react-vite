@@ -7,7 +7,6 @@ import {
   fetchArtists,
   updateArtist,
 } from "../../../redux/features/profileSlice.js"
-import DualRadioFB from "../../../shared/components/DualRadioFB.jsx"
 
 export default function EditProfileContainer() {
   const [formData, setFormData] = useState({})

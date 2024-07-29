@@ -1,6 +1,6 @@
 import React from "react";
 import IconButton from "../../../shared/components/IconButton";
-import { faBrush, faKiwiBird } from "@fortawesome/free-solid-svg-icons";
+import { faBrush, faBuilding, faKiwiBird } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileHeader({ artist }) {
@@ -52,6 +52,14 @@ export default function ProfileHeader({ artist }) {
           btnName="Twitter"
           btnIcon={faKiwiBird}
           onClick={() => window.open('https://x.com/hololive_Id')}
+          color="bg-white"
+          hoverColor="bg-slate-100"
+          textColor="text-gray-600"
+        />
+        <IconButton
+          btnName="Manage Addresses"
+          btnIcon={faBuilding}
+          onClick={() => navigate('/addresses')}
           color="bg-white"
           hoverColor="bg-slate-100"
           textColor="text-gray-600"

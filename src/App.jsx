@@ -17,6 +17,8 @@ import DiscoverPage from "./pages/DiscoverPage/DiscoverPage"
 import RateReviewPage from "./pages/RateReviewPage/RateReviewPage"
 import TransactionSuccessful from "./pages/TransactionPage/TransactionSuccessful"
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage"
+import AddressesPage from "./pages/AddressesPage/AddressesPage"
+import AddressForm from "./pages/AddressesPage/components/AddressForm"
 
 const router = createBrowserRouter([
   {
@@ -124,6 +126,22 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <TransactionSuccessful />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/addresses",
+        element: (
+          <ProtectedRoute>
+            <AddressesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/address-form",
+        element: (
+          <ProtectedRoute>
+            <AddressForm />
           </ProtectedRoute>
         ),
       },
