@@ -25,11 +25,7 @@ export const updateArtist = createAsyncThunk(
   "artists/updateArtist",
   async (user, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.put("/users", user, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      const response = await axiosInstance.put("/users", user)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)

@@ -3,10 +3,7 @@ import { useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "flowbite-react"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
-import {
-  fetchArtists,
-  updateArtist,
-} from "../../../redux/features/profileSlice.js"
+import { updateArtist } from "../../../redux/features/profileSlice.js"
 
 export default function EditProfileContainer() {
   const [formData, setFormData] = useState({})
@@ -22,12 +19,11 @@ export default function EditProfileContainer() {
         lastName: state.artist.lastName,
         displayName: state.artist.displayName,
         email: state.artist.email,
-        gender: 'MALE',
+        gender: "MALE",
         birthDate: state.artist.birthDate,
         phoneNumber: state.artist.phoneNumber,
       })
       console.log("Artist ID", state.artist)
-
     } else {
       navigate("/my-store")
     }
@@ -47,12 +43,15 @@ export default function EditProfileContainer() {
     // console.log("Form submitted", formData);
     e.preventDefault()
     try {
-      const data = new FormData()
-      data.append("user", JSON.stringify(formData))
-      dispatch(updateArtist(data)).then(() => {
-        // console.log("Data submitted successfully 2", data)
-      })
+      const action = updateArtist(formData)
+      await dispatch(action).unwrap()
       navigate("/my-store")
+      // const data = new FormData()
+      // data.append("user", JSON.stringify(formData))
+      // dispatch(updateArtist(data)).then(() => {
+      //   console.log("Data submitted successfully 2", data)
+      // })
+      // navigate("/my-store")
     } catch (error) {
       console.error("Error submitting form:", error)
     }
