@@ -1,35 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axiosInstance from "../../api/axiosInstance"
 
-export const fetchAddresses = createAsyncThunk(
-  "addresses/fetchAddresses",
-  async (_, { rejectedWithValue }) => {
-    try {
-      const response = await axiosInstance.get(`/addresses`)
-      return response.data
-    } catch (error) {
-      return rejectedWithValue(error.response.data)
-    }
-  }
-)
-
-export const fetchAddressesById = createAsyncThunk(
-  "addresses/fetchAddressesById",
-  async (id, { rejectedWithValue }) => {
-    try {
-      const response = await axiosInstance.get(`/addresses/${id}`)
-      return response.data
-    } catch (error) {
-      return rejectedWithValue(error.response.data)
-    }
-  }
-)
-
 export const fetchAddressesByUserId = createAsyncThunk(
     "addresses/fetchAddressesByUserId",
-    async (id, { rejectedWithValue }) => {
+    async (userId, { rejectedWithValue }) => {
       try {
-        const response = await axiosInstance.get(`/addresses/user/${id}`)
+        const response = await axiosInstance.get(`/addresses/user/${userId}`)
         return response.data
       } catch (error) {
         return rejectedWithValue(error.response.data)
@@ -81,20 +57,14 @@ const addressSlice = createSlice({
     statusCode: null,
     message: null,
     data: [],
-    paging: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAddresses.fulfilled, (state, action) => {
+      .addCase(fetchAddressesByUserId.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
       })
-      //   .addCase(fetchAddresssByName.fulfilled, (state, action) => {
-      //     state.statusCode = "succeeded"
-      //     state.data = action.payload.data
-      //     state.paging = action.payload.paging
-      //   })
       .addCase(createAddress.fulfilled, (state, action) => {
         state.status = "succeeded"
         state.data.push(action.payload)

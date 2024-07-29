@@ -15,6 +15,7 @@ export default function AddEditContainer() {
   const { state } = useLocation()
 
   useEffect(() => {
+    console.log("State AddEdit:", state)
     if (state !== null) {
       if (state.merchandise) {
         console.log(state.merchandise)
