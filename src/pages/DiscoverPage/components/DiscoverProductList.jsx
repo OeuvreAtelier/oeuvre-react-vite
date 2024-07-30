@@ -83,60 +83,63 @@ export default function DiscoverProductList({ merchandises }) {
   // Submit search and/or filter
   const handleSearch = (e) => {
     e.preventDefault()
-    // 1. Name only
-    if (form.search !== "" && form.category === "" && form.type === "") {
-      dispatch(
-        fetchProductsByName({ productName: form.search, page: currentPage })
-      )
-      console.log("1. Searching:", form.search)
-    }
-    // 2. Category only
-    else if (form.search === "" && form.category !== "" && form.type === "") {
-      dispatch(
-        fetchProductsByCategory({ category: form.category, page: currentPage })
-      )
-      console.log("2. Category:", form.category)
-    }
-    // 3. Type only
-    else if (form.search === "" && form.category === "" && form.type !== "") {
-      dispatch(fetchProductsByType({ type: form.type, page: currentPage }))
-      console.log("3. Type:", form.type)
-    }
-    // 4. Name and category
-    else if (form.search !== "" && form.category !== "" && form.type === "") {
-      dispatch(
-        fetchProductsByNameAndCategory({
-          productName: form.search,
-          category: form.category,
-          page: currentPage,
-        })
-      )
-      console.log("4. Name and category:", form.search, form.category)
-    }
-    // 5. Name and type
-    else if (form.search !== "" && form.category === "" && form.type !== "") {
-      dispatch(
-        fetchProductsByNameAndType({
-          productName: form.search,
-          type: form.type,
-          page: currentPage,
-        })
-      )
-      console.log("5. Name and type:", form.search, form.type)
-    }
-    // 6. Category and type
-    else if (form.search === "" && form.category !== "" && form.type !== "") {
-      dispatch(
-        fetchProductsByCategoryAndType({
-          category: form.category,
-          type: form.type,
-          page: currentPage,
-        })
-      )
-      console.log("6. Category and type:", form.category, form.type)
-    }
+    // // 1. Name only
+    // if (form.search !== "" && form.category === "" && form.type === "") {
+    //   dispatch(
+    //     fetchProductsByName({ productName: form.search, page: currentPage })
+    //   )
+    //   console.log("1. Searching:", form.search)
+    // }
+    // // 2. Category only
+    // else if (form.search === "" && form.category !== "" && form.type === "") {
+    //   dispatch(
+    //     fetchProductsByCategory({ category: form.category, page: currentPage })
+    //   )
+    //   console.log("2. Category:", form.category)
+    // }
+    // // 3. Type only
+    // else if (form.search === "" && form.category === "" && form.type !== "") {
+    //   dispatch(fetchProductsByType({ type: form.type, page: currentPage }))
+    //   console.log("3. Type:", form.type)
+    // }
+    // // 4. Name and category
+    // else if (form.search !== "" && form.category !== "" && form.type === "") {
+    //   dispatch(
+    //     fetchProductsByNameAndCategory({
+    //       productName: form.search,
+    //       category: form.category,
+    //       page: currentPage,
+    //     })
+    //   )
+    //   console.log("4. Name and category:", form.search, form.category)
+    // }
+    // // 5. Name and type
+    // else if (form.search !== "" && form.category === "" && form.type !== "") {
+    //   dispatch(
+    //     fetchProductsByNameAndType({
+    //       productName: form.search,
+    //       type: form.type,
+    //       page: currentPage,
+    //     })
+    //   )
+    //   console.log("5. Name and type:", form.search, form.type)
+    // }
+    // // 6. Category and type
+    // else if (form.search === "" && form.category !== "" && form.type !== "") {
+    //   dispatch(
+    //     fetchProductsByCategoryAndType({
+    //       category: form.category,
+    //       type: form.type,
+    //       page: currentPage,
+    //     })
+    //   )
+    //   console.log("6. Category and type:", form.category, form.type)
+    // }
     // 7. Name, category and type
-    else if (form.search !== "" && form.category !== "" && form.type !== "") {
+    // else
+    if (form.search === "" && form.category === "" && form.type === "") {
+      alert("Please type something or select a filter!")
+    } else {
       dispatch(
         fetchProductsByNameCategoryAndType({
           productName: form.search,
@@ -146,25 +149,25 @@ export default function DiscoverProductList({ merchandises }) {
         })
       )
       console.log(
-        "7. Name, category and type:",
+        "Name:",
         form.search,
+        "Category:",
         form.category,
+        "Type:",
         form.type
       )
-    } else {
-      alert("Please type something or select a filter!")
     }
   }
 
-  const handleFilterByCategory = (category) => {
-    dispatch(fetchProductsByCategory({ category: category, page: currentPage }))
-    console.log("CATEGORY:", category)
-  }
+  // const handleFilterByCategory = (category) => {
+  //   dispatch(fetchProductsByCategory({ category: category, page: currentPage }))
+  //   console.log("CATEGORY:", category)
+  // }
 
-  const handleFilterByType = (type) => {
-    dispatch(fetchProductsByType({ type: type, page: currentPage }))
-    console.log("TYPE:", type)
-  }
+  // const handleFilterByType = (type) => {
+  //   dispatch(fetchProductsByType({ type: type, page: currentPage }))
+  //   console.log("TYPE:", type)
+  // }
 
   return (
     <div className="container mx-auto pt-28 pb-8">
