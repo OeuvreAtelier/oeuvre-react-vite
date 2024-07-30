@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import IconButton from "../../../shared/components/IconButton"
 import {
   faShoppingBasket,
@@ -8,11 +8,25 @@ import {
 import AddToCart from "../../../shared/components/AddToCart"
 import { Rating } from "flowbite-react"
 import ScrollableModal from "./ScrollableModal"
-import AvatarFB from "../../../shared/components/AvatarFB"
 import ReviewCard from "./ReviewCard"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export default function ProductIntro() {
+function numberWithDots(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
   const [openModal, setOpenModal] = useState(false)
+  const { state } = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (state !== null) {
+      console.log("State Product Detail:", state)
+    } else {
+      navigate("/discover")
+    }
+  }, [navigate, state])
 
   const handleOpenModal = () => {
     setOpenModal(true)
@@ -40,46 +54,6 @@ export default function ProductIntro() {
                   "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
                 }
               />
-              <ReviewCard
-                avatar={
-                  "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                }
-                username="Mavuika"
-                rating={3}
-                text={
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-                }
-              />
-              <ReviewCard
-                avatar={
-                  "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                }
-                username="Mavuika"
-                rating={3}
-                text={
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-                }
-              />
-              <ReviewCard
-                avatar={
-                  "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                }
-                username="Mavuika"
-                rating={3}
-                text={
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-                }
-              />
-              <ReviewCard
-                avatar={
-                  "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                }
-                username="Mavuika"
-                rating={3}
-                text={
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-                }
-              />
             </>
           }
           btnOnClick={handleCloseModal}
@@ -91,43 +65,37 @@ export default function ProductIntro() {
           <div className="w-1/2 px-10">
             <div className="relative">
               <img
-                src="https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
+                src={
+                  state !== null
+                    ? state.merchandise.image.path
+                    : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+                }
                 alt="Product"
                 className="object-cover rounded-lg"
               />
-              <div className="absolute top-0 right-0 p-1 m-6 bg-white rounded-lg">
+              <div className="absolute top-0 left-0 p-1 m-6 bg-white rounded-lg">
                 <Rating size="md">
                   <Rating.Star color="#e0a910" />
                   <p className="mx-1 lg-semibold-black">4.95</p>
                 </Rating>
               </div>
             </div>
-            <p className="md-black my-10 pb-5">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti
-              suscipit cupiditate animi unde autem optio eaque? Architecto
-              reiciendis blanditiis similique. Excepturi, aliquam rem laborum
-              eos fuga sit velit blanditiis ipsa quia distinctio perferendis,
-              reprehenderit odit. Culpa, aspernatur? Ea adipisci, veniam et nemo
-              tenetur dignissimos iure, itaque aut, possimus culpa eligendi
-              consequuntur ipsum recusandae minima nulla doloremque magni.
-              Possimus, exercitationem? Delectus a eum laborum ad, quasi, sit
-              suscipit expedita inventore distinctio explicabo asperiores itaque
-              id nisi facilis? Sapiente saepe incidunt expedita a, officia
-              deleniti harum. Consequatur vero tenetur, quia accusantium eum
-              deserunt mollitia odio, voluptatum odit voluptatibus magnam cum
-              sequi nesciunt?
+            <p className="lg-semibold-black mt-5">Description</p>
+            <p className="md-black mt-2 mb-5">
+              {state.merchandise.description.description}
             </p>
           </div>
-          <div className="w-1/4 me-20 flex flex-col">
-            <p className="sm-semibold-gray mb-1 hover:underline hover:cursor-pointer">
-              Games
+          <div className="w-1/4 me-20 flex flex-col mb-5">
+            <p className="sm-semibold-gray mb-1">
+              {state.merchandise.category}
             </p>
             <p className="md-semibold-black mb-1 hover:underline hover:cursor-pointer">
-              Kuro Games
+              Store Name
             </p>
-            <h1 className="xl-semibold-black mb-5">
-              Wuthering Waves Premium Battle Pass (30 days)
-            </h1>
+            <h1 className="xl-semibold-black mb-2">{state.merchandise.name}</h1>
+            <p className="sm-lightgray mb-5">
+              Stock: {state.merchandise.stock}
+            </p>
             <div>
               <IconButton
                 btnName="Bookmark Item"
@@ -139,9 +107,13 @@ export default function ProductIntro() {
               />
             </div>
             <AddToCart
-              header="Ships within 7 working days"
-              type="Physical"
-              price="100.000"
+              header={
+                state.merchandise.type === "PHYSICAL"
+                  ? "Ships within 7 working days"
+                  : "Available to download later"
+              }
+              type={state.merchandise.type}
+              price={numberWithDots(state.merchandise.price)}
               name="Add to Cart"
               icon={faShoppingBasket}
             />

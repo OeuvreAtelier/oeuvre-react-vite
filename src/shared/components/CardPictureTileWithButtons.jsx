@@ -5,36 +5,26 @@ import TextButton from "./TextButton"
 
 export default function CardPictureTileWithButtons({
   image,
-  productOnClick,
   category,
-  categoryOnClick,
   name,
   price,
   onEdit,
   onDelete,
 }) {
+  function numberWithDots(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
   return (
     <div className="card-border-shadow">
       <img
-        className="rounded-t-lg hover:cursor-pointer w-64 h-60 object-cover"
+        className="rounded-t-lg w-64 h-60 object-cover"
         src={image}
         alt={name}
-        onClick={productOnClick}
       />
       <div className="p-3 ms-1">
-        <p
-          className="sm-semibold-gray hover:underline hover:cursor-pointer"
-          onClick={categoryOnClick}
-        >
-          {category}
-        </p>
-        <p
-          className="md-semibold-black mt-1 hover:underline hover:cursor-pointer"
-          onClick={productOnClick}
-        >
-          {name}
-        </p>
-        <p className="md-semibold-blue">Rp{price}</p>
+        <p className="sm-semibold-gray">{category}</p>
+        <p className="md-semibold-black mt-1">{name}</p>
+        <p className="md-semibold-blue my-2">Rp{numberWithDots(price)}</p>
       </div>
       <div className="ps-5 pb-3 flex flex-row gap-3">
         <TextButton
