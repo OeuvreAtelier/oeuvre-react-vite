@@ -10,11 +10,12 @@ import { Rating } from "flowbite-react"
 import ScrollableModal from "./ScrollableModal"
 import ReviewCard from "./ReviewCard"
 import { useLocation, useNavigate } from "react-router-dom"
+import convertEnum from "../../../constants/convertEnum.js"
 
 export default function ProductIntro() {
-function numberWithDots(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
+  function numberWithDots(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
 
   const [openModal, setOpenModal] = useState(false)
   const { state } = useLocation()
@@ -87,7 +88,7 @@ function numberWithDots(x) {
           </div>
           <div className="w-1/4 me-20 flex flex-col mb-5">
             <p className="sm-semibold-gray mb-1">
-              {state.merchandise.category}
+              {convertEnum[state.merchandise.category]}
             </p>
             <p className="md-semibold-black mb-1 hover:underline hover:cursor-pointer">
               Store Name
@@ -112,10 +113,17 @@ function numberWithDots(x) {
                   ? "Ships within 7 working days"
                   : "Available to download later"
               }
-              type={state.merchandise.type}
+              type={convertEnum[state.merchandise.type]}
               price={numberWithDots(state.merchandise.price)}
               name="Add to Cart"
               icon={faShoppingBasket}
+              onClick={() => {
+                navigate("/shopping-cart", {
+                  state: {
+                    merchandise: state.merchandise,
+                  },
+                })
+              }}
             />
             <IconButton
               btnName="View Reviews"

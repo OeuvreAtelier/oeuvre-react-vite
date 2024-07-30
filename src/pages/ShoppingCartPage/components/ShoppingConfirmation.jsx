@@ -1,39 +1,43 @@
 import React from "react"
 import TransactionCard from "../../../shared/components/TransactionCard"
 import IconButton from "../../../shared/components/IconButton"
-import { faCashRegister, faGear } from "@fortawesome/free-solid-svg-icons"
-import { useNavigate } from "react-router-dom"
+import { faCashRegister } from "@fortawesome/free-solid-svg-icons"
+import { useLocation, useNavigate } from "react-router-dom"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
+import Animation from "../../../assets/shopping-cart.json"
+import TransactionConfirmationCard from "../../../shared/components/TransactionConfirmationCard"
 
-export default function TransactionConfirmation({ transactions }) {
+export default function ShoppingConfirmation() {
+  function numberWithDots(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
+  const { state } = useLocation()
   const navigate = useNavigate()
   return (
     <div className="container mx-auto pt-28 pb-8">
-      <h1 className="text-2xl font-semibold mb-6">Transaction Confirmation</h1>
-      {transactions.length === 0 ? (
-        <EmptyContentSmall title="No Transaction" />
-      ) : (
-        <TransactionCard
-          title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-          seller="My Anime Store"
-          quantity="3"
-          initPrice="100000"
-          isHidden
-        />
-      )}
+      <h1 className="xxl-semibold-black mb-6 mx-16">My Shopping Cart</h1>
       <div className="flex flex-row justify-center mx-10">
         <div className="w-8/12 flex flex-col ps-4 pe-5">
-          {/* {transactions.length === 0 ? ( */}
-          <EmptyContentSmall title="No Transaction" />
-          {/* ) : (
-            <TransactionCard
-              title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-              seller="My Anime Store"
-              quantity="3"
-              initPrice="100000"
-              isHidden
-            />
-          )} */}
+          {/* <EmptyContentSmall
+            title="No products yet..."
+            middleText="You should add the products you really wanted to the cart first, because one day this product will be missing sooner or later!"
+            lowerText="You will get your desired product after you pay and the item is shipped."
+            animation={Animation}
+          /> */}
+          <TransactionConfirmationCard
+            seller="Seller Name"
+            title="Product Name"
+            stock={10}
+            quantity={3}
+            initPrice={123456}
+          />
+          <TransactionConfirmationCard
+            seller="Seller Name"
+            title="Product Name"
+            stock={10}
+            quantity={3}
+            initPrice={123456}
+          />
         </div>
         <div className="w-4/12">
           <div className="card-border-shadow flex flex-col ps-7 pt-4 pb-7 pe-4 mx-4">
@@ -49,8 +53,8 @@ export default function TransactionConfirmation({ transactions }) {
               <p className="md-black">Rp123456</p>
             </div>
             <div className="flex flex-row justify-between mb-3 me-3">
-              <p className="md-gray">"Convenience" Fees</p>
-              <p className="md-black">Rp12345</p>
+              <p className="md-gray">Convenience Fees</p>
+              <p className="md-black">Rp1000</p>
             </div>
             <div className="flex flex-row justify-between mb-5 me-3">
               <p className="md-gray">11% VAT</p>

@@ -10,7 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import EditProfilePage from "./pages/EditProfilePage/EditProfilePage"
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage"
 import TransactionHistoryPage from "./pages/TransactionHistoryPage/TransactionHistoryPage"
-import TransactionPage from "./pages/TransactionPage/TransactionPage"
+import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage"
 import BookmarksPage from "./pages/BookmarksPage/BookmarksPage"
 import FansPage from "./pages/FansPage/FansPage"
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage"
@@ -83,10 +83,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/transaction",
+        path: "/shopping-cart",
         element: (
           <ProtectedRoute>
-            <TransactionPage />
+            <ShoppingCartPage />
           </ProtectedRoute>
         ),
       },

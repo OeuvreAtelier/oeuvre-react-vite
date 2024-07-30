@@ -1,11 +1,11 @@
 import React from 'react'
-import TransactionConfirmation from './components/TransactionConfirmation'
+import ShoppingConfirmation from './components/ShoppingConfirmation'
 import Footer from '../../shared/components/Footer'
 
-export default function TransactionPage() {
+export default function ShoppingCartPage() {
   return (
     <div className="bg-slate-100">
-    <TransactionConfirmation />
+    <ShoppingConfirmation />
     <Footer />
   </div>
   )
