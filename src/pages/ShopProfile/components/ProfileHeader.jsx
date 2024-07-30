@@ -10,6 +10,9 @@ import {
 import { useNavigate } from "react-router-dom"
 
 export default function ProfileHeader({ artist }) {
+  const navigate = useNavigate()
+  console.log("Artist Profile Header:", artist)
+
   const handleEdit = (artist) => {
     navigate("/edit-profile", {
       state: {
@@ -26,24 +29,22 @@ export default function ProfileHeader({ artist }) {
     })
   }
 
-  const navigate = useNavigate()
-  const banner = artist.imageBanner.path
-  console.log("Banner:", banner)
   return (
     <div className="mx-40">
       <section
         className="dynamic-bg"
         style={{
-          backgroundImage: `url(${banner})`,
+          backgroundImage: `url(${artist.imageBanner ? artist.imageBanner.path : "https://i.imgur.com/LGvqTph.jpeg"})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
       >
         <div className="flex flex-row items-end">
+          {console.log("Artist:", artist)}
           <img
             className="bg-white ms-20 size-32 mb-5 rounded-full p-1 object-cover"
-            src={artist.imagePicture.path}
+            src={artist.imageBanner ? artist.imagePicture.path : "https://i.imgur.com/LGvqTph.jpeg"}
             alt="profile"
           />
           <div className="h-96 ps-6 pb-2 max-w-screen-xl flex flex-col items-start justify-end">

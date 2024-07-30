@@ -11,12 +11,11 @@ import { fetchArtists } from "../../redux/features/profileSlice"
 import secureLocalStorage from "react-secure-storage"
 
 export default function Navbar() {
+  const { data: artist } = useSelector((state) => state.artist)
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
-  const { data: artist } = useSelector((state) => state.artist)
   const dispatch = useDispatch()
-
-  console.log("Artist:", artist)
+  console.log("Artist NAVBAR:", artist)
 
   if (isLoggedIn === true) {
     useEffect(() => {
