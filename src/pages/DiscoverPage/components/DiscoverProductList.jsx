@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react"
-import { faRefresh, faSearch } from "@fortawesome/free-solid-svg-icons"
 import CardPictureTileSmall from "../../../shared/components/CardPictureTileSmall"
 import {
   fetchMerchandises,
   fetchProductsByType,
   fetchProductsByCategory,
   fetchProductsByName,
+  fetchProductsByNameAndCategory,
+  fetchProductsByNameAndType,
+  fetchProductsByCategoryAndType,
+  fetchProductsByNameCategoryAndType,
 } from "../../../redux/features/productSlice"
 import { useDispatch, useSelector } from "react-redux"
 import convertEnum from "../../../constants/convertEnum"
 import TextInputForm from "../../../shared/components/TextInputForm"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Accordion, Label, Radio } from "flowbite-react"
 import Animation from "../../../assets/nothing.json"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
+import TextButton from "../../../shared/components/TextButton"
 
 export default function DiscoverProductList({ merchandises }) {
   const dispatch = useDispatch()
@@ -30,8 +33,24 @@ export default function DiscoverProductList({ merchandises }) {
 
   const [form, setForm] = useState({
     search: "",
+    category: "",
+    type: "",
   })
+  // console.log("Initial Search:", form.search)
+  // console.log("Initial Category:", form.category)
+  // console.log("Initial Type:", form.type)
 
+  // Reset search
+  const resetSearchFilter = () => {
+    setForm({
+      search: "",
+      category: "",
+      type: "",
+    })
+    dispatch(fetchMerchandises({ page: currentPage }))
+  }
+
+  // Handling names
   const handleKeyboardChange = (e) => {
     const { name, value } = e.target
     setForm({
@@ -41,21 +60,7 @@ export default function DiscoverProductList({ merchandises }) {
     console.log(form)
   }
 
-  const handleSearch = (e) => {
-    e.preventDefault()
-    dispatch(
-      fetchProductsByName({ productName: form.search, page: currentPage })
-    )
-    console.log("Searching:", form.search)
-  }
-
-  const resetSearchFilter = () => {
-    setForm({
-      search: "",
-    })
-    dispatch(fetchMerchandises({ page: currentPage }))
-  }
-
+  // Handling categories
   const handleCategoryChange = (e) => {
     const { name, value } = e.target
     setForm({
@@ -65,6 +70,7 @@ export default function DiscoverProductList({ merchandises }) {
     console.log("SELECTED RADIO (CATEGORY):", form.category)
   }
 
+  // Handling types
   const handleTypeChange = (e) => {
     const { name, value } = e.target
     setForm({
@@ -72,6 +78,82 @@ export default function DiscoverProductList({ merchandises }) {
       [name]: value,
     })
     console.log("SELECTED RADIO (TYPE):", form.type)
+  }
+
+  // Submit search and/or filter
+  const handleSearch = (e) => {
+    e.preventDefault()
+    // 1. Name only
+    if (form.search !== "" && form.category === "" && form.type === "") {
+      dispatch(
+        fetchProductsByName({ productName: form.search, page: currentPage })
+      )
+      console.log("1. Searching:", form.search)
+    }
+    // 2. Category only
+    else if (form.search === "" && form.category !== "" && form.type === "") {
+      dispatch(
+        fetchProductsByCategory({ category: form.category, page: currentPage })
+      )
+      console.log("2. Category:", form.category)
+    }
+    // 3. Type only
+    else if (form.search === "" && form.category === "" && form.type !== "") {
+      dispatch(fetchProductsByType({ type: form.type, page: currentPage }))
+      console.log("3. Type:", form.type)
+    }
+    // 4. Name and category
+    else if (form.search !== "" && form.category !== "" && form.type === "") {
+      dispatch(
+        fetchProductsByNameAndCategory({
+          productName: form.search,
+          category: form.category,
+          page: currentPage,
+        })
+      )
+      console.log("4. Name and category:", form.search, form.category)
+    }
+    // 5. Name and type
+    else if (form.search !== "" && form.category === "" && form.type !== "") {
+      dispatch(
+        fetchProductsByNameAndType({
+          productName: form.search,
+          type: form.type,
+          page: currentPage,
+        })
+      )
+      console.log("5. Name and type:", form.search, form.type)
+    }
+    // 6. Category and type
+    else if (form.search === "" && form.category !== "" && form.type !== "") {
+      dispatch(
+        fetchProductsByCategoryAndType({
+          category: form.category,
+          type: form.type,
+          page: currentPage,
+        })
+      )
+      console.log("6. Category and type:", form.category, form.type)
+    }
+    // 7. Name, category and type
+    else if (form.search !== "" && form.category !== "" && form.type !== "") {
+      dispatch(
+        fetchProductsByNameCategoryAndType({
+          productName: form.search,
+          category: form.category,
+          type: form.type,
+          page: currentPage,
+        })
+      )
+      console.log(
+        "7. Name, category and type:",
+        form.search,
+        form.category,
+        form.type
+      )
+    } else {
+      alert("Please type something or select a filter!")
+    }
   }
 
   const handleFilterByCategory = (category) => {
@@ -88,10 +170,7 @@ export default function DiscoverProductList({ merchandises }) {
     <div className="container mx-auto pt-28 pb-8">
       <div className="flex flex-row justify-center mx-10">
         <div className="w-1/4 mx-5 flex flex-col rounded-lg">
-          <form
-            className="flex flex-row justify-between"
-            onSubmit={handleSearch}
-          >
+          <form className="flex flex-col" onSubmit={handleSearch}>
             <TextInputForm
               type="text"
               id="search"
@@ -100,180 +179,185 @@ export default function DiscoverProductList({ merchandises }) {
               onChange={handleKeyboardChange}
               value={form.search}
             />
-            <div className="p-2 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white">
-              <FontAwesomeIcon icon={faSearch} />
-            </div>
-            <div
-              className="p-2 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white"
+            <Accordion className="bg-white mb-4">
+              <Accordion.Panel>
+                <Accordion.Title>Filter by category:</Accordion.Title>
+                <Accordion.Content>
+                  <fieldset className="flex max-w-md flex-col gap-4">
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id=""
+                        name="category"
+                        value=""
+                        defaultChecked
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="">All Categories</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="AUDIO"
+                        name="category"
+                        value="AUDIO"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="AUDIO">Audio</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="COSPLAY"
+                        name="category"
+                        value="COSPLAY"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="COSPLAY">Cosplay</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="FASHION"
+                        name="category"
+                        value="FASHION"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="FASHION">Fashion</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="FIGURES"
+                        name="category"
+                        value="FIGURES"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="FIGURES">Figures, Plushies & Dolls</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="GAMES"
+                        name="category"
+                        value="GAMES"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="GAMES">Games</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="GOODS"
+                        name="category"
+                        value="GOODS"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="GOODS">Goods</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="ILLUSTRATION"
+                        name="category"
+                        value="ILLUSTRATION"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="ILLUSTRATION">Illustration</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="MUSIC"
+                        name="category"
+                        value="MUSIC"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="MUSIC">Music</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="NOVEL_BOOKS"
+                        name="category"
+                        value="NOVEL_BOOKS"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="NOVEL_BOOKS">Novel & Books</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="PHOTOGRAPH"
+                        name="category"
+                        value="PHOTOGRAPH"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="PHOTOGRAPH">Photograph</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="SOFTWARE_HARDWARE"
+                        name="category"
+                        value="SOFTWARE_HARDWARE"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="SOFTWARE_HARDWARE">
+                        Software & Hardware
+                      </Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="VIDEO"
+                        name="category"
+                        value="VIDEO"
+                        onChange={handleCategoryChange}
+                      />
+                      <Label htmlFor="VIDEO">Video</Label>
+                    </div>
+                  </fieldset>
+                </Accordion.Content>
+              </Accordion.Panel>
+              <Accordion.Panel>
+                <Accordion.Title>Filter by type:</Accordion.Title>
+                <Accordion.Content>
+                  <fieldset className="flex max-w-md flex-col gap-4">
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id=""
+                        name="type"
+                        value=""
+                        defaultChecked
+                        onChange={handleTypeChange}
+                      />
+                      <Label htmlFor="">All Types</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="DIGITAL"
+                        name="type"
+                        value="DIGITAL"
+                        onChange={handleTypeChange}
+                      />
+                      <Label htmlFor="DIGITAL">Digital</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Radio
+                        id="PHYSICAL"
+                        name="type"
+                        value="PHYSICAL"
+                        onChange={handleTypeChange}
+                      />
+                      <Label htmlFor="PHYSICAL">Physical</Label>
+                    </div>
+                  </fieldset>
+                </Accordion.Content>
+              </Accordion.Panel>
+            </Accordion>
+            <TextButton
+              btnName="Search Results"
+              onClick={handleSearch}
+              btnColor="bg-indigo-600"
+              textColor="text-white"
+              hoverColor="hover:bg-indigo-700"
+            />
+            <TextButton
+              btnName="Reset Search"
               onClick={resetSearchFilter}
-            >
-              <FontAwesomeIcon icon={faRefresh} />
-            </div>
+              btnColor="bg-indigo-600"
+              textColor="text-white"
+              hoverColor="hover:bg-indigo-700"
+            />
           </form>
-          <Accordion className="bg-white">
-            <Accordion.Panel>
-              <Accordion.Title>Filter by category:</Accordion.Title>
-              <Accordion.Content>
-                <fieldset className="flex max-w-md flex-col gap-4">
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id=""
-                      name="category"
-                      value=""
-                      defaultChecked
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="">All Categories</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="AUDIO"
-                      name="category"
-                      value="AUDIO"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="AUDIO">Audio</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="COSPLAY"
-                      name="category"
-                      value="COSPLAY"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="COSPLAY">Cosplay</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="FASHION"
-                      name="category"
-                      value="FASHION"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="FASHION">Fashion</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="FIGURES"
-                      name="category"
-                      value="FIGURES"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="FIGURES">Figures, Plushies & Dolls</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="GAMES"
-                      name="category"
-                      value="GAMES"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="GAMES">Games</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="GOODS"
-                      name="category"
-                      value="GOODS"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="GOODS">Goods</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="ILLUSTRATION"
-                      name="category"
-                      value="ILLUSTRATION"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="ILLUSTRATION">Illustration</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="MUSIC"
-                      name="category"
-                      value="MUSIC"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="MUSIC">Music</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="NOVEL_BOOKS"
-                      name="category"
-                      value="NOVEL_BOOKS"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="NOVEL_BOOKS">Novel & Books</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="PHOTOGRAPH"
-                      name="category"
-                      value="PHOTOGRAPH"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="PHOTOGRAPH">Photograph</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="SOFTWARE_HARDWARE"
-                      name="category"
-                      value="SOFTWARE_HARDWARE"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="SOFTWARE_HARDWARE">
-                      Software & Hardware
-                    </Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="VIDEO"
-                      name="category"
-                      value="VIDEO"
-                      onChange={handleCategoryChange}
-                    />
-                    <Label htmlFor="VIDEO">Video</Label>
-                  </div>
-                </fieldset>
-              </Accordion.Content>
-            </Accordion.Panel>
-            <Accordion.Panel>
-              <Accordion.Title>Filter by type:</Accordion.Title>
-              <Accordion.Content>
-                <fieldset className="flex max-w-md flex-col gap-4">
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id=""
-                      name="type"
-                      value=""
-                      defaultChecked
-                      onChange={handleTypeChange}
-                    />
-                    <Label htmlFor="">All Types</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="DIGITAL"
-                      name="type"
-                      value="DIGITAL"
-                      onChange={handleTypeChange}
-                    />
-                    <Label htmlFor="DIGITAL">Digital</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Radio
-                      id="PHYSICAL"
-                      name="type"
-                      value="PHYSICAL"
-                      onChange={handleTypeChange}
-                    />
-                    <Label htmlFor="PHYSICAL">Physical</Label>
-                  </div>
-                </fieldset>
-              </Accordion.Content>
-            </Accordion.Panel>
-          </Accordion>
         </div>
         <div className="w-3/4 flex flex-col ps-4">
           <div className="flex flex-row justify-between">
