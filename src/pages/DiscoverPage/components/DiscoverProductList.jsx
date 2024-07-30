@@ -3,7 +3,7 @@ import { faRefresh, faSearch } from "@fortawesome/free-solid-svg-icons"
 import CardPictureTileSmall from "../../../shared/components/CardPictureTileSmall"
 import {
   fetchMerchandises,
-  fetchProductByType,
+  fetchProductsByType,
   fetchProductsByCategory,
   fetchProductsByName,
 } from "../../../redux/features/productSlice"
@@ -80,7 +80,7 @@ export default function DiscoverProductList({ merchandises }) {
   }
 
   const handleFilterByType = (type) => {
-    dispatch(fetchProductByType({ type: type, page: currentPage }))
+    dispatch(fetchProductsByType({ type: type, page: currentPage }))
     console.log("TYPE:", type)
   }
 
@@ -88,6 +88,28 @@ export default function DiscoverProductList({ merchandises }) {
     <div className="container mx-auto pt-28 pb-8">
       <div className="flex flex-row justify-center mx-10">
         <div className="w-1/4 mx-5 flex flex-col rounded-lg">
+          <form
+            className="flex flex-row justify-between"
+            onSubmit={handleSearch}
+          >
+            <TextInputForm
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Search items..."
+              onChange={handleKeyboardChange}
+              value={form.search}
+            />
+            <div className="p-2 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white">
+              <FontAwesomeIcon icon={faSearch} />
+            </div>
+            <div
+              className="p-2 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white"
+              onClick={resetSearchFilter}
+            >
+              <FontAwesomeIcon icon={faRefresh} />
+            </div>
+          </form>
           <Accordion className="bg-white">
             <Accordion.Panel>
               <Accordion.Title>Filter by category:</Accordion.Title>
@@ -255,29 +277,7 @@ export default function DiscoverProductList({ merchandises }) {
         </div>
         <div className="w-3/4 flex flex-col ps-4">
           <div className="flex flex-row justify-between">
-            <h1 className="text-2xl font-semibold mt-2 mb-6">Discover</h1>
-            <form
-              className="flex flex-row justify-between"
-              onSubmit={handleSearch}
-            >
-              <TextInputForm
-                type="text"
-                id="search"
-                name="search"
-                placeholder="Search items..."
-                onChange={handleKeyboardChange}
-                value={form.search}
-              />
-              <div className="p-2 ms-2 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white">
-                <FontAwesomeIcon icon={faSearch} />
-              </div>
-              <div
-                className="p-2 ms-2 me-1 mb-6 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-center hover:cursor-pointer text-white"
-                onClick={resetSearchFilter}
-              >
-                <FontAwesomeIcon icon={faRefresh} />
-              </div>
-            </form>
+            <h1 className="text-2xl font-semibold mb-6">Discover</h1>
           </div>
           {merchandises.length === 0 ? (
             <EmptyContentSmall

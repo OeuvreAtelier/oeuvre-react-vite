@@ -14,6 +14,8 @@ export const fetchMerchandises = createAsyncThunk(
   }
 )
 
+// Fetch functions
+// 1. By name
 export const fetchProductsByName = createAsyncThunk(
   "merchandises/fetchProductsByName",
   async ({ productName, page }, { rejectedWithValue }) => {
@@ -28,6 +30,7 @@ export const fetchProductsByName = createAsyncThunk(
   }
 )
 
+// 2. By category (enum)
 export const fetchProductsByCategory = createAsyncThunk(
   "merchandises/fetchProductsByCategory",
   async ({ category, page }, { rejectedWithValue }) => {
@@ -42,12 +45,73 @@ export const fetchProductsByCategory = createAsyncThunk(
   }
 )
 
-export const fetchProductByType = createAsyncThunk(
+// 3. By type (enum)
+export const fetchProductsByType = createAsyncThunk(
   "merchandises/fetchProductByType",
   async ({ type, page }, { rejectedWithValue }) => {
     try {
       const response = await axiosInstance.get(
         `/products/search?type=${type}?page=${page}`
+      )
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
+// 4. By name & category (enum)
+export const fetchProductsByNameAndCategory = createAsyncThunk(
+  "merchandises/fetchProductsByNameAndCategory",
+  async ({ productName, category, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/products/search?name=${productName}&category=${category}&page=${page}`
+      )
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
+// 5. By name & type (enum)
+export const fetchProductsByNameAndType = createAsyncThunk(
+  "merchandises/fetchProductsByNameAndType",
+  async ({ productName, type, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/products/search?name=${productName}&type=${type}&page=${page}`
+      )
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
+// 6. By category (enum) & type (enum)
+export const fetchProductsByCategoryAndType = createAsyncThunk(
+  "merchandises/fetchProductsByCategoryAndType",
+  async ({ category, type, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/products/search?category=${category}&type=${type}&page=${page}`
+      )
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
+// 7. By name, category (enum) & type (enum)
+export const fetchProductsByNameCategoryAndType = createAsyncThunk(
+  "merchandises/fetchProductsByNameAndCategoryAndType",
+  async ({ productName, category, type, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/products/search?name=${productName}&category=${category}&type=${type}&page=${page}`
       )
       return response.data
     } catch (error) {
@@ -117,6 +181,36 @@ const productSlice = createSlice({
         state.paging = action.payload.paging
       })
       .addCase(fetchProductsByName.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
+      .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
+      .addCase(fetchProductsByType.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
+      .addCase(fetchProductsByNameAndCategory.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
+      .addCase(fetchProductsByNameAndType.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
+      .addCase(fetchProductsByCategoryAndType.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
+      .addCase(fetchProductsByNameCategoryAndType.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
         state.paging = action.payload.paging
