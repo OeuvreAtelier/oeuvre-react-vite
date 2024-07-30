@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import TransactionCard from "../../../shared/components/TransactionCard"
 import IconButton from "../../../shared/components/IconButton"
 import { faCashRegister } from "@fortawesome/free-solid-svg-icons"
@@ -8,11 +8,16 @@ import Animation from "../../../assets/shopping-cart.json"
 import TransactionConfirmationCard from "../../../shared/components/TransactionConfirmationCard"
 
 export default function ShoppingConfirmation() {
-  function numberWithDots(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-  }
   const { state } = useLocation()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (state !== null) {
+      console.log("State SHOPPING CART:", state)
+    } else {
+      navigate("/discover")
+    }
+  }, [navigate, state])
   return (
     <div className="container mx-auto pt-28 pb-8">
       <h1 className="xxl-semibold-black mb-6 mx-16">My Shopping Cart</h1>
@@ -25,18 +30,13 @@ export default function ShoppingConfirmation() {
             animation={Animation}
           /> */}
           <TransactionConfirmationCard
-            seller="Seller Name"
-            title="Product Name"
-            stock={10}
+            seller={state.merchandise.user.displayName}
+            title={state.merchandise.name}
+            stock={state.merchandise.stock}
             quantity={3}
-            initPrice={123456}
-          />
-          <TransactionConfirmationCard
-            seller="Seller Name"
-            title="Product Name"
-            stock={10}
-            quantity={3}
-            initPrice={123456}
+            initPrice={state.merchandise.price}
+            leftClick={() => {}}
+            rightClick={() => {}}
           />
         </div>
         <div className="w-4/12">
