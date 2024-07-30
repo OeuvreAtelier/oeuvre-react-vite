@@ -6,6 +6,7 @@ export default function TransactionCard({
   seller,
   quantity,
   initPrice,
+  totalPrice,
   onClick,
   isHidden
 }) {
@@ -22,7 +23,7 @@ export default function TransactionCard({
         <div>
           <p className="md-semibold-gray text-right">Total Price</p>
           <p className="md-semibold-black text-right">
-            Rp{quantity * initPrice}
+            Rp{totalPrice}
           </p>
         </div>
       </div>

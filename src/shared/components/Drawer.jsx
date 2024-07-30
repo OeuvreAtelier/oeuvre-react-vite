@@ -73,7 +73,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
-            navigate("/transaction")
+            navigate("/shopping-cart")
           }}
         />
         <IconButton
