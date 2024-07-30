@@ -34,7 +34,11 @@ export default function ProfileHeader({ artist }) {
       <section
         className="dynamic-bg"
         style={{
-          backgroundImage: `url(${artist.imageBanner ? artist.imageBanner.path : "https://i.imgur.com/LGvqTph.jpeg"})`,
+          backgroundImage: `url(${
+            artist.imageBanner
+              ? artist.imageBanner.path
+              : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-banner/default_banner.jpg"
+          })`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -44,7 +48,11 @@ export default function ProfileHeader({ artist }) {
           {console.log("Artist:", artist)}
           <img
             className="bg-white ms-20 size-32 mb-5 rounded-full p-1 object-cover"
-            src={artist.imageBanner ? artist.imagePicture.path : "https://i.imgur.com/LGvqTph.jpeg"}
+            src={
+              artist.imageBanner
+                ? artist.imagePicture.path
+                : "https://i.imgur.com/LGvqTph.jpeg"
+            }
             alt="profile"
           />
           <div className="h-96 ps-6 pb-2 max-w-screen-xl flex flex-col items-start justify-end">

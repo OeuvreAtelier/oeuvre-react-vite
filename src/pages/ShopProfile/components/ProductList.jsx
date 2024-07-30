@@ -102,7 +102,7 @@ export default function ProductList({ artist, merchandises }) {
                 image={
                   merchandise.image
                     ? merchandise.image.path
-                    : "https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
+                    : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
                 }
                 name={merchandise.name}
                 category={convertEnum[merchandise.category]}

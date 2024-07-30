@@ -12,7 +12,6 @@ import convertEnum from "../../../constants/convertEnum"
 import TextInputForm from "../../../shared/components/TextInputForm"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Accordion, Label, Radio } from "flowbite-react"
-import EmptyContent from "../../../shared/components/EmptyContent"
 import Animation from "../../../assets/nothing.json"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 
@@ -295,7 +294,9 @@ export default function DiscoverProductList({ merchandises }) {
                 <CardPictureTileSmall
                   key={merchandise.id}
                   image={
-                    "https://static.zerochan.net/Arlecchino.full.3705545.jpg"
+                    merchandise.image
+                      ? merchandise.image.path
+                      : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
                   }
                   category={convertEnum[merchandise.category]}
                   name={merchandise.name}
