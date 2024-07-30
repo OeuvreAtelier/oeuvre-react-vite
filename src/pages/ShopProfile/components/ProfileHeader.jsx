@@ -5,6 +5,7 @@ import {
   faBuilding,
   faImage,
   faKiwiBird,
+  faStoreAlt,
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
 
@@ -106,6 +107,14 @@ export default function ProfileHeader({ artist }) {
           btnName="Edit Avatar & Banner"
           btnIcon={faImage}
           onClick={() => handleEditAvatarBanner(artist)}
+          color="bg-white"
+          hoverColor="bg-slate-100"
+          textColor="text-gray-600"
+        />
+        <IconButton
+          btnName="Manage Store"
+          btnIcon={faStoreAlt}
+          onClick={() => navigate("/manage-store")}
           color="bg-white"
           hoverColor="bg-slate-100"
           textColor="text-gray-600"

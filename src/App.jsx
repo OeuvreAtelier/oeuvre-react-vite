@@ -20,6 +20,7 @@ import OnboardingPage from "./pages/OnboardingPage/OnboardingPage"
 import AddressesPage from "./pages/AddressesPage/AddressesPage"
 import AddressForm from "./pages/AddressesPage/components/AddressForm"
 import EditProfileAvatarBanner from "./pages/EditProfilePage/EditProfileAvatarBanner"
+import CreateStorePage from "./pages/CreateStorePage/CreateStorePage"
 
 const router = createBrowserRouter([
   {
@@ -151,6 +152,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <EditProfileAvatarBanner />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/manage-store",
+        element: (
+          <ProtectedRoute>
+            <CreateStorePage />
           </ProtectedRoute>
         ),
       },

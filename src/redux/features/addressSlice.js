@@ -2,16 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axiosInstance from "../../api/axiosInstance"
 
 export const fetchAddressesByUserId = createAsyncThunk(
-    "addresses/fetchAddressesByUserId",
-    async (userId, { rejectedWithValue }) => {
-      try {
-        const response = await axiosInstance.get(`/addresses/user/${userId}`)
-        return response.data
-      } catch (error) {
-        return rejectedWithValue(error.response.data)
-      }
+  "addresses/fetchAddressesByUserId",
+  async (userId, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/addresses/user/${userId}`)
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
     }
-  )
+  }
+)
 
 export const createAddress = createAsyncThunk(
   "addresses/createAddress",
