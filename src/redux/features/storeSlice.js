@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axiosInstance from "../../api/axiosInstance"
 
 export const createStore = createAsyncThunk(
@@ -66,7 +66,7 @@ const storeSlice = createSlice({
   initialState: {
     statusCode: null,
     message: null,
-    data: {},
+    data: [],
   },
   reducers: {},
   extraReducers: (builder) => {

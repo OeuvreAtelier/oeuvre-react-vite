@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axiosInstance from "../../api/axiosInstance"
 
 export const createReview = createAsyncThunk(
@@ -42,7 +42,7 @@ const reviewSlice = createSlice({
   initialState: {
     statusCode: null,
     message: null,
-    data: {},
+    data: [],
   },
   reducers: {},
   extraReducers: (builder) => {
