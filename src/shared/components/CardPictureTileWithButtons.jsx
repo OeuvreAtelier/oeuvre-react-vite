@@ -17,14 +17,14 @@ export default function CardPictureTileWithButtons({
   return (
     <div className="card-border-shadow">
       <img
-        className="rounded-t-lg w-64 h-60 object-cover"
+        className="rounded-t-lg w-64 h-44 object-cover"
         src={image}
         alt={name}
       />
       <div className="p-3 ms-1">
-        <p className="sm-semibold-gray">{category}</p>
-        <p className="md-semibold-black mt-1">{name}</p>
-        <p className="md-semibold-blue my-2">Rp{numberWithDots(price)}</p>
+        <p className="xs-semibold-gray">{category}</p>
+        <p className="sm-semibold-black mt-1">{name}</p>
+        <p className="sm-semibold-blue mt-1 mb-2">Rp{numberWithDots(price)}</p>
       </div>
       <div className="ps-5 pb-3 flex flex-row gap-3">
         <TextButton

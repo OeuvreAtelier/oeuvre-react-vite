@@ -315,7 +315,7 @@ export default function DiscoverProductList({ merchandises }) {
                   }
                   category={convertEnum[merchandise.category]}
                   name={merchandise.name}
-                  seller="Mihoyo"
+                  seller={merchandise.user.displayName}
                   price={merchandise.price}
                   onClick={() => {
                     navigate("/product-detail", { state: { merchandise } })
