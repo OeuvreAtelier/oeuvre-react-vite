@@ -11,7 +11,7 @@ export default function IndividualItemsCard({
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
   return (
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-row justify-between mb-2">
       <div>
         <p className="md-black mb-1">{title}</p>
         <p className="xs-semibold-gray mb-2">Stock: {stock}</p>
