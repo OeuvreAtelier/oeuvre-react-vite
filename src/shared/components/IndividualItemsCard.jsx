@@ -6,6 +6,8 @@ export default function IndividualItemsCard({
   stock,
   quantity,
   initPrice,
+  leftClick,
+  rightClick,
 }) {
   function numberWithDots(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
@@ -22,13 +24,13 @@ export default function IndividualItemsCard({
           Rp{numberWithDots(quantity * initPrice)}
         </p>
         <Button.Group className="my-2">
-          <Button color="gray" size={"sm"}>
+          <Button color="gray" size={"sm"} onClick={leftClick}>
             <div className="text-sm">-</div>
           </Button>
           <Button color="white" size={"sm"}>
             <div className="text-sm">{quantity}</div>
           </Button>
-          <Button color="gray" size={"sm"}>
+          <Button color="gray" size={"sm"} onClick={rightClick}>
             <div className="text-sm">+</div>
           </Button>
         </Button.Group>

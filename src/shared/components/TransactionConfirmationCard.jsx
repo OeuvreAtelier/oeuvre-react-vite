@@ -7,6 +7,8 @@ export default function TransactionConfirmationCard({
   stock,
   quantity,
   initPrice,
+  leftClick,
+  rightClick,
 }) {
   function numberWithDots(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
@@ -19,6 +21,8 @@ export default function TransactionConfirmationCard({
         stock={stock}
         quantity={quantity}
         initPrice={initPrice}
+        leftClick={leftClick}
+        rightClick={rightClick}
       />
     </div>
   )

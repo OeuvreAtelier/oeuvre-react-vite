@@ -91,7 +91,7 @@ export default function ProductIntro() {
               {convertEnum[state.merchandise.category]}
             </p>
             <p className="md-semibold-black mb-1 hover:underline hover:cursor-pointer">
-              Store Name
+              {state.merchandise.user.displayName}
             </p>
             <h1 className="xl-semibold-black mb-2">{state.merchandise.name}</h1>
             <p className="sm-lightgray mb-5">
