@@ -109,7 +109,6 @@ export default function ProductList({ artist, merchandises }) {
                 price={merchandise.price}
                 onEdit={() => handleEdit(artist, merchandise)}
                 onDelete={() => handleDeleteModal(merchandise.id)}
-                productOnClick={() => navigate("/product-detail")}
               />
             ))}
           </div>

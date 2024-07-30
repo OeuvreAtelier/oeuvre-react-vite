@@ -2,12 +2,6 @@ import React, { useEffect, useState } from "react"
 import CardPictureTileSmall from "../../../shared/components/CardPictureTileSmall"
 import {
   fetchMerchandises,
-  fetchProductsByType,
-  fetchProductsByCategory,
-  fetchProductsByName,
-  fetchProductsByNameAndCategory,
-  fetchProductsByNameAndType,
-  fetchProductsByCategoryAndType,
   fetchProductsByNameCategoryAndType,
 } from "../../../redux/features/productSlice"
 import { useDispatch, useSelector } from "react-redux"
@@ -17,8 +11,10 @@ import { Accordion, Label, Radio } from "flowbite-react"
 import Animation from "../../../assets/nothing.json"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import TextButton from "../../../shared/components/TextButton"
+import { useNavigate } from "react-router-dom"
 
 export default function DiscoverProductList({ merchandises }) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
   const { paging: totalPages } = useSelector((state) => state.merchandises)
@@ -36,10 +32,6 @@ export default function DiscoverProductList({ merchandises }) {
     category: "",
     type: "",
   })
-  // console.log("Initial Search:", form.search)
-  // console.log("Initial Category:", form.category)
-  // console.log("Initial Type:", form.type)
-
   // Reset search
   const resetSearchFilter = () => {
     setForm({
@@ -83,60 +75,6 @@ export default function DiscoverProductList({ merchandises }) {
   // Submit search and/or filter
   const handleSearch = (e) => {
     e.preventDefault()
-    // // 1. Name only
-    // if (form.search !== "" && form.category === "" && form.type === "") {
-    //   dispatch(
-    //     fetchProductsByName({ productName: form.search, page: currentPage })
-    //   )
-    //   console.log("1. Searching:", form.search)
-    // }
-    // // 2. Category only
-    // else if (form.search === "" && form.category !== "" && form.type === "") {
-    //   dispatch(
-    //     fetchProductsByCategory({ category: form.category, page: currentPage })
-    //   )
-    //   console.log("2. Category:", form.category)
-    // }
-    // // 3. Type only
-    // else if (form.search === "" && form.category === "" && form.type !== "") {
-    //   dispatch(fetchProductsByType({ type: form.type, page: currentPage }))
-    //   console.log("3. Type:", form.type)
-    // }
-    // // 4. Name and category
-    // else if (form.search !== "" && form.category !== "" && form.type === "") {
-    //   dispatch(
-    //     fetchProductsByNameAndCategory({
-    //       productName: form.search,
-    //       category: form.category,
-    //       page: currentPage,
-    //     })
-    //   )
-    //   console.log("4. Name and category:", form.search, form.category)
-    // }
-    // // 5. Name and type
-    // else if (form.search !== "" && form.category === "" && form.type !== "") {
-    //   dispatch(
-    //     fetchProductsByNameAndType({
-    //       productName: form.search,
-    //       type: form.type,
-    //       page: currentPage,
-    //     })
-    //   )
-    //   console.log("5. Name and type:", form.search, form.type)
-    // }
-    // // 6. Category and type
-    // else if (form.search === "" && form.category !== "" && form.type !== "") {
-    //   dispatch(
-    //     fetchProductsByCategoryAndType({
-    //       category: form.category,
-    //       type: form.type,
-    //       page: currentPage,
-    //     })
-    //   )
-    //   console.log("6. Category and type:", form.category, form.type)
-    // }
-    // 7. Name, category and type
-    // else
     if (form.search === "" && form.category === "" && form.type === "") {
       alert("Please type something or select a filter!")
     } else {
@@ -158,16 +96,6 @@ export default function DiscoverProductList({ merchandises }) {
       )
     }
   }
-
-  // const handleFilterByCategory = (category) => {
-  //   dispatch(fetchProductsByCategory({ category: category, page: currentPage }))
-  //   console.log("CATEGORY:", category)
-  // }
-
-  // const handleFilterByType = (type) => {
-  //   dispatch(fetchProductsByType({ type: type, page: currentPage }))
-  //   console.log("TYPE:", type)
-  // }
 
   return (
     <div className="container mx-auto pt-28 pb-8">
@@ -389,6 +317,9 @@ export default function DiscoverProductList({ merchandises }) {
                   name={merchandise.name}
                   seller="Mihoyo"
                   price={merchandise.price}
+                  onClick={() => {
+                    navigate("/product-detail", { state: { merchandise } })
+                  }}
                 />
               ))}
             </div>
