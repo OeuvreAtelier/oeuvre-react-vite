@@ -9,9 +9,9 @@ export default function ReviewCard({ avatar, username, rating, text }) {
         <div style={{ width: "25px", height: "25px" }}>
           <AvatarFB img={avatar} username={username} size="1" />
         </div>
-        <p className="sm-semibold-black mb-2 -mt-2">{username}</p>
+        <p className="sm-semibold-black ms-4">{username}</p>
       </div>
-      <Rating size="sm" className="mb-2">
+      <Rating size="sm" className="mb-2 ms-12 -mt-1">
         {[1, 2, 3, 4, 5].map((star) => (
           <Rating.Star key={star} color={star <= rating ? "#e0a910" : "gray"} />
         ))}

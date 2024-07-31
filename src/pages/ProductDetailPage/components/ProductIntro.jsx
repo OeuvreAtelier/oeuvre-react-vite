@@ -36,24 +36,64 @@ export default function ProductIntro() {
   const handleCloseModal = () => {
     setOpenModal(false)
   }
+
+  console.log("State Product Detail:", state)
+
+  // const { dispatch } = useContext(CartContext)
+  // const addToCart = () => {
+  //   dispatch({ type: "ADD_TO_CART", product })
+  // }
+
   return (
     <>
       <div className="flex flex-col">
         <ScrollableModal
-          show={openModal}
+          isOpen={openModal}
           onClose={handleCloseModal}
-          title="Product Reviews"
+          productName={state.merchandise.name}
           body={
             <>
               <ReviewCard
-                avatar={
-                  "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                }
+                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
+                username={state.artist.firstName}
+                rating={5}
+                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+              />
+              <ReviewCard
+                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
                 username="Mavuika"
-                rating={3}
-                text={
-                  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-                }
+                rating={5}
+                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+              />
+              <ReviewCard
+                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
+                username="Mavuika"
+                rating={5}
+                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+              />
+              <ReviewCard
+                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
+                username="Mavuika"
+                rating={5}
+                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+              />
+              <ReviewCard
+                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
+                username="Mavuika"
+                rating={5}
+                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+              />
+              <ReviewCard
+                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
+                username="Mavuika"
+                rating={5}
+                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+              />
+              <ReviewCard
+                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
+                username="Mavuika"
+                rating={5}
+                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
               />
             </>
           }
@@ -117,9 +157,11 @@ export default function ProductIntro() {
               price={numberWithDots(state.merchandise.price)}
               name="Add to Cart"
               icon={faShoppingBasket}
+              // onClick={addToCart}
               onClick={() => {
                 navigate("/shopping-cart", {
                   state: {
+                    artist: state.artist,
                     merchandise: state.merchandise,
                   },
                 })
