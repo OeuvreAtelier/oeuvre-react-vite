@@ -3,17 +3,19 @@ import CardPictureTileWithButtons from "../../../shared/components/CardPictureTi
 import { useDispatch, useSelector } from "react-redux"
 import {
   deleteProduct,
-  fetchMerchandises,
+  fetchMerchandisesByUserId,
 } from "../../../redux/features/productSlice"
 import FloatingActionButton from "../../../shared/components/FloatingActionButton"
 import { useNavigate } from "react-router-dom"
 import ConfirmationModal from "../../../shared/components/ConfirmationModal.jsx"
 import Animation from "../../../assets/empty.json"
+import CreateStoreStart from "../../../assets/create-store.json"
 import convertEnum from "../../../constants/convertEnum.js"
 import EmptyContent from "../../../shared/components/EmptyContent.jsx"
 
 export default function ProductList({ artist, merchandises }) {
   const [openModal, setOpenModal] = useState(false)
+  const [checkFirstNameModal, setCheckFirstNameModal] = useState(false)
   const [deleteId, setDeleteId] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -21,7 +23,7 @@ export default function ProductList({ artist, merchandises }) {
   const { paging: totalPages } = useSelector((state) => state.merchandises)
 
   useEffect(() => {
-    dispatch(fetchMerchandises({ page: currentPage }))
+    dispatch(fetchMerchandisesByUserId({ userId: artist.id, page: currentPage }))
   }, [dispatch, currentPage])
 
   const handlePageChange = (page) => {
@@ -57,35 +59,58 @@ export default function ProductList({ artist, merchandises }) {
     dispatch(deleteProduct(deleteId))
       .unwrap()
       .then(() => {
-        dispatch(fetchMerchandises({ page: currentPage }))
+        dispatch(fetchMerchandisesByUserId({ userId: artist.id, page: currentPage }))
       })
       .catch((error) => console.error("Deletion failed:", error))
     setOpenModal(false)
   }
 
   const handleCreateManageStore = (artist) => {
-    navigate("/manage-store", {
-      state: {
-        artist: artist,
-      },
-    })
+    if (artist.firstName === null) {
+      navigate("/edit-profile", {
+        state: {
+          artist: artist,
+        },
+      })
+    } else {
+      navigate("/manage-store", {
+        state: {
+          artist: artist,
+        },
+      })
+    }
   }
-  console.log("Is Artist:", artist.artist)
+  // console.log("First Name:", artist.displayName)
+  const handleFirstNameModal = async () => {
+    setCheckFirstNameModal(true)
+  }
 
   if (artist.artist === false) {
     return (
-      <EmptyContent
-        title={"Start selling products now!"}
-        middleText={
-          "When you open a store here, you can do what you love and make money at the same time!"
-        }
-        lowerText={
-          "To start selling products, you need to register as an artist and create your store."
-        }
-        onClick={() => handleCreateManageStore(artist)}
-        btnTitle={"Create store"}
-        animation={Animation}
-      />
+      <>
+        <ConfirmationModal
+          show={checkFirstNameModal}
+          onClose={() => setCheckFirstNameModal(false)}
+          text="Please complete your profile first before proceeding by going to the Edit Profile page."
+          isHidden={true}
+        />
+        <EmptyContent
+          title={"Start selling products now!"}
+          middleText={
+            "When you open a store here, you can do what you love and make money at the same time!"
+          }
+          lowerText={
+            "To start selling products, you need to register as an artist and create your store."
+          }
+          onClick={() => {
+            artist.firstName === null
+              ? handleFirstNameModal()
+              : handleCreateManageStore(artist)
+          }}
+          btnTitle={"Create store"}
+          animation={CreateStoreStart}
+        />
+      </>
     )
   } else {
     return (
