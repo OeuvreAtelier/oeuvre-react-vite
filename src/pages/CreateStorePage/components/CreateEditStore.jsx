@@ -34,18 +34,18 @@ export default function CreateEditStore({ address }) {
     // console.log("Token:", token)
     if (state !== null) {
       dispatch(fetchAddressesByUserId(state.artist.id))
-      if (state.address) {
-        console.log("Store to be updated:", state.store)
+      if (state.artist.store) {
+        console.log("Store to be updated:", state.artist.store)
         setFormData({
-          id: state.store.id,
-          userId: state.store.user.id,
-          addressId: state.store.address.id,
-          description: state.store.description,
-          pixiv: state.store.pixiv,
-          twitter: state.store.twitter,
+          id: state.artist.store.id,
+          userId: state.artist.id,
+          addressId: state.artist.store.address.id,
+          description: state.artist.store.description,
+          pixiv: state.artist.store.pixiv,
+          twitter: state.artist.store.twitter,
         })
       } else {
-        console.log("Store to be created:", state.store)
+        console.log("Store to be created:", state.artist.store)
         setFormData({
           userId: state.artist.id,
           addressId: "",
@@ -99,6 +99,8 @@ export default function CreateEditStore({ address }) {
 
       if (formData.id === undefined) {
         await handleLogout()
+      } else {
+        navigate("/my-store")
       }
     } catch (error) {
       console.error("Error submitting form:", error)
@@ -206,8 +208,9 @@ export default function CreateEditStore({ address }) {
                 onChange={handleChange}
               />
               <p className="sm-lightgray">
-                After creating your store, you will be logged out for a while
-                and you can log in again.
+                {formData.id === null
+                  ? "After creating your store, you will be logged out for a while and you can log in again."
+                  : "Click submit to save your store details."}
               </p>
               <Button
                 type="submit"
