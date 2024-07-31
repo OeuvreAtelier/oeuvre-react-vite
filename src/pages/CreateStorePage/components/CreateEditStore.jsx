@@ -11,6 +11,7 @@ import TextButton from "../../../shared/components/TextButton"
 import AddressForm from "../../AddressesPage/components/AddressForm"
 import { createStore, updateStore } from "../../../redux/features/storeSlice"
 import { useAuth } from "../../../context/AuthContext"
+import { registerArtist } from "../../../redux/features/profileSlice"
 
 export default function CreateEditStore({ address }) {
   const [formData, setFormData] = useState({})
@@ -25,9 +26,12 @@ export default function CreateEditStore({ address }) {
   }
   const handleCloseModal = () => {
     setModalOpen(false)
+    dispatch(fetchAddressesByUserId(state.artist.id))
   }
 
   useEffect(() => {
+    // const token = secureLocalStorage.getItem("token")
+    // console.log("Token:", token)
     if (state !== null) {
       dispatch(fetchAddressesByUserId(state.artist.id))
       if (state.address) {
@@ -92,8 +96,9 @@ export default function CreateEditStore({ address }) {
           ? createStore(formData)
           : updateStore(formData)
       await dispatch(action).unwrap()
-      
+
       if (formData.id === undefined) {
+        // registerArtist()
         await handleLogout()
       }
     } catch (error) {
@@ -144,28 +149,34 @@ export default function CreateEditStore({ address }) {
                   >
                     Select an address:
                   </Label>
-                  <div className="flex flex-col gap-2 -mt-2">
-                    {address.map((selectedAddress) => (
-                      <div
-                        className="flex items-center gap-2"
-                        onChange={handleRadioChange}
-                      >
-                        <Radio
-                          id={selectedAddress.id}
-                          value={selectedAddress.id}
-                          name="addressId"
-                        />
-                        <Label
-                          htmlFor={selectedAddress.id}
-                          className="sm-black"
+                  {address.length === 0 ? (
+                    <p className="text-white py-2 ps-4 bg-red-500 rounded-lg">
+                      No address found, you can create an address first.
+                    </p>
+                  ) : (
+                    <div className="flex flex-col gap-2 -mt-2">
+                      {address.map((selectedAddress) => (
+                        <div
+                          className="flex items-center gap-2"
+                          onChange={handleRadioChange}
                         >
-                          {selectedAddress.detail}, {selectedAddress.city},{" "}
-                          {selectedAddress.state} {selectedAddress.postalCode},{" "}
-                          {selectedAddress.country}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
+                          <Radio
+                            id={selectedAddress.id}
+                            value={selectedAddress.id}
+                            name="addressId"
+                          />
+                          <Label
+                            htmlFor={selectedAddress.id}
+                            className="sm-black"
+                          >
+                            {selectedAddress.detail}, {selectedAddress.city},{" "}
+                            {selectedAddress.state} {selectedAddress.postalCode}
+                            , {selectedAddress.country}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </fieldset>
               </div>
               <TextAreaWithHeaderFB
