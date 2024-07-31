@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react"
-import TransactionCard from "../../../shared/components/TransactionCard"
+import React, { useEffect, useState, useContext } from "react"
 import IconButton from "../../../shared/components/IconButton"
 import { faCashRegister } from "@fortawesome/free-solid-svg-icons"
 import { useLocation, useNavigate } from "react-router-dom"
-import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
-import Animation from "../../../assets/shopping-cart.json"
-import TransactionConfirmationCard from "../../../shared/components/TransactionConfirmationCard"
 import { useDispatch } from "react-redux"
 import { fetchAddressesByUserId } from "../../../redux/features/addressSlice"
-import { Label, Radio } from "flowbite-react"
+import { Button, Label, Radio } from "flowbite-react"
+import { CartContext } from "../../../context/CartContext"
+import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
+import Animation from "../../../assets/shopping-cart.json"
+import TextButton from "../../../shared/components/TextButton"
 
 export default function ShoppingConfirmation({ address }) {
+  const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } =
+    useContext(CartContext)
   const [formData, setFormData] = useState({})
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { state } = useLocation()
-  const [count, setCount] = useState(0)
 
   useEffect(() => {
     if (state !== null) {
@@ -31,14 +32,6 @@ export default function ShoppingConfirmation({ address }) {
   }, [navigate, state])
 
   console.log("User ID CART:", state)
-
-  const handleOpenModal = () => {
-    setModalOpen(true)
-  }
-  const handleCloseModal = () => {
-    setModalOpen(false)
-    dispatch(fetchAddressesByUserId(state.artist.id))
-  }
 
   useEffect(() => {
     if (state !== null) {
@@ -58,14 +51,8 @@ export default function ShoppingConfirmation({ address }) {
     console.log("Form:", formData)
   }
 
-  const handleIncrement = () => {
-    if (count === state.merchandise.stock) return
-    setCount((prevCount) => prevCount + 1)
-  }
-
-  const handleDecrement = () => {
-    if (count === 0) return
-    setCount((prevCount) => prevCount - 1)
+  function numberWithDots(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
   return (
@@ -73,30 +60,84 @@ export default function ShoppingConfirmation({ address }) {
       <h1 className="xxl-semibold-black mb-6 mx-16">My Shopping Cart</h1>
       <div className="flex flex-row justify-center mx-10">
         <div className="w-8/12 flex flex-col ps-4 pe-5">
-          {/* <EmptyContentSmall
-            title="No products yet..."
-            middleText="You should add the products you really wanted to the cart first, because one day this product will be missing sooner or later!"
-            lowerText="You will get your desired product after you pay and the item is shipped."
-            animation={Animation}
-          /> */}
-          <TransactionConfirmationCard
-            seller={state.merchandise.user.displayName}
-            title={state.merchandise.name}
-            stock={state.merchandise.stock}
-            quantity={count}
-            initPrice={state.merchandise.price}
-            leftClick={handleDecrement}
-            rightClick={handleIncrement}
-          />
+          <div className="flex-col flex">
+            <div className="flex flex-col gap-4">
+              {cartItems.map(
+                (item) => (
+                  console.log("Item:", item),
+                  (
+                    <div
+                      className="card-border-shadow p-5 flex justify-between items-center"
+                      key={item.id}
+                    >
+                      <div className="flex flex-col">
+                        <p className="sm-black">{item.user.displayName}</p>
+                        <h1 className="md-semibold-black mb-1">{item.name}</h1>
+                        <p className="sm-lightgray">
+                          Available stock: {item.stock}
+                        </p>
+                        <p className="sm-lightgray">
+                          Price per item: Rp{numberWithDots(item.price)}
+                        </p>
+                      </div>
+                      <Button.Group className="my-2">
+                        <Button
+                          color="gray"
+                          size={"sm"}
+                          onClick={() => removeFromCart(item)}
+                        >
+                          <div className="text-sm">-</div>
+                        </Button>
+                        <Button color="white" size={"sm"}>
+                          <div className="text-sm">{item.quantity}</div>
+                        </Button>
+                        <Button
+                          color="gray"
+                          size={"sm"}
+                          onClick={() => {
+                            if (item.quantity > item.stock - 1) return
+                            addToCart(item)
+                          }}
+                        >
+                          <div className="text-sm">+</div>
+                        </Button>
+                      </Button.Group>
+                    </div>
+                  )
+                )
+              )}
+            </div>
+            {cartItems.length > 0 ? (
+              <div className="flex flex-col items-center my-5">
+                <TextButton
+                  btnName="Clear Cart"
+                  onClick={() => {
+                    clearCart()
+                  }}
+                  btnColor={"bg-red-500"}
+                  textColor={"text-white"}
+                  hoverColor={"bg-red-600"}
+                />
+              </div>
+            ) : (
+              <EmptyContentSmall
+                title="No products yet..."
+                middleText="You should add the products you really wanted to the cart first, because one day this product will be missing sooner or later!"
+                lowerText="You will get your desired product after you pay and the item is shipped."
+                animation={Animation}
+              />
+            )}
+          </div>
         </div>
         <div className="w-4/12">
-          <div className="card-border-shadow flex flex-col ps-7 py-4 pe-4 mx-4">
+          <div className="card-border-shadow flex flex-col ps-7 py-4 pe-4 mx-4 mb-4">
             <h1 className="lg-semibold-black mt-2 mb-4 me-3">
               Shipment Address
             </h1>
             <div className="mb-4">
               <fieldset className="flex max-w-md flex-col gap-4">
                 {address.length === 0 ? (
+                  console.log("Address:", address),
                   <p className="text-white py-2 ps-4 bg-red-500 rounded-lg">
                     No address found, you can create an address first.
                   </p>
@@ -133,23 +174,23 @@ export default function ShoppingConfirmation({ address }) {
             </h1>
             <div className="flex flex-row justify-between mb-3 me-3">
               <p className="md-gray">Payment Method</p>
-              <p className="md-black">MIDTRANS</p>
+              <p className="md-black">Midtrans</p>
             </div>
             <div className="flex flex-row justify-between mb-3 me-3">
-              <p className="md-gray">Subtotal Amount</p>
-              <p className="md-black">Rp123456</p>
+              <p className="md-gray">Subtotal</p>
+              <p className="md-black">Rp{numberWithDots(getCartTotal())}</p>
             </div>
             <div className="flex flex-row justify-between mb-3 me-3">
-              <p className="md-gray">Convenience Fees</p>
-              <p className="md-black">Rp1000</p>
+              <p className="md-gray">11% VAT</p>
+              <p className="md-black">Rp{numberWithDots(getCartTotal() * 0.11)}</p>
             </div>
             <div className="flex flex-row justify-between mb-5 me-3">
-              <p className="md-gray">11% VAT</p>
-              <p className="md-black">Rp12345</p>
+              <p className="md-gray">Service Fees</p>
+              <p className="md-black">Rp1.000</p>
             </div>
             <div className="flex flex-row justify-between mb-5 me-3">
               <p className="md-semibold-gray">Total Amount</p>
-              <p className="md-semibold-black">Rp12345678</p>
+              <p className="md-semibold-black">Rp{numberWithDots(getCartTotal() + (getCartTotal() * 0.11) + 1000)}</p>
             </div>
             <IconButton
               btnName="Pay Now"

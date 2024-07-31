@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import IconButton from "../../../shared/components/IconButton"
 import {
   faShoppingBasket,
@@ -11,8 +11,11 @@ import ScrollableModal from "./ScrollableModal"
 import ReviewCard from "./ReviewCard"
 import { useLocation, useNavigate } from "react-router-dom"
 import convertEnum from "../../../constants/convertEnum.js"
+import { CartContext } from "../../../context/CartContext.jsx"
 
 export default function ProductIntro() {
+  const { cartItems, addToCart } = useContext(CartContext)
+
   function numberWithDots(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
@@ -37,12 +40,7 @@ export default function ProductIntro() {
     setOpenModal(false)
   }
 
-  console.log("State Product Detail:", state)
-
-  // const { dispatch } = useContext(CartContext)
-  // const addToCart = () => {
-  //   dispatch({ type: "ADD_TO_CART", product })
-  // }
+  console.log("State Product Detail:", state.merchandise)
 
   return (
     <>
@@ -157,8 +155,8 @@ export default function ProductIntro() {
               price={numberWithDots(state.merchandise.price)}
               name="Add to Cart"
               icon={faShoppingBasket}
-              // onClick={addToCart}
               onClick={() => {
+                addToCart(state.merchandise)
                 navigate("/shopping-cart", {
                   state: {
                     artist: state.artist,

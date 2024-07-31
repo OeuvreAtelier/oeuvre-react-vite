@@ -1,26 +1,79 @@
-import React, { createContext, useReducer } from "react"
+import { createContext, useState, useEffect } from "react"
 
-const CartContext = createContext()
-
-const cartReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_TO_CART":
-      return [...state, action.payload]
-    case "REMOVE_FROM_CART":
-      return state.filter((item) => item.id !== action.payload.id)
-    default:
-      return state
-  }
-}
+export const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, [])
+  const [cartItems, setCartItems] = useState(
+    localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : []
+  )
+
+  const addToCart = (item) => {
+    const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id)
+
+    if (isItemInCart) {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        )
+      )
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }])
+    }
+  }
+
+  const removeFromCart = (item) => {
+    const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id)
+
+    if (isItemInCart.quantity === 1) {
+      setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id))
+    } else {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+      )
+    }
+  }
+
+  const clearCart = () => {
+    setCartItems([])
+  }
+
+  const getCartTotal = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    )
+  }
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems))
+  }, [cartItems])
+
+  useEffect(() => {
+    const cartItems = localStorage.getItem("cartItems")
+    if (cartItems) {
+      setCartItems(JSON.parse(cartItems))
+    }
+  }, [])
 
   return (
-    <CartContext.Provider value={{ cart, dispatch }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        getCartTotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   )
 }
-
-export default CartContext
