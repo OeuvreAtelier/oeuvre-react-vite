@@ -9,6 +9,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { fetchAddressesByUserId } from "../../../redux/features/addressSlice"
 import TextButton from "../../../shared/components/TextButton"
 import AddressForm from "../../AddressesPage/components/AddressForm"
+import { createStore, updateStore } from "../../../redux/features/storeSlice"
+import { useAuth } from "../../../context/AuthContext"
 
 export default function CreateEditStore({ address }) {
   const [formData, setFormData] = useState({})
@@ -16,6 +18,7 @@ export default function CreateEditStore({ address }) {
   const navigate = useNavigate()
   const { state } = useLocation()
   const [isModalOpen, setModalOpen] = useState(false)
+  const { logout } = useAuth()
 
   const handleOpenModal = () => {
     setModalOpen(true)
@@ -81,6 +84,28 @@ export default function CreateEditStore({ address }) {
     console.log("Form:", formData)
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const action =
+        formData.id === undefined
+          ? createStore(formData)
+          : updateStore(formData)
+      await dispatch(action).unwrap()
+      
+      if (formData.id === undefined) {
+        await handleLogout()
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
+  }
+
+  const handleLogout = async () => {
+    await logout()
+    navigate("/login")
+  }
+
   return (
     <>
       <AddressForm isOpen={isModalOpen} onClose={handleCloseModal} />
@@ -109,7 +134,7 @@ export default function CreateEditStore({ address }) {
             <h1 className="xl-semibold-black mx-4 mt-4">Create Store</h1>
             <form
               className="flex w-full flex-col gap-4 pt-6 px-4"
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
             >
               <div className="mb-4">
                 <fieldset className="flex max-w-md flex-col gap-4">
@@ -134,8 +159,8 @@ export default function CreateEditStore({ address }) {
                           htmlFor={selectedAddress.id}
                           className="sm-black"
                         >
-                          {selectedAddress.detail}, {selectedAddress.city},
-                          {selectedAddress.state} {selectedAddress.postalCode},
+                          {selectedAddress.detail}, {selectedAddress.city},{" "}
+                          {selectedAddress.state} {selectedAddress.postalCode},{" "}
                           {selectedAddress.country}
                         </Label>
                       </div>
@@ -170,6 +195,10 @@ export default function CreateEditStore({ address }) {
                 value={formData.twitter}
                 onChange={handleChange}
               />
+              <p className="sm-lightgray">
+                After creating your store, you will be logged out for a while
+                and you can log in again.
+              </p>
               <Button
                 type="submit"
                 className="w-full bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-xl"
