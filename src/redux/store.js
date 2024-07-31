@@ -1,10 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../redux/features/authSlice.js";
-import merchandisesReducer from './features/productSlice.js'
-import artistReducer from './features/profileSlice.js'
-import addressReducer from './features/addressSlice.js'
-import storeReducer from './features/storeSlice.js'
-import reviewReducer from './features/reviewSlice.js'
+import { configureStore } from "@reduxjs/toolkit"
+import authReducer from "../redux/features/authSlice.js"
+import merchandisesReducer from "./features/productSlice.js"
+import artistReducer from "./features/profileSlice.js"
+import addressReducer from "./features/addressSlice.js"
+import storeReducer from "./features/storeSlice.js"
+import reviewReducer from "./features/reviewSlice.js"
 
 export const store = configureStore({
   reducer: {
@@ -15,4 +15,4 @@ export const store = configureStore({
     store: storeReducer,
     review: reviewReducer,
   },
-});
+})

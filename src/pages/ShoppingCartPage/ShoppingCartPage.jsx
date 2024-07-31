@@ -1,5 +1,5 @@
 import React from 'react'
-import ShoppingConfirmation from './components/ShoppingConfirmation'
+import ShoppingConfirmation from './components/ShoppingConfirmation2'
 import Footer from '../../shared/components/Footer'
 import { useSelector } from 'react-redux'
 

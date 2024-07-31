@@ -18,7 +18,6 @@ export default function DiscoverProductList({ artist, merchandises }) {
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
   const { paging: totalPages } = useSelector((state) => state.merchandises)
-  console.log("Artist", artist)
 
   useEffect(() => {
     dispatch(fetchMerchandises({ page: currentPage }))
