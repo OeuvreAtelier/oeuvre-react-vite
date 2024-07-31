@@ -98,7 +98,6 @@ export default function CreateEditStore({ address }) {
       await dispatch(action).unwrap()
 
       if (formData.id === undefined) {
-        // registerArtist()
         await handleLogout()
       }
     } catch (error) {

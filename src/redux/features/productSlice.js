@@ -14,6 +14,19 @@ export const fetchMerchandises = createAsyncThunk(
   }
 )
 
+export const fetchMerchandisesByUserId = createAsyncThunk(
+  "merchandises/fetchMerchandisesByUserId",
+  async ({ userId, page }, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/products/artist/${userId}?page=${page}`)
+      console.log("PAGE (SLICE):", page)
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
 // Fetch functions
 // 1. By name
 export const fetchProductsByName = createAsyncThunk(
@@ -180,6 +193,11 @@ const productSlice = createSlice({
         state.data = action.payload.data
         state.paging = action.payload.paging
       })
+      .addCase(fetchMerchandisesByUserId.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+        state.paging = action.payload.paging
+      })
       .addCase(fetchProductsByName.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
@@ -215,10 +233,10 @@ const productSlice = createSlice({
         state.data = action.payload.data
         state.paging = action.payload.paging
       })
-      .addCase(createProduct.fulfilled, (state, action) => {
-        state.status = "succeeded"
-        state.data.push(action.payload)
-      })
+      // .addCase(createProduct.fulfilled, (state, action) => {
+      //   state.status = "succeeded"
+      //   state.data.push(action.payload)
+      // })
       .addCase(updateProduct.fulfilled, (state, action) => {
         const index = state.data.findIndex(
           (merchandise) => merchandise.id === action.payload.id
