@@ -11,7 +11,6 @@ import TextButton from "../../../shared/components/TextButton"
 import AddressForm from "../../AddressesPage/components/AddressForm"
 import { createStore, updateStore } from "../../../redux/features/storeSlice"
 import { useAuth } from "../../../context/AuthContext"
-import { registerArtist } from "../../../redux/features/profileSlice"
 
 export default function CreateEditStore({ address }) {
   const [formData, setFormData] = useState({})

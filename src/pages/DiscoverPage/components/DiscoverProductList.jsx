@@ -13,11 +13,12 @@ import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import TextButton from "../../../shared/components/TextButton"
 import { useNavigate } from "react-router-dom"
 
-export default function DiscoverProductList({ merchandises }) {
+export default function DiscoverProductList({ artist, merchandises }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
   const { paging: totalPages } = useSelector((state) => state.merchandises)
+  console.log("Artist", artist)
 
   useEffect(() => {
     dispatch(fetchMerchandises({ page: currentPage }))
@@ -291,8 +292,11 @@ export default function DiscoverProductList({ merchandises }) {
           </form>
         </div>
         <div className="w-3/4 flex flex-col ps-4">
-          <div className="flex flex-row justify-between">
-            <h1 className="text-2xl font-semibold mb-6">Discover</h1>
+          <div className="flex flex-col">
+            <h1 className="xl-semibold-black">Hello, {artist.firstName}!</h1>
+            <p className="md-gray mb-6">
+              Here are our best selection of products to choose.
+            </p>
           </div>
           {merchandises.length === 0 ? (
             <EmptyContentSmall
@@ -318,7 +322,9 @@ export default function DiscoverProductList({ merchandises }) {
                   seller={merchandise.user.displayName}
                   price={merchandise.price}
                   onClick={() => {
-                    navigate("/product-detail", { state: { merchandise } })
+                    navigate("/product-detail", {
+                      state: { artist: artist, merchandise: merchandise },
+                    })
                   }}
                 />
               ))}
