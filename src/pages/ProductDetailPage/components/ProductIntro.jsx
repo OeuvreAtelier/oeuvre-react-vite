@@ -160,6 +160,7 @@ export default function ProductIntro() {
                 navigate("/shopping-cart", {
                   state: {
                     artist: state.artist,
+                    merchandise: state.merchandise,
                   },
                 })
               }}
