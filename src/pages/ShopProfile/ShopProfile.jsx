@@ -15,7 +15,6 @@ export default function ShopProfile() {
   const { isLoggedIn } = useAuth()
   const dispatch = useDispatch()
   console.log("Logged In:", isLoggedIn)
-  console.log("Artist SHOP PROFILE:", artist)
 
   if (isLoggedIn === true) {
     useEffect(() => {

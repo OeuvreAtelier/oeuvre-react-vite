@@ -15,7 +15,6 @@ export default function Navbar() {
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  console.log("Artist NAVBAR:", artist)
 
   if (isLoggedIn === true) {
     useEffect(() => {

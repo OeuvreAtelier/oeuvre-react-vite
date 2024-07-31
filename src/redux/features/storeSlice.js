@@ -6,7 +6,8 @@ export const createStore = createAsyncThunk(
   async (store, { rejectedWithValue }) => {
     try {
       const response = await axiosInstance.post("/stores", store)
-      return response.data
+      const responseArtist = await axiosInstance.post("/auth/register-artist")
+      return response.data, responseArtist.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
     }

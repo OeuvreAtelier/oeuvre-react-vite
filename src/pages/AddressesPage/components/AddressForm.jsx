@@ -9,7 +9,9 @@ import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeade
 import TextAreaWithHeaderFB from "../../../shared/components/TextAreaWithHeaderFB"
 import { Button } from "flowbite-react"
 
-export default function AddressForm() {
+export default function AddressForm({ isOpen, onClose }) {
+  if (!isOpen) return null
+
   const [formData, setFormData] = useState({})
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -76,19 +78,26 @@ export default function AddressForm() {
           ? createAddress(formData)
           : updateAddress(formData)
       await dispatch(action).unwrap()
-      navigate("/addresses")
     } catch (error) {
       console.error("Error submitting form:", error)
     }
+
+    onClose()
   }
 
   return (
-    <div className="bg-fixed flex justify-center items-center min-h-screen bg-[url('https://images.unsplash.com/photo-1482160549825-59d1b23cb208?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-gray-400 bg-blend-multiply">
-      <div className="mt-40 mb-20 w-full max-w-lg bg-white border border-gray-200 p-12 flex flex-col justify-center items-center rounded-3xl">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white p-6 shadow-lg relative max-h-[90vh] w-5/12 overflow-auto">
+        <div
+          className="absolute top-5 right-4 text-gray-300 hover:text-gray-500 cursor-pointer bg-slate-200 px-3 py-1 rounded-3xl text-white"
+          onClick={onClose}
+        >
+          X
+        </div>
         {state?.address ? (
-          <h1 className="xxl-semibold-black">Edit Address</h1>
+          <h1 className="xl-semibold-black text-center">Edit Address</h1>
         ) : (
-          <h1 className="xxl-semibold-black">Add Address</h1>
+          <h1 className="xl-semibold-black text-center">Add Address</h1>
         )}
         <form
           className="flex w-full flex-col gap-4 pt-6 px-4"
@@ -149,7 +158,7 @@ export default function AddressForm() {
           />
           <Button
             type="submit"
-            className="w-full bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-xl"
+            className="w-full bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mb-4 rounded-xl"
           >
             Submit
           </Button>

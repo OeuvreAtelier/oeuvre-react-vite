@@ -63,73 +63,98 @@ export default function ProductList({ artist, merchandises }) {
     setOpenModal(false)
   }
 
-  return (
-    <>
-      <ConfirmationModal
-        show={openModal}
-        onClose={() => setOpenModal(false)}
-        text="Do you want to delete this merchandise?"
-        yes="Yes"
-        no="No"
-        onYesClick={handleDelete}
-        onNoClick={() => setOpenModal(false)}
-        isHidden={false}
-      />
+  const handleCreateManageStore = (artist) => {
+    navigate("/manage-store", {
+      state: {
+        artist: artist,
+      },
+    })
+  }
+  console.log("Is Artist:", artist.artist)
 
-      {merchandises.length === 0 ? (
-        <EmptyContent
-          title={"There's nothing in here..."}
-          middleText={
-            "How about you add some stuff by clicking the button on the bottom after these paragraphs?"
-          }
-          lowerText={
-            "With merchandises available here, you can connect to the entire world by showing off your creative skills, or just selling some items that people loved."
-          }
-          onClick={() => handleAdd(artist)}
-          btnTitle={"Add Products"}
-          animation={Animation}
+  if (artist.artist === false) {
+    return (
+      <EmptyContent
+        title={"Start selling products now!"}
+        middleText={
+          "When you open a store here, you can do what you love and make money at the same time!"
+        }
+        lowerText={
+          "To start selling products, you need to register as an artist and create your store."
+        }
+        onClick={() => handleCreateManageStore(artist)}
+        btnTitle={"Create store"}
+        animation={Animation}
+      />
+    )
+  } else {
+    return (
+      <>
+        <ConfirmationModal
+          show={openModal}
+          onClose={() => setOpenModal(false)}
+          text="Do you want to delete this merchandise?"
+          yes="Yes"
+          no="No"
+          onYesClick={handleDelete}
+          onNoClick={() => setOpenModal(false)}
+          isHidden={false}
         />
-      ) : (
-        <div className="bg-slate-100 flex flex-col justify-center items-center mb-10">
-          <FloatingActionButton
-            btnName="Add Merchandise"
+        {merchandises.length === 0 ? (
+          <EmptyContent
+            title={"There's nothing in here..."}
+            middleText={
+              "How about you add some stuff by clicking the button on the bottom after these paragraphs?"
+            }
+            lowerText={
+              "With merchandises available here, you can connect to the entire world by showing off your creative skills, or just selling some items that people loved."
+            }
             onClick={() => handleAdd(artist)}
+            btnTitle={"Add Products"}
+            animation={Animation}
           />
-          <div className="grid grid-cols-4 grid-rows-1 gap-3 px-40">
-            {merchandises.map((merchandise) => (
-              <CardPictureTileWithButtons
-                key={merchandise.id}
-                image={
-                  merchandise.image
-                    ? merchandise.image.path
-                    : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
-                }
-                name={merchandise.name}
-                category={convertEnum[merchandise.category]}
-                price={merchandise.price}
-                onEdit={() => handleEdit(artist, merchandise)}
-                onDelete={() => handleDeleteModal(merchandise.id)}
-              />
-            ))}
+        ) : (
+          <div className="bg-slate-100 flex flex-col justify-center items-center mb-10">
+            <FloatingActionButton
+              btnName="Add Merchandise"
+              onClick={() => handleAdd(artist)}
+            />
+            <div className="grid grid-cols-4 grid-rows-1 gap-3 px-40">
+              {merchandises.map((merchandise) => (
+                <CardPictureTileWithButtons
+                  key={merchandise.id}
+                  image={
+                    merchandise.image
+                      ? merchandise.image.path
+                      : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+                  }
+                  name={merchandise.name}
+                  category={convertEnum[merchandise.category]}
+                  price={merchandise.price}
+                  onEdit={() => handleEdit(artist, merchandise)}
+                  onDelete={() => handleDeleteModal(merchandise.id)}
+                />
+              ))}
+            </div>
+            <div className="flex flex-row gap-2 mt-6">
+              {[...Array(totalPages.totalPages)].map((_, index) => (
+                <div
+                  className={
+                    currentPage === index + 1
+                      ? `p-2 cursor-pointer rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold`
+                      : `p-2 cursor-pointer rounded-lg bg-white hover:bg-gray-100 text-gray-600`
+                  }
+                  key={index}
+                  onClick={() => handlePageChange(index + 1)}
+                  disabled={currentPage === index + 1}
+                >
+                  {index + 1}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-row gap-2 mt-6">
-            {[...Array(totalPages.totalPages)].map((_, index) => (
-              <div
-                className={
-                  currentPage === index + 1
-                    ? `p-2 cursor-pointer rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold`
-                    : `p-2 cursor-pointer rounded-lg bg-white hover:bg-gray-100 text-gray-600`
-                }
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                disabled={currentPage === index + 1}
-              >
-                {index + 1}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </>
-  )
+        )}
+      </>
+    )
+  }
 }

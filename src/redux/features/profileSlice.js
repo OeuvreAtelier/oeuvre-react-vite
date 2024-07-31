@@ -65,6 +65,18 @@ export const updateBanner = createAsyncThunk(
   }
 )
 
+export const registerArtist = createAsyncThunk(
+  "artists/registerArtist",
+  async (_, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/auth/register-artist")
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
 const profileSlice = createSlice({
   name: "artists",
   initialState: initialState,
@@ -76,11 +88,6 @@ const profileSlice = createSlice({
         state.data = action.payload.data
       })
       .addCase(updateArtist.fulfilled, (state, action) => {
-        state.statusCode = "succeeded"
-        state.data = action.payload.data
-        state.message = action.payload.message
-      })
-      .addCase(updateImage.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
         state.message = action.payload.message

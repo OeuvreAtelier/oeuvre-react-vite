@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom"
 
 export default function ProfileHeader({ artist }) {
   const navigate = useNavigate()
-  console.log("Artist Profile Header:", artist)
 
   const handleEdit = (artist) => {
     navigate("/edit-profile", {
@@ -26,6 +25,14 @@ export default function ProfileHeader({ artist }) {
       state: {
         artist: artist,
       },
+    })
+  }
+
+  const handleCreateManageStore = (artist) => {
+    navigate("/manage-store", {
+      state: {
+        artist: artist,
+      }
     })
   }
 
@@ -45,11 +52,10 @@ export default function ProfileHeader({ artist }) {
         }}
       >
         <div className="flex flex-row items-end">
-          {console.log("Artist:", artist)}
           <img
             className="bg-white ms-20 size-32 mb-5 rounded-full p-1 object-cover"
             src={
-              artist.imageBanner
+              artist.imagePicture
                 ? artist.imagePicture.path
                 : "https://i.imgur.com/LGvqTph.jpeg"
             }
@@ -114,7 +120,7 @@ export default function ProfileHeader({ artist }) {
         <IconButton
           btnName="Manage Store"
           btnIcon={faStoreAlt}
-          onClick={() => navigate("/manage-store")}
+          onClick={() => handleCreateManageStore(artist)}
           color="bg-white"
           hoverColor="bg-slate-100"
           textColor="text-gray-600"

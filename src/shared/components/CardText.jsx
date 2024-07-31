@@ -12,9 +12,9 @@ export default function CardText({
   return (
     <div className="card-border-shadow p-4 flex flex-col w-full">
       <p className="md-semibold-black mb-1">{heading}</p>
-      <p className="md-gray">{upperText}</p>
-      <p className="md-gray">{middleText}</p>
-      <p className="md-gray mb-4">{lowerText}</p>
+      <p className="sm-gray">{upperText}</p>
+      <p className="sm-gray">{middleText}</p>
+      <p className="sm-gray mb-4">{lowerText}</p>
       <TextButton
         btnName="Edit"
         onClick={onEdit}
