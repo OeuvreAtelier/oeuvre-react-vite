@@ -23,7 +23,7 @@ export default function EditProfileContainer() {
         birthDate: state.artist.birthDate,
         phoneNumber: state.artist.phoneNumber,
       })
-      console.log("Artist ID", state.artist)
+      console.log("Artist Details", state.artist)
     } else {
       navigate("/my-store")
     }

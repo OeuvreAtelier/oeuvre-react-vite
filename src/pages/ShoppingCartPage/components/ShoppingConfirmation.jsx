@@ -131,7 +131,7 @@ export default function ShoppingConfirmation({ address }) {
         </div>
         <div className="w-4/12">
           <div className="card-border-shadow flex flex-col ps-7 py-4 pe-4 mx-4 mb-4">
-            <h1 className="lg-semibold-black mt-2 mb-4 me-3">
+            <h1 className="lg-semibold-black mt-2 mb-6 me-3">
               Shipment Address
             </h1>
             <div className="mb-4">

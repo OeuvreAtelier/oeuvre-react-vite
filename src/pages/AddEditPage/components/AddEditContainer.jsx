@@ -30,7 +30,7 @@ export default function AddEditContainer() {
           stock: state.merchandise.stock,
           user_id: state.merchandise.user.id,
           type: state.merchandise.type,
-          description: state.merchandise.description,
+          description: state.merchandise.description.description,
         })
       } else {
         setFormData({
@@ -221,16 +221,27 @@ export default function AddEditContainer() {
             nameInput="description"
             placeholder="Describe your product here..."
             value={
-                // state?.merchandise
-                //   ? JSON.stringify(
-                //       state.merchandise.description.description
-                //     ).slice(1, -1)
-                //   :
+                state?.merchandise
+                  ? 
+                  // JSON.stringify(
+                      state.merchandise.description.description
+                    // ).slice(1, -1)
+                  :
                 formData.description
             }
             onChange={handleChange}
           />
-          <div className="bg-slate-100 w-full h-96 rounded-lg"></div>
+          <div className="bg-slate-100 w-full h-96 rounded-lg">
+            <img
+              src={
+                selectedImage
+                  ? URL.createObjectURL(selectedImage)
+                  : state?.merchandise?.image?.path
+              }
+              className="w-full h-full object-cover rounded-lg"
+              alt="Image Preview"
+            />
+          </div>
           <FileUploadButton
             id="image"
             label="Product Image"

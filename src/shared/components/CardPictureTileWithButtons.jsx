@@ -17,7 +17,7 @@ export default function CardPictureTileWithButtons({
   return (
     <div className="card-border-shadow">
       <img
-        className="rounded-t-lg w-64 h-44 object-cover"
+        className="rounded-t-lg w-full h-44 object-cover"
         src={image}
         alt={name}
       />

@@ -18,9 +18,9 @@ import RateReviewPage from "./pages/RateReviewPage/RateReviewPage"
 import TransactionSuccessful from "./pages/TransactionPage/TransactionSuccessful"
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage"
 import AddressesPage from "./pages/AddressesPage/AddressesPage"
-import AddressForm from "./pages/AddressesPage/components/AddressForm"
 import EditProfileAvatarBanner from "./pages/EditProfilePage/EditProfileAvatarBanner"
 import CreateStorePage from "./pages/CreateStorePage/CreateStorePage"
+import AddressFormNoModal from "./pages/AddressesPage/components/AddressFormNoModal"
 
 const router = createBrowserRouter([
   {
@@ -143,7 +143,7 @@ const router = createBrowserRouter([
         path: "/address-form",
         element: (
           <ProtectedRoute>
-            <AddressForm />
+            <AddressFormNoModal />
           </ProtectedRoute>
         ),
       },

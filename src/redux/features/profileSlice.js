@@ -11,9 +11,8 @@ export const fetchArtists = createAsyncThunk(
   "artists/fetchArtists",
   async (userAccountId, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.get(
-        `/users/account/${userAccountId}`
-      )
+      const response = await axiosInstance.get(`/users/account/${userAccountId}`)
+      console.log("Response:", response.data)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
