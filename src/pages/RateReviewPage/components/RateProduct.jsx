@@ -28,6 +28,7 @@ export default function RateProduct() {
       navigate("/discover")
     } catch (error) {
       console.error("Error submitting form:", error)
+      alert("Error submitting form:", error)
     }
   }
 

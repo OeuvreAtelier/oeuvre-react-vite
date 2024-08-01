@@ -21,7 +21,7 @@ export default function Navbar() {
       const token = secureLocalStorage.getItem("token")
       const decodedToken = jwtDecode(token)
       const decodedUserId = decodedToken.sub
-
+      
       dispatch(fetchArtists(decodedUserId))
     }, [dispatch])
   }

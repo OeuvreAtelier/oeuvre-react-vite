@@ -103,6 +103,7 @@ export default function CreateEditStore({ address }) {
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+      alert("Error submitting form:", error)
     }
   }
 
@@ -127,13 +128,15 @@ export default function CreateEditStore({ address }) {
               You can do what you love and make money at the same time! Please
               add your address first to create your store.
             </p>
-            <TextButton
-              btnName={"Create New Address"}
-              onClick={handleOpenModal}
-              btnColor={"bg-sky-600"}
-              textColor={"text-white"}
-              hoverColor={"bg-sky-700"}
-            />
+            {address.length < 5 ? (
+              <TextButton
+                btnName={"Add Address (max. 5)"}
+                onClick={handleOpenModal}
+                btnColor={"bg-sky-600"}
+                textColor={"text-white"}
+                hoverColor={"bg-sky-700"}
+              />
+            ) : null}
           </div>
           <div className="flex flex-col w-3/5">
             <h1 className="xl-semibold-black mx-4 mt-4">Create Store</h1>

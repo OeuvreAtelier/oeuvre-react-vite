@@ -9,6 +9,7 @@ import { CartContext } from "../../../context/CartContext"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import Animation from "../../../assets/shopping-cart.json"
 import TextButton from "../../../shared/components/TextButton"
+import { createTransaction } from "../../../redux/features/transactionSlice"
 
 export default function ShoppingConfirmation({ address }) {
   const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } =
@@ -24,18 +25,15 @@ export default function ShoppingConfirmation({ address }) {
       setFormData({
         userId: state.artist.id,
         addressId: "",
-        transactionDetails: "",
+        transactionDetails: [],
       })
     } else {
       navigate("/discover")
     }
   }, [navigate, state])
 
-  console.log("User ID CART:", state)
-
   useEffect(() => {
     if (state !== null) {
-      console.log("State SHOPPING CART:", state)
       dispatch(fetchAddressesByUserId(state.artist.id))
     } else {
       navigate("/discover")
@@ -51,8 +49,84 @@ export default function ShoppingConfirmation({ address }) {
     console.log("Form:", formData)
   }
 
+  const handleSubmit = async (e) => {
+    console.log("Processing transaction:", formData);
+    e.preventDefault()
+    try {
+      const action = createTransaction(formData)
+      await dispatch(action).unwrap()
+      clearCart()
+      navigate("/success")
+    } catch (error) {
+      console.error("Error creating transaction!", error)
+      alert("Error creating transaction!", error)
+    }
+  }
+
   function numberWithDots(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
+
+  const addToTransactionDetails = (item) => {
+    const isItemInDetails = formData.transactionDetails.find(
+      (detail) => detail.productId === item.id
+    )
+
+    if (isItemInDetails) {
+      addToCart(item)
+      setFormData({
+        ...formData,
+        transactionDetails: formData.transactionDetails.map((detail) =>
+          detail.productId === item.id
+            ? { ...detail, quantity: detail.quantity + 1 }
+            : detail
+        ),
+      })
+      console.log("Form:", formData)
+    } else {
+      setFormData({
+        ...formData,
+        transactionDetails: [
+          ...formData.transactionDetails,
+          { productId: item.id, quantity: 1 },
+        ],
+      })
+    }
+  }
+
+  const removeFromTransactionDetails = (item) => {
+    const isItemInDetails = formData.transactionDetails.find(
+      (detail) => detail.productId === item.id
+    )
+
+    if (isItemInDetails) {
+      removeFromCart(item)
+      setFormData({
+        ...formData,
+        transactionDetails: formData.transactionDetails.map((detail) =>
+          detail.productId === item.id
+            ? { ...detail, quantity: detail.quantity - 1 }
+            : detail
+        ),
+      })
+      console.log("Form:", formData)
+    } else {
+      setFormData({
+        ...formData,
+        transactionDetails: [
+          ...formData.transactionDetails,
+          { productId: item.id, quantity: 1 },
+        ],
+      })
+    }
+  }
+
+  const handleClearCart = () => {
+    clearCart()
+    setFormData({
+      ...formData,
+      transactionDetails: [],
+    })
   }
 
   return (
@@ -62,57 +136,52 @@ export default function ShoppingConfirmation({ address }) {
         <div className="w-8/12 flex flex-col ps-4 pe-5">
           <div className="flex-col flex">
             <div className="flex flex-col gap-4">
-              {cartItems.map(
-                (item) => (
-                  console.log("Item:", item),
-                  (
-                    <div
-                      className="card-border-shadow p-5 flex justify-between items-center"
-                      key={item.id}
+              {cartItems.map((item) => (
+                <div
+                  className="card-border-shadow p-5 flex justify-between items-center"
+                  key={item.id}
+                >
+                  <div className="flex flex-col">
+                    <p className="sm-black">{item.user.displayName}</p>
+                    <h1 className="md-semibold-black mb-1">{item.name}</h1>
+                    <p className="sm-lightgray">
+                      Available stock: {item.stock}
+                    </p>
+                    <p className="sm-lightgray">
+                      Price per item: Rp{numberWithDots(item.price)}
+                    </p>
+                  </div>
+                  <Button.Group className="my-2">
+                    <Button
+                      color="gray"
+                      size={"sm"}
+                      onClick={() => removeFromTransactionDetails(item)}
                     >
-                      <div className="flex flex-col">
-                        <p className="sm-black">{item.user.displayName}</p>
-                        <h1 className="md-semibold-black mb-1">{item.name}</h1>
-                        <p className="sm-lightgray">
-                          Available stock: {item.stock}
-                        </p>
-                        <p className="sm-lightgray">
-                          Price per item: Rp{numberWithDots(item.price)}
-                        </p>
-                      </div>
-                      <Button.Group className="my-2">
-                        <Button
-                          color="gray"
-                          size={"sm"}
-                          onClick={() => removeFromCart(item)}
-                        >
-                          <div className="text-sm">-</div>
-                        </Button>
-                        <Button color="white" size={"sm"}>
-                          <div className="text-sm">{item.quantity}</div>
-                        </Button>
-                        <Button
-                          color="gray"
-                          size={"sm"}
-                          onClick={() => {
-                            if (item.quantity > item.stock - 1) return
-                            addToCart(item)
-                          }}
-                        >
-                          <div className="text-sm">+</div>
-                        </Button>
-                      </Button.Group>
-                    </div>
-                  )
-                )
-              )}
+                      <div className="text-sm">-</div>
+                    </Button>
+                    <Button color="white" size={"sm"}>
+                      <div className="text-sm">{item.quantity}</div>
+                    </Button>
+                    <Button
+                      color="gray"
+                      size={"sm"}
+                      onClick={() => {
+                        if (item.quantity > item.stock - 1) return
+                        addToTransactionDetails(item)
+                      }}
+                    >
+                      <div className="text-sm">+</div>
+                    </Button>
+                  </Button.Group>
+                </div>
+              ))}
             </div>
             {cartItems.length > 0 ? (
               <div className="flex flex-col items-center my-5">
                 <TextButton
                   btnName="Clear Cart"
                   onClick={() => {
-                    clearCart()
+                    handleClearCart()
                   }}
                   btnColor={"bg-red-500"}
                   textColor={"text-white"}
@@ -131,16 +200,18 @@ export default function ShoppingConfirmation({ address }) {
         </div>
         <div className="w-4/12">
           <div className="card-border-shadow flex flex-col ps-7 py-4 pe-4 mx-4 mb-4">
-            <h1 className="lg-semibold-black mt-2 mb-4 me-3">
+            <h1 className="lg-semibold-black mt-2 mb-6 me-3">
               Shipment Address
             </h1>
             <div className="mb-4">
               <fieldset className="flex max-w-md flex-col gap-4">
                 {address.length === 0 ? (
-                  console.log("Address:", address),
-                  <p className="text-white py-2 ps-4 bg-red-500 rounded-lg">
-                    No address found, you can create an address first.
-                  </p>
+                  (console.log("Address:", address),
+                  (
+                    <p className="text-white py-2 ps-4 bg-red-500 rounded-lg">
+                      No address found, you can create an address first.
+                    </p>
+                  ))
                 ) : (
                   <div className="flex flex-col gap-2 -mt-2">
                     {address.map((selectedAddress) => (
@@ -182,7 +253,9 @@ export default function ShoppingConfirmation({ address }) {
             </div>
             <div className="flex flex-row justify-between mb-3 me-3">
               <p className="md-gray">11% VAT</p>
-              <p className="md-black">Rp{numberWithDots(getCartTotal() * 0.11)}</p>
+              <p className="md-black">
+                Rp{numberWithDots(getCartTotal() * 0.11)}
+              </p>
             </div>
             <div className="flex flex-row justify-between mb-5 me-3">
               <p className="md-gray">Service Fees</p>
@@ -190,16 +263,17 @@ export default function ShoppingConfirmation({ address }) {
             </div>
             <div className="flex flex-row justify-between mb-5 me-3">
               <p className="md-semibold-gray">Total Amount</p>
-              <p className="md-semibold-black">Rp{numberWithDots(getCartTotal() + (getCartTotal() * 0.11) + 1000)}</p>
+              <p className="md-semibold-black">
+                Rp
+                {numberWithDots(getCartTotal() + getCartTotal() * 0.11 + 1000)}
+              </p>
             </div>
             <IconButton
               btnName="Pay Now"
               btnIcon={faCashRegister}
               color="bg-indigo-700"
               textColor="text-white"
-              onClick={() => {
-                navigate("/success")
-              }}
+              onClick={handleSubmit}
             />
           </div>
         </div>

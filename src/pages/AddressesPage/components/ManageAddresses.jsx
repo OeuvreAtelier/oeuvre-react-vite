@@ -83,11 +83,15 @@ export default function ManageAddresses({ artist, addresses }) {
         </div>
       ) : (
         <div className="bg-slate-100 flex flex-col justify-center items-center mb-10">
-          <FloatingActionButton
-            btnName="Add Address"
-            onClick={() => handleAdd(artist)}
-          />
-          <h1 className="xxl-semibold-black mt-28 mb-6">My Saved Addresses</h1>
+          {addresses.length < 5 ? (
+            <FloatingActionButton
+              btnName="Add Address"
+              onClick={() => handleAdd(artist)}
+            />
+          ) : null}
+
+          <h1 className="xxl-semibold-black mt-28 mb-2">My Saved Addresses</h1>
+          <p className="sm-semibold-gray mb-7">Note: You can only save up to 5 addresses.</p>
           <div className="grid grid-cols-5 grid-rows-1 gap-3 px-10">
             {addresses.map((address) => (
               <CardText

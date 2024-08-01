@@ -42,6 +42,7 @@ export const updateImage = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       })
+      console.log("Response:", response.data)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)

@@ -13,14 +13,11 @@ export default function AvatarBanner() {
   const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [selectedBanner, setSelectedBanner] = useState(null)
 
-  console.log("STATE", state)
-
   useEffect(() => {
     if (state !== null) {
       setFormData({
         userId: state.artist.id,
       })
-      console.log("Artist ID", state.artist.id)
     }
   }, [state])
 
@@ -47,6 +44,7 @@ export default function AvatarBanner() {
       navigate("/my-store")
     } catch (error) {
       console.error("Error submitting form:", error)
+      alert("Error submitting form:", error)
     }
   }
 
@@ -93,7 +91,17 @@ export default function AvatarBanner() {
                   alignItems: "center",
                 }}
               >
-                <div className="bg-slate-100 w-40 h-40 rounded-full"></div>
+                <div className="bg-slate-100 w-40 h-40 rounded-full">
+                  <img
+                    src={
+                      selectedAvatar
+                        ? URL.createObjectURL(selectedAvatar)
+                        : state.artist.imagePicture?.path
+                    }
+                    className="w-full h-full object-cover rounded-full"
+                    alt="Avatar Preview"
+                  />
+                </div>
               </div>
               <FileUploadButton
                 id="imagePicture"
@@ -115,7 +123,17 @@ export default function AvatarBanner() {
               className="flex w-full flex-col gap-4 pt-6 px-4"
               onSubmit={handleSubmitBanner}
             >
-              <div className="bg-slate-100 w-full h-48 rounded-lg"></div>
+              <div className="bg-slate-100 w-full h-48 rounded-lg">
+                <img
+                  src={
+                    selectedBanner
+                      ? URL.createObjectURL(selectedBanner)
+                      : state.artist.imageBanner?.path
+                  }
+                  className="w-full h-full object-cover rounded-lg"
+                  alt="Banner Preview"
+                />
+              </div>
 
               <FileUploadButton
                 id="imageBanner"

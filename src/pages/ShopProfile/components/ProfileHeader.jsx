@@ -5,11 +5,12 @@ import {
   faBuilding,
   faImage,
   faKiwiBird,
+  faMailBulk,
   faStoreAlt,
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
 
-export default function ProfileHeader({ artist }) {
+export default function ProfileHeader({ artist, store }) {
   const navigate = useNavigate()
 
   const handleEdit = (artist) => {
@@ -32,9 +33,12 @@ export default function ProfileHeader({ artist }) {
     navigate("/manage-store", {
       state: {
         artist: artist,
-      }
+      },
     })
   }
+
+  console.log("Artist:", artist)
+  console.log("Store:", store)
 
   return (
     <div className="mx-40">
@@ -76,19 +80,20 @@ export default function ProfileHeader({ artist }) {
       </section>
       <div className="card-border-shadow-bottom p-6 mb-6">
         <p className="md-semibold-black mb-8">
-          Welcome to {artist.displayName}'s Atelier 🎨 Explore a curated
-          collection of my illustrations, meticulously crafted to ignite
-          imagination and evoke emotions. Each piece is a reflection of my
-          passion for Pixel Art and Anime, meticulously detailed and ready to
-          bring beauty into your space. Whether you're a collector or seeking
-          the perfect artwork, find your next masterpiece here. Start your
-          journey into artistry today! ✨
+          {store === null
+            ? "You can add the description by creating your store first."
+            : store.description}
         </p>
-        {/* Profile buttons */}
         <IconButton
           btnName="Pixiv"
           btnIcon={faBrush}
-          onClick={() => window.open("https://www.pixiv.net/en/users/431873")}
+          onClick={() => {
+            const pixivUrl =
+              store === null
+                ? "https://www.pixiv.net/en/users/431873"
+                : `https://www.pixiv.net/en/users/${store.pixiv}`
+            window.open(pixivUrl)
+          }}
           color="bg-white"
           hoverColor="bg-slate-100"
           textColor="text-gray-600"
@@ -96,7 +101,27 @@ export default function ProfileHeader({ artist }) {
         <IconButton
           btnName="Twitter"
           btnIcon={faKiwiBird}
-          onClick={() => window.open("https://x.com/hololive_Id")}
+          onClick={() => {
+            const twitterUrl =
+              store === null
+                ? "https://twitter.com/hololive_id"
+                : `https://twitter.com/${store.twitter}`
+            window.open(twitterUrl)
+          }}
+          color="bg-white"
+          hoverColor="bg-slate-100"
+          textColor="text-gray-600"
+        />
+        <IconButton
+          btnName="Email"
+          btnIcon={faMailBulk}
+          onClick={() => {
+            const emailAddress =
+              artist === null ? "user@example.com" : `${artist.email}`
+            window.open(
+              `mailto:${emailAddress}?subject=Information&body=Hello%21%20I%20would%20like%20to...`
+            )
+          }}
           color="bg-white"
           hoverColor="bg-slate-100"
           textColor="text-gray-600"
