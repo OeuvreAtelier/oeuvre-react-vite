@@ -1,4 +1,5 @@
 import React from "react"
+import convertEnum from "../../constants/convertEnum.js"
 
 export default function CardPictureTile({
   image,
@@ -8,7 +9,7 @@ export default function CardPictureTile({
   price,
 }) {
   function numberWithDots(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
   return (
     <div className="card-border-shadow">
@@ -18,8 +19,8 @@ export default function CardPictureTile({
         alt={name}
       />
       <div className="p-5">
-        <p className="sm-semibold-gray">{category}</p>
-        <p className="md-semibold-black mt-1">{name}</p>
+        <p className="sm-semibold-gray mb-1">{convertEnum[category]}</p>
+        <p className="md-semibold-black mb-1">{name}</p>
         <p className="sm-black mb-1">{seller}</p>
         <p className="md-semibold-blue">Rp{numberWithDots(price)}</p>
       </div>

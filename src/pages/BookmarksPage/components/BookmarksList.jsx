@@ -46,60 +46,13 @@ export default function BookmarksList() {
               image={
                 "https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
               }
-              imageOnClick=""
+              imageOnClick={() => {}}
               name="The Goddess's Hell"
               category="Illustration"
-              categoryOnClick=""
-              seller="Kayano Hikatu"
-              sellerOnClick=""
+              lowerText="Kayano Hikatu"
               price="125000"
-            />
-
-            <CardPictureTileBottomBtn
-              image={"https://static.zerochan.net/Arlecchino.full.3705545.jpg"}
-              imageOnClick=""
-              name="Spirited Away"
-              category="Video"
-              categoryOnClick=""
-              seller="Ghibli Studio"
-              sellerOnClick=""
-              price="89000"
-            />
-            <CardPictureTileBottomBtn
-              image={
-                "https://c4.wallpaperflare.com/wallpaper/35/918/352/genshin-impact-artwork-clorinde-genshin-impact-anime-anime-girls-hd-wallpaper-preview.jpg"
-              }
-              imageOnClick=""
-              name="Baldur's Gate 3"
-              category="Games"
-              categoryOnClick=""
-              seller="FromSoftware"
-              sellerOnClick=""
-              price="538000"
-            />
-            <CardPictureTileBottomBtn
-              image={
-                "https://i.pinimg.com/736x/25/84/ec/2584ec3b93837b5f1c874fb7811e3d6c.jpg"
-              }
-              imageOnClick=""
-              name="Promise of The World"
-              category="Music"
-              categoryOnClick=""
-              seller="Ghibli Studio"
-              sellerOnClick=""
-              price="56000"
-            />
-            <CardPictureTileBottomBtn
-              image={
-                "https://genshin.global/wp-content/uploads/2022/06/raiden-shogun-birthday-art-genshinimpact.jpg"
-              }
-              imageOnClick=""
-              name="The Goddess's Hell"
-              category="Illustration"
-              categoryOnClick=""
-              seller="Kayano Hikatu"
-              sellerOnClick=""
-              price="125000"
+              btnName={"Remove"}
+              btnOnClick={() => {}}
             />
           </div>
         </div>

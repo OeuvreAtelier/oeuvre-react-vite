@@ -4,6 +4,7 @@ import {
   faShoppingBasket,
   faBookmark,
   faList,
+  faWarning,
 } from "@fortawesome/free-solid-svg-icons"
 import AddToCart from "../../../shared/components/AddToCart"
 import { Rating } from "flowbite-react"
@@ -12,17 +13,22 @@ import ReviewCard from "./ReviewCard"
 import { useLocation, useNavigate } from "react-router-dom"
 import convertEnum from "../../../constants/convertEnum.js"
 import { CartContext } from "../../../context/CartContext.jsx"
+import ConfirmationModal from "../../../shared/components/ConfirmationModal.jsx"
 
 export default function ProductIntro() {
   const { cartItems, addToCart } = useContext(CartContext)
+  const [openModal, setOpenModal] = useState(false)
+  const { state } = useLocation()
+  const navigate = useNavigate()
+  const [emptyStock, setEmptyStock] = useState(false)
+
+  const handleEmptyStock = () => {
+    setEmptyStock(true)
+  }
 
   function numberWithDots(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
-
-  const [openModal, setOpenModal] = useState(false)
-  const { state } = useLocation()
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (state !== null) {
@@ -44,6 +50,12 @@ export default function ProductIntro() {
 
   return (
     <>
+      <ConfirmationModal
+        show={emptyStock}
+        onClose={() => setEmptyStock(false)}
+        text="Sorry, the product is sold out at the moment."
+        isHidden={true}
+      />
       <div className="flex flex-col">
         <ScrollableModal
           isOpen={openModal}
@@ -153,16 +165,24 @@ export default function ProductIntro() {
               }
               type={convertEnum[state.merchandise.type]}
               price={numberWithDots(state.merchandise.price)}
-              name="Add to Cart"
-              icon={faShoppingBasket}
+              name={
+                state.merchandise.stock === 0 ? "Out of Stock" : "Add to Cart"
+              }
+              icon={
+                state.merchandise.stock === 0 ? faWarning : faShoppingBasket
+              }
               onClick={() => {
-                addToCart(state.merchandise)
-                navigate("/shopping-cart", {
-                  state: {
-                    artist: state.artist,
-                    merchandise: state.merchandise,
-                  },
-                })
+                if (state.merchandise.stock === 0) {
+                  handleEmptyStock()
+                } else {
+                  addToCart(state.merchandise)
+                  navigate("/shopping-cart", {
+                    state: {
+                      artist: state.artist,
+                      merchandise: state.merchandise,
+                    },
+                  })
+                }
               }}
             />
             <IconButton

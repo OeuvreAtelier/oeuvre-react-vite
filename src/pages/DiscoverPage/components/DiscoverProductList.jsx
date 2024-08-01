@@ -277,16 +277,16 @@ export default function DiscoverProductList({ artist, merchandises }) {
             <TextButton
               btnName="Search Results"
               onClick={handleSearch}
-              btnColor="bg-indigo-600"
+              btnColor="bg-indigo-500"
               textColor="text-white"
-              hoverColor="hover:bg-indigo-700"
+              hoverColor="bg-indigo-700"
             />
             <TextButton
               btnName="Reset Search"
               onClick={resetSearchFilter}
-              btnColor="bg-indigo-600"
+              btnColor="bg-indigo-500"
               textColor="text-white"
-              hoverColor="hover:bg-indigo-700"
+              hoverColor="bg-indigo-700"
             />
           </form>
         </div>
@@ -319,6 +319,7 @@ export default function DiscoverProductList({ artist, merchandises }) {
                   category={convertEnum[merchandise.category]}
                   name={merchandise.name}
                   seller={merchandise.user.displayName}
+                  productStock={merchandise.stock}
                   price={merchandise.price}
                   onClick={() => {
                     navigate("/product-detail", {
