@@ -12,6 +12,7 @@ import Animation from "../../../assets/empty.json"
 import CreateStoreStart from "../../../assets/create-store.json"
 import convertEnum from "../../../constants/convertEnum.js"
 import EmptyContent from "../../../shared/components/EmptyContent.jsx"
+import CardPictureTileBottomBtn from "../../../shared/components/CardPictureTileBottomBtn.jsx"
 
 export default function ProductList({ artist, merchandises }) {
   const [openModal, setOpenModal] = useState(false)
@@ -23,7 +24,9 @@ export default function ProductList({ artist, merchandises }) {
   const { paging: totalPages } = useSelector((state) => state.merchandises)
 
   useEffect(() => {
-    dispatch(fetchMerchandisesByUserId({ userId: artist.id, page: currentPage }))
+    dispatch(
+      fetchMerchandisesByUserId({ userId: artist.id, page: currentPage })
+    )
   }, [dispatch, currentPage])
 
   const handlePageChange = (page) => {
@@ -59,7 +62,9 @@ export default function ProductList({ artist, merchandises }) {
     dispatch(deleteProduct(deleteId))
       .unwrap()
       .then(() => {
-        dispatch(fetchMerchandisesByUserId({ userId: artist.id, page: currentPage }))
+        dispatch(
+          fetchMerchandisesByUserId({ userId: artist.id, page: currentPage })
+        )
       })
       .catch((error) => console.error("Deletion failed:", error))
     setOpenModal(false)
@@ -146,18 +151,20 @@ export default function ProductList({ artist, merchandises }) {
             />
             <div className="grid grid-cols-4 grid-rows-1 gap-3 px-40">
               {merchandises.map((merchandise) => (
-                <CardPictureTileWithButtons
+                <CardPictureTileBottomBtn
                   key={merchandise.id}
                   image={
                     merchandise.image
                       ? merchandise.image.path
                       : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
                   }
+                  imageOnClick={() => {}}
                   name={merchandise.name}
                   category={convertEnum[merchandise.category]}
+                  lowerText={convertEnum[merchandise.type] + " " + "Product"}
                   price={merchandise.price}
-                  onEdit={() => handleEdit(artist, merchandise)}
-                  onDelete={() => handleDeleteModal(merchandise.id)}
+                  btnName="Edit"
+                  btnOnClick={() => handleEdit(artist, merchandise)}
                 />
               ))}
             </div>

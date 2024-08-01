@@ -8,6 +8,7 @@ export default function AddToCart({
   name,
   icon,
   onClick,
+  btnColor,
 }) {
   return (
     <div className="flex flex-col mb-4">
@@ -23,8 +24,8 @@ export default function AddToCart({
         btnIcon={icon}
         onClick={onClick}
         color="bg-indigo-500"
-        hoverColor="bg-indigo-600"
         textColor="text-white"
+        hoverColor="bg-indigo-700"
       />
       <p className="sm-semibold-gray pt-5 my-4">About shipping:</p>
       <p className="sm-semibold-gray font-semibold mb-2">

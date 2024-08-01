@@ -4,47 +4,37 @@ import TextButton from "./TextButton"
 export default function CardPictureTileBottomBtn({
   image,
   imageOnClick,
-  category,
-  categoryOnClick,
   name,
-  seller,
-  sellerOnClick,
+  category,
+  lowerText,
   price,
+  btnName,
+  btnOnClick,
 }) {
+  function numberWithDots(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
   return (
     <div className="card-border-shadow">
       <img
-        className="rounded-t-lg hover:cursor-pointer w-64 h-48 object-cover"
+        className="rounded-t-lg w-full h-44 object-cover hover:cursor-pointer"
         src={image}
         alt={name}
         onClick={imageOnClick}
       />
-      <div className="px-5 pt-5">
-        <p
-          className="sm-semibold-gray hover:underline hover:cursor-pointer"
-          onClick={categoryOnClick}
-        >
-          {category}
-        </p>
-        <p
-          className="md-semibold-black mt-1 hover:underline hover:cursor-pointer"
-          onClick={imageOnClick}
-        >
-          {name}
-        </p>
-        <p
-          className="sm-black mb-1 hover:underline hover:cursor-pointer"
-          onClick={sellerOnClick}
-        >
-          {seller}
-        </p>
-        <p className="md-semibold-blue">Rp{price}</p>
+      <div className="p-3 ms-1">
+        <p className="xs-semibold-gray mb-1">{category}</p>
+        <p className="sm-semibold-black mb-1">{name}</p>
+        <p className="sm-black mb-1">{lowerText}</p>
+        <p className="sm-semibold-blue">Rp{numberWithDots(price)}</p>
       </div>
-      <div className="px-5 py-3">
+      <div className="ms-4 mb-3">
         <TextButton
-          btnName="Remove"
-          btnColor="bg-red-700"
+          btnName={btnName}
+          btnColor="bg-indigo-500"
           textColor="text-white"
+          hoverColor="bg-indigo-700"
+          onClick={btnOnClick}
         />
       </div>
     </div>

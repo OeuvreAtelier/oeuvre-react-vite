@@ -8,6 +8,7 @@ export default function CardPictureTileSmall({
   seller,
   price,
   onClick,
+  productStock,
 }) {
   function numberWithDots(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
@@ -21,6 +22,14 @@ export default function CardPictureTileSmall({
           src={image}
           alt={name}
         />
+
+        {productStock === 0 ? (
+          <div className="absolute bg-black bg-opacity-50 top-0 left-0 w-full h-full rounded-lg flex items-center justify-center">
+            <div className="sm-semibold-white bg-black p-2 rounded-lg">
+              Sold Out
+            </div>
+          </div>
+        ) : null}
         <div className="absolute bottom-0 right-0 p-1 m-2 bg-white rounded-lg">
           <Rating>
             <Rating.Star color="#e0a910" />
