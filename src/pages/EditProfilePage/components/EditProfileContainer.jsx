@@ -48,6 +48,7 @@ export default function EditProfileContainer() {
       navigate("/my-store")
     } catch (error) {
       console.error("Error submitting form:", error)
+      alert("Error submitting form:", error)
     }
   }
 

@@ -38,6 +38,7 @@ export default function ProfileHeader({ artist, store }) {
   }
 
   console.log("Artist:", artist)
+  console.log("Store:", store)
 
   return (
     <div className="mx-40">
@@ -80,7 +81,7 @@ export default function ProfileHeader({ artist, store }) {
       <div className="card-border-shadow-bottom p-6 mb-6">
         <p className="md-semibold-black mb-8">
           {store === null
-            ? "No description."
+            ? "You can add the description by creating your store first."
             : store.description}
         </p>
         <IconButton
@@ -112,7 +113,7 @@ export default function ProfileHeader({ artist, store }) {
           textColor="text-gray-600"
         />
         <IconButton
-          btnName="Email Address"
+          btnName="Email"
           btnIcon={faMailBulk}
           onClick={() => {
             const emailAddress =

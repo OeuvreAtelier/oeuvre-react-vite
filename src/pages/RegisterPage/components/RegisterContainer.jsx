@@ -52,10 +52,12 @@ export default function RegisterContainer() {
           navigate("/login")
         } else {
           setErrorMessage("Failed to register. Please try again.")
+          alert("Failed to register. Please try again.")
         }
       } catch (error) {
         console.error(error)
         setErrorMessage(error.message)
+        alert("Failed to register. Please try again.")
       }
     }
   }

@@ -83,7 +83,7 @@ export default function ManageAddresses({ artist, addresses }) {
         </div>
       ) : (
         <div className="bg-slate-100 flex flex-col justify-center items-center mb-10">
-          {addresses.length <= 5 ? (
+          {addresses.length < 5 ? (
             <FloatingActionButton
               btnName="Add Address"
               onClick={() => handleAdd(artist)}

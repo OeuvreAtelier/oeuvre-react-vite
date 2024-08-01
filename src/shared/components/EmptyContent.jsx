@@ -10,8 +10,8 @@ export default function EmptyContent({
   animation,
 }) {
   return (
-    <div className="px-40 mb-10 pb-5 mx-auto flex flex-row">
-      <div className="bg-gray-50 border border-gray-200 p-8 rounded-l-lg shadow-md justify-center">
+    <div className="px-40 mb-10 pb-5 mx-auto flex flex-row justify-center">
+      <div className="bg-gray-50 border border-gray-200 p-8 rounded-l-lg shadow-md justify-center items-center">
         <h1 className="xxl-semibold-black mb-5">{title}</h1>
         <p className="lg-black mb-2">{middleText}</p>
         <p className="lg-black mb-6">{lowerText}</p>

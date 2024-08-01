@@ -13,8 +13,6 @@ export default function AvatarBanner() {
   const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [selectedBanner, setSelectedBanner] = useState(null)
 
-  console.log("STATE", state.artist)
-
   useEffect(() => {
     if (state !== null) {
       setFormData({
@@ -46,6 +44,7 @@ export default function AvatarBanner() {
       navigate("/my-store")
     } catch (error) {
       console.error("Error submitting form:", error)
+      alert("Error submitting form:", error)
     }
   }
 
@@ -100,7 +99,7 @@ export default function AvatarBanner() {
                         : state.artist.imagePicture?.path
                     }
                     className="w-full h-full object-cover rounded-full"
-                    alt="Preview"
+                    alt="Avatar Preview"
                   />
                 </div>
               </div>
@@ -132,6 +131,7 @@ export default function AvatarBanner() {
                       : state.artist.imageBanner?.path
                   }
                   className="w-full h-full object-cover rounded-lg"
+                  alt="Banner Preview"
                 />
               </div>
 

@@ -29,6 +29,7 @@ export default function EmailPasswordContainer() {
     } catch (error) {
       console.error(error)
       setErrorMessage(error.message)
+      alert("Failed to login. Please try again.")
     }
   }
 
