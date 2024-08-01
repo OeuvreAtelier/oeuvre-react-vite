@@ -21,7 +21,7 @@ export default function EmailPasswordContainer() {
         // if (users.firstName === null) {
         //   navigate("/onboarding")
         // } else {
-          navigate("/my-store")
+          navigate("/view-store")
         // }
       } else {
         setErrorMessage("Invalid username or password!")

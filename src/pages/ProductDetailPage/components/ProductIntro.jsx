@@ -22,6 +22,9 @@ export default function ProductIntro() {
   const navigate = useNavigate()
   const [emptyStock, setEmptyStock] = useState(false)
 
+  // I NEED THIS TOO
+  console.log("State MERCHANDISE PRODUCT INTRO:", state.merchandise)
+
   const handleEmptyStock = () => {
     setEmptyStock(true)
   }
@@ -32,7 +35,6 @@ export default function ProductIntro() {
 
   useEffect(() => {
     if (state !== null) {
-      console.log("State Product Detail:", state)
     } else {
       navigate("/discover")
     }
@@ -46,7 +48,10 @@ export default function ProductIntro() {
     setOpenModal(false)
   }
 
-  console.log("State Product Detail:", state.merchandise)
+  // I NEED THIS
+  console.log("Artist ID B406 PRODUCT INTRO:", state.merchandise.user.id)
+
+  const viewedArtistId = state.merchandise.user.id
 
   return (
     <>
@@ -66,30 +71,6 @@ export default function ProductIntro() {
               <ReviewCard
                 avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
                 username={state.artist.firstName}
-                rating={5}
-                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-              />
-              <ReviewCard
-                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                username="Mavuika"
-                rating={5}
-                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-              />
-              <ReviewCard
-                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                username="Mavuika"
-                rating={5}
-                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-              />
-              <ReviewCard
-                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                username="Mavuika"
-                rating={5}
-                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-              />
-              <ReviewCard
-                avatar="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-                username="Mavuika"
                 rating={5}
                 text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
               />
@@ -140,7 +121,20 @@ export default function ProductIntro() {
             <p className="sm-semibold-gray mb-1">
               {convertEnum[state.merchandise.category]}
             </p>
-            <p className="md-semibold-black mb-1 hover:underline hover:cursor-pointer">
+            <p
+              className="md-semibold-black mb-1 hover:underline hover:cursor-pointer"
+              onClick={() => {
+                {
+                  state.artist.id === state.merchandise.user.id
+                    ? navigate("/view-store")
+                    : navigate("/view-2-store", {
+                        state: {
+                          viewedArtistId,
+                        },
+                      })
+                }
+              }}
+            >
               {state.merchandise.user.displayName}
             </p>
             <h1 className="xl-semibold-black mb-2">{state.merchandise.name}</h1>

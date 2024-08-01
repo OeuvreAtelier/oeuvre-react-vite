@@ -54,7 +54,7 @@ export default function CreateEditStore({ address }) {
         })
       }
     } else {
-      navigate("/my-store")
+      navigate("/view-store")
     }
   }, [navigate, state])
 
@@ -99,7 +99,7 @@ export default function CreateEditStore({ address }) {
       if (formData.id === undefined) {
         await handleLogout()
       } else {
-        navigate("/my-store")
+        navigate("/view-store")
       }
     } catch (error) {
       console.error("Error submitting form:", error)

@@ -25,7 +25,7 @@ export default function EditProfileContainer() {
       })
       console.log("Artist Details", state.artist)
     } else {
-      navigate("/my-store")
+      navigate("/view-store")
     }
     // console.log(state)
   }, [navigate, state])
@@ -45,7 +45,7 @@ export default function EditProfileContainer() {
     try {
       const action = updateArtist(formData)
       await dispatch(action).unwrap()
-      navigate("/my-store")
+      navigate("/view-store")
     } catch (error) {
       console.error("Error submitting form:", error)
       alert("Error submitting form:", error)

@@ -44,7 +44,7 @@ export default function AddEditContainer() {
         })
       }
     } else {
-      navigate("/my-store")
+      navigate("/view-store")
     }
   }, [navigate, state])
 
@@ -104,7 +104,7 @@ export default function AddEditContainer() {
       console.log("Appended form data:", data)
       const action = createProduct(data)
       await dispatch(action).unwrap()
-      navigate("/my-store")
+      navigate("/view-store")
     } catch (error) {
       console.error("Error submitting form:", error)
     }
@@ -121,7 +121,7 @@ export default function AddEditContainer() {
       console.log("Appended form data:", data)
       const action = updateProduct(data)
       await dispatch(action).unwrap()
-      navigate("/my-store")
+      navigate("/view-store")
     } catch (error) {
       console.error("Error submitting form:", error)
     }

@@ -41,7 +41,7 @@ export default function AvatarBanner() {
       console.log("Appended form data:", data)
       const action = updateImage(data)
       await dispatch(action).unwrap()
-      navigate("/my-store")
+      navigate("/view-store")
     } catch (error) {
       console.error("Error submitting form:", error)
       alert("Error submitting form:", error)
@@ -68,7 +68,7 @@ export default function AvatarBanner() {
       console.log("Appended form data:", data)
       const action = updateBanner(data)
       await dispatch(action).unwrap()
-      navigate("/my-store")
+      navigate("/view-store")
     } catch (error) {
       console.error("Error submitting form:", error)
     }

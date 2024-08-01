@@ -20,7 +20,7 @@ export default function Hero() {
         </p>
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
           <Link
-            to="/my-store"
+            to="/view-store"
             className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300"
           >
             Get started

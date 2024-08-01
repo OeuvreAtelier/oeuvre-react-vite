@@ -21,6 +21,7 @@ import AddressesPage from "./pages/AddressesPage/AddressesPage"
 import EditProfileAvatarBanner from "./pages/EditProfilePage/EditProfileAvatarBanner"
 import CreateStorePage from "./pages/CreateStorePage/CreateStorePage"
 import AddressFormNoModal from "./pages/AddressesPage/components/AddressFormNoModal"
+import ViewStorePage from "./pages/ViewStorePage/ViewStorePage"
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-store",
+        path: "/view-store",
         element: (
           <ProtectedRoute>
             <ShopProfile />
@@ -160,6 +161,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <CreateStorePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/view-2-store",
+        element: (
+          <ProtectedRoute>
+            <ViewStorePage />
           </ProtectedRoute>
         ),
       },
