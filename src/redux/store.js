@@ -5,6 +5,7 @@ import artistReducer from "./features/profileSlice.js"
 import addressReducer from "./features/addressSlice.js"
 import storeReducer from "./features/storeSlice.js"
 import reviewReducer from "./features/reviewSlice.js"
+import transactionReducer from "./features/transactionSlice.js"
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     address: addressReducer,
     store: storeReducer,
     review: reviewReducer,
+    transaction: transactionReducer,
   },
 })
