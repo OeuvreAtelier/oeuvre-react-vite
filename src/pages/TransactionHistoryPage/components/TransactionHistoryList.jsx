@@ -7,6 +7,7 @@ import {
   faHistory,
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
+import TransactionCardParent from "../../../shared/components/TransactionCardParent"
 export default function TransactionHistoryList() {
   const navigate = useNavigate()
   return (
@@ -40,33 +41,36 @@ export default function TransactionHistoryList() {
         </div>
         <div className="w-3/4 flex flex-col ps-4">
           <h1 className="text-2xl font-semibold mb-5">Transaction History</h1>
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden={false}
-            onClick={() => {
-              navigate("/rate-review")
-            }}
-          />
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden={false}
-            onClick={() => {
-              navigate("/rate-review")
-            }}
-          />
-          <TransactionCard
-            title="Lorem Ipsum: Dolor Sit Amet, Paperback Version, 2022 Edition"
-            seller="My Anime Store"
-            quantity="3"
-            initPrice="100000"
-            isHidden={true}
-            onClick={null}
+          <TransactionCardParent
+            trxId="jskwgkjewg-fjjfkf-3jfdknf-fn"
+            trxDate="2022-01-01"
+            paymentStatus="Ordered"
+            children={
+              <>
+                <TransactionCard
+                  invoiceNumber="OVR/20240801/JKT/1722504396623"
+                  productName="Alan Walker's Walkerworld Album"
+                  seller="My Anime Store"
+                  quantity="3"
+                  initPrice="100000"
+                  isHidden={false}
+                  onClick={() => {
+                    navigate("/rate-review")
+                  }}
+                />
+                <TransactionCard
+                  invoiceNumber="OVR/20240801/JKT/1722504396623"
+                  productName="Alan Walker's Walkerworld Album"
+                  seller="My Anime Store"
+                  quantity="3"
+                  initPrice="100000"
+                  isHidden={false}
+                  onClick={() => {
+                    navigate("/rate-review")
+                  }}
+                />
+              </>
+            }
           />
         </div>
       </div>

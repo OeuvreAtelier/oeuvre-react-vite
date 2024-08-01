@@ -2,28 +2,32 @@ import React from "react"
 import TextButton from "./TextButton"
 
 export default function TransactionCard({
-  title,
+  invoiceNumber,
+  productName,
   seller,
   quantity,
   initPrice,
-  totalPrice,
+  isHidden,
   onClick,
-  isHidden
 }) {
+  function numberWithDots(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
   return (
     <div className="card-border-shadow px-5 pt-5 pb-3 mb-3">
-      <p className="md-semibold-black">{title}</p>
-      <div className="flex flex-row justify-between">
+      <p className="sm-semibold-black mb-1">Invoice {invoiceNumber}</p>
+      <p className="md-semibold-black mb-1">{productName}</p>
+      <div className="flex flex-row justify-between mb-2">
         <div>
-          <p className="md-semibold-gray mb-1">{seller}</p>
+          <p className="sm-black mb-1">{seller}</p>
           <p className="sm-lightgray mb-2">
-            Quantity: {quantity} x Rp{initPrice}
+            Quantity: {quantity} x Rp{numberWithDots(initPrice)}
           </p>
         </div>
         <div>
           <p className="md-semibold-gray text-right">Total Price</p>
           <p className="md-semibold-black text-right">
-            Rp{totalPrice}
+            Rp{numberWithDots(quantity * initPrice)}
           </p>
         </div>
       </div>
