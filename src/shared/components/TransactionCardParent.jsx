@@ -6,9 +6,10 @@ export default function TransactionCardParent({
   trxDate,
   paymentStatus,
   children,
+  onClick,
 }) {
   return (
-    <div className="card-border-shadow p-4">
+    <div className="card-border-shadow p-4 mb-4">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col">
           <p className="xs-semibold-gray">ID: {trxId}</p>
@@ -23,19 +24,17 @@ export default function TransactionCardParent({
         </div>
       </div>
       {children}
-      {paymentStatus === "Paid" ? null : (
+      {paymentStatus === "paid" ? null : (
         <div className="flex flex-row justify-between items-center pt-3">
           <p className="sm-semibold-gray ms-2">
-            The payment excludes 11% VAT as well as service fee of Rp1.000.
+            The total price above excludes 11% VAT as well as service fee of Rp1.000.
           </p>
           <TextButton
             btnName="Pay Now"
             btnColor="bg-indigo-500"
             textColor="text-white"
             hoverColor="bg-indigo-700"
-            onClick={() => {
-              console.log("clicked")
-            }}
+            onClick={onClick}
           />
         </div>
       )}
