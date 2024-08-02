@@ -4,9 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "flowbite-react"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
 import { updateArtist } from "../../../redux/features/profileSlice.js"
+import DatePickerFB from "../../../shared/components/DatePickerFB.jsx"
 
 export default function EditProfileContainer() {
   const [formData, setFormData] = useState({})
+  const [selectedDate, setSelectedDate] = useState(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -25,7 +27,7 @@ export default function EditProfileContainer() {
       })
       console.log("Artist Details", state.artist)
     } else {
-      navigate("/my-store")
+      navigate("/view-store")
     }
     // console.log(state)
   }, [navigate, state])
@@ -45,11 +47,20 @@ export default function EditProfileContainer() {
     try {
       const action = updateArtist(formData)
       await dispatch(action).unwrap()
-      navigate("/my-store")
+      navigate("/view-store")
     } catch (error) {
       console.error("Error submitting form:", error)
       alert("Error submitting form:", error)
     }
+  }
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date)
+    setFormData({
+      ...formData,
+      birthDate: date.toISOString().split("T")[0],
+    })
+    console.log(formData)
   }
 
   return (
@@ -110,7 +121,7 @@ export default function EditProfileContainer() {
             onChangeA={handleChange}
             onChangeB={handleChange}
           /> */}
-          <TextInputWithHeaderFB
+          {/* <TextInputWithHeaderFB
             isDisabled={false}
             id="birthDate"
             nameLabel="Date of Birth"
@@ -119,6 +130,12 @@ export default function EditProfileContainer() {
             placeholder="YYYY-MM-DD"
             value={formData.birthDate}
             onChange={handleChange}
+          /> */}
+          <DatePickerFB
+            id="birthDate"
+            nameLabel="Date of Birth"
+            value={formData.birthDate}
+            handleDateChange={handleDateChange}
           />
           <TextInputWithHeaderFB
             isDisabled={false}

@@ -21,6 +21,18 @@ export const fetchArtists = createAsyncThunk(
   }
 )
 
+export const fetchArtistByUserId = createAsyncThunk(
+  "artists/fetchArtistByUserId",
+  async (userId, { rejectedWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/users/${userId}`)
+      return response.data
+    } catch (error) {
+      return rejectedWithValue(error.response.data)
+    }
+  }
+)
+
 export const updateArtist = createAsyncThunk(
   "artists/updateArtist",
   async (user, { rejectedWithValue }) => {
@@ -85,6 +97,10 @@ const profileSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchArtists.fulfilled, (state, action) => {
+        state.statusCode = "succeeded"
+        state.data = action.payload.data
+      })
+      .addCase(fetchArtistByUserId.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
       })

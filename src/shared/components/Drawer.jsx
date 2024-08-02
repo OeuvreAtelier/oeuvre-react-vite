@@ -53,7 +53,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
-            navigate("/my-store")
+            navigate("/view-store")
           }}
         />
         <IconButton
@@ -76,7 +76,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
             navigate("/shopping-cart", { state: artist })
           }}
         />
-        <IconButton
+        {/* <IconButton
           btnName="Bookmarks"
           btnIcon={faBookmark}
           color="bg-white"
@@ -85,7 +85,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
             toggleDrawer()
             navigate("/bookmarks")
           }}
-        />
+        /> */}
         <IconButton
           btnName="Transaction History"
           btnIcon={faHistory}

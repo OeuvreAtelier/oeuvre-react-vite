@@ -17,7 +17,7 @@ export default function BestSeller({ merchandises }) {
       <p className="xxxl-semibold-black py-10 tracking-wide">Best Seller</p>
 
       <div className="grid grid-cols-4 grid-rows-1 gap-4 px-40">
-        {merchandises.map((merchandise) => (
+        {merchandises.slice(1, 5).map((merchandise) => (
           <CardPictureTile
             image={merchandise.image.path}
             name={merchandise.name}
