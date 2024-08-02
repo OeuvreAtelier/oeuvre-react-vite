@@ -18,7 +18,7 @@ export default function AddressForm({ isOpen, onClose }) {
   const { state } = useLocation()
 
   useEffect(() => {
-    console.log("State Address:", state)
+    console.log("State Address Form:", state)
     if (state !== null) {
       if (state.address) {
         console.log("Address:", state.address)

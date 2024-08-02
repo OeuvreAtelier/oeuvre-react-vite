@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import IconButton from "../../../shared/components/IconButton"
 import {
   faBrush,
@@ -6,11 +6,17 @@ import {
   faMailBulk,
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { fetchArtistByUserId } from "../../../redux/features/profileSlice"
 
-export default function StoreHeader({ artist }) {
+export default function StoreHeader({ artist, viewedArtist }) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  console.log("Artist SH:", artist)
+  useEffect(() => {
+    console.log("Artist ID Use Effect:", viewedArtist)
+    dispatch(fetchArtistByUserId({ userId: viewedArtist.id }))
+  }, [dispatch, viewedArtist])
 
   return (
     <div className="mx-40">
@@ -18,8 +24,8 @@ export default function StoreHeader({ artist }) {
         className="dynamic-bg"
         style={{
           backgroundImage: `url(${
-            artist.imageBanner
-              ? artist.imageBanner.path
+            viewedArtist.imageBanner
+              ? viewedArtist.imageBanner.path
               : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-banner/default_banner.jpg"
           })`,
           backgroundPosition: "center",
@@ -31,15 +37,15 @@ export default function StoreHeader({ artist }) {
           <img
             className="bg-white ms-20 size-32 mb-5 rounded-full p-1 object-cover"
             src={
-              artist.imagePicture
-                ? artist.imagePicture.path
+              viewedArtist.imagePicture
+                ? viewedArtist.imagePicture.path
                 : "https://i.imgur.com/LGvqTph.jpeg"
             }
             alt="profile"
           />
           <div className="h-96 ps-6 pb-2 max-w-screen-xl flex flex-col items-start justify-end">
             <h1 className="text-3xl font-semibold bg-white tracking-wide leading-none text-gray-800 p-4 rounded-lg">
-              {artist.displayName}
+              {viewedArtist.displayName}
             </h1>
             <p className="border my-4 text-md font-semibold bg-gray-800 tracking-wide leading-none text-white p-3 rounded-lg hover:cursor-pointer hover:bg-gray-800">
               Verified Artist
@@ -75,7 +81,7 @@ export default function StoreHeader({ artist }) {
           btnName="Email"
           btnIcon={faMailBulk}
           onClick={() => {
-            const emailAddress = `${artist.email}`
+            const emailAddress = `${viewedArtist.email}`
             window.open(
               `mailto:${emailAddress}?subject=Information&body=Hello%21%20I%20would%20like%20to...`
             )

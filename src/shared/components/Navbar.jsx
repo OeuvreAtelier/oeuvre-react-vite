@@ -12,6 +12,7 @@ import secureLocalStorage from "react-secure-storage"
 
 export default function Navbar() {
   const { data: artist } = useSelector((state) => state.artist)
+  const { data: address } = useSelector((state) => state.address)
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ export default function Navbar() {
           isOpen={isDrawerOpen}
           toggleDrawer={toggleDrawer}
           artist={artist}
+          address={address}
         />
       )}
 

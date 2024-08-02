@@ -37,8 +37,8 @@ export default function ProfileHeader({ artist, store }) {
     })
   }
 
-  console.log("Artist:", artist)
-  console.log("Store:", store)
+  // console.log("Artist:", artist)
+  // console.log("Store:", store)
 
   return (
     <div className="mx-40">
@@ -84,34 +84,39 @@ export default function ProfileHeader({ artist, store }) {
             ? "You can add the description by creating your store first."
             : store.description}
         </p>
-        <IconButton
-          btnName="Pixiv"
-          btnIcon={faBrush}
-          onClick={() => {
-            const pixivUrl =
-              store === null
-                ? "https://www.pixiv.net/en/users/431873"
-                : `https://www.pixiv.net/en/users/${store.pixiv}`
-            window.open(pixivUrl)
-          }}
-          color="bg-white"
-          hoverColor="bg-slate-100"
-          textColor="text-gray-600"
-        />
-        <IconButton
-          btnName="Twitter"
-          btnIcon={faKiwiBird}
-          onClick={() => {
-            const twitterUrl =
-              store === null
-                ? "https://twitter.com/hololive_id"
-                : `https://twitter.com/${store.twitter}`
-            window.open(twitterUrl)
-          }}
-          color="bg-white"
-          hoverColor="bg-slate-100"
-          textColor="text-gray-600"
-        />
+        {store === null ? null : (
+          <>
+            <IconButton
+              btnName="Pixiv"
+              btnIcon={faBrush}
+              onClick={() => {
+                const pixivUrl =
+                  store === null
+                    ? "https://www.pixiv.net/en/users/431873"
+                    : `https://www.pixiv.net/en/users/${store.pixiv}`
+                window.open(pixivUrl)
+              }}
+              color="bg-white"
+              hoverColor="bg-slate-100"
+              textColor="text-gray-600"
+            />
+            <IconButton
+              btnName="Twitter"
+              btnIcon={faKiwiBird}
+              onClick={() => {
+                const twitterUrl =
+                  store === null
+                    ? "https://twitter.com/hololive_id"
+                    : `https://twitter.com/${store.twitter}`
+                window.open(twitterUrl)
+              }}
+              color="bg-white"
+              hoverColor="bg-slate-100"
+              textColor="text-gray-600"
+            />
+          </>
+        )}
+
         <IconButton
           btnName="Email"
           btnIcon={faMailBulk}

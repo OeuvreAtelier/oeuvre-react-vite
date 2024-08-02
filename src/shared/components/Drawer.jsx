@@ -13,9 +13,12 @@ import {
 import { useAuth } from "../../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 
-export default function Drawer({ isOpen, toggleDrawer, artist }) {
+export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
   const { logout } = useAuth()
   const navigate = useNavigate()
+
+  console.log("Address Drawer:", address)
+  console.log("Artist Drawer:", artist)
 
   const handleLogout = async () => {
     await logout()
@@ -42,7 +45,9 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
             />
           </div>
           <div className="flex flex-col justify-center">
-            <p className="lg-semibold-black">{artist.firstName}{" "}{artist.lastName}</p>
+            <p className="lg-semibold-black">
+              {artist.firstName} {artist.lastName}
+            </p>
             <p className="md-gray">{artist.email}</p>
           </div>
         </div>
@@ -73,7 +78,12 @@ export default function Drawer({ isOpen, toggleDrawer, artist }) {
           textColor="text-gray-800"
           onClick={() => {
             toggleDrawer()
-            navigate("/shopping-cart", { state: artist })
+            navigate("/shopping-cart", {
+              state: {
+                artist: artist,
+                address: address,
+              },
+            })
           }}
         />
         {/* <IconButton

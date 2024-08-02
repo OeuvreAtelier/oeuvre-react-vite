@@ -12,7 +12,7 @@ export default function AddToCart({
 }) {
   return (
     <div className="flex flex-col mb-4">
-      <div className="flex flex-row justify-between mt-10">
+      <div className="flex flex-row justify-between mt-6">
         <p className="mb-2">
           <p className="sm-blue">{header}</p>
           <p className="sm-black mb-2">{type}</p>

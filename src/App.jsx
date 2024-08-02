@@ -12,11 +12,9 @@ import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage"
 import TransactionHistoryPage from "./pages/TransactionHistoryPage/TransactionHistoryPage"
 import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage"
 import BookmarksPage from "./pages/BookmarksPage/BookmarksPage"
-import FansPage from "./pages/FansPage/FansPage"
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage"
 import RateReviewPage from "./pages/RateReviewPage/RateReviewPage"
 import TransactionSuccessful from "./pages/TransactionPage/TransactionSuccessful"
-import OnboardingPage from "./pages/OnboardingPage/OnboardingPage"
 import AddressesPage from "./pages/AddressesPage/AddressesPage"
 import EditProfileAvatarBanner from "./pages/EditProfilePage/EditProfileAvatarBanner"
 import CreateStorePage from "./pages/CreateStorePage/CreateStorePage"
@@ -35,14 +33,6 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutPage />,
-      },
-      {
-        path: "/onboarding",
-        element: (
-          <ProtectedRoute>
-            <OnboardingPage />
-          </ProtectedRoute>
-        ),
       },
       {
         path: "/view-store",
@@ -97,14 +87,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BookmarksPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/fans",
-        element: (
-          <ProtectedRoute>
-            <FansPage />
           </ProtectedRoute>
         ),
       },
