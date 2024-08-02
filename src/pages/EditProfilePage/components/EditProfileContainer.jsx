@@ -5,6 +5,7 @@ import { Button } from "flowbite-react"
 import TextInputWithHeaderFB from "../../../shared/components/TextInputWithHeaderFB"
 import { updateArtist } from "../../../redux/features/profileSlice.js"
 import DatePickerFB from "../../../shared/components/DatePickerFB.jsx"
+import DualRadioFB from "../../../shared/components/DualRadioFB.jsx"
 
 export default function EditProfileContainer() {
   const [formData, setFormData] = useState({})
@@ -39,6 +40,15 @@ export default function EditProfileContainer() {
       [name]: value,
     })
     console.log(formData)
+  }
+
+  const handleRadioChange = (event) => {
+    const { name, value } = event.target
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+    console.log("Form:", formData)
   }
 
   const handleSubmit = async (e) => {
@@ -111,26 +121,15 @@ export default function EditProfileContainer() {
             value={formData.email}
             onChange={handleChange}
           />
-          {/* <DualRadioFB
+          <DualRadioFB
             id="gender"
             nameLabel="Gender"
             valueA="MALE"
             optionA="Male"
             valueB="FEMALE"
             optionB="Female"
-            onChangeA={handleChange}
-            onChangeB={handleChange}
-          /> */}
-          {/* <TextInputWithHeaderFB
-            isDisabled={false}
-            id="birthDate"
-            nameLabel="Date of Birth"
-            nameInput="birthDate"
-            type="text"
-            placeholder="YYYY-MM-DD"
-            value={formData.birthDate}
-            onChange={handleChange}
-          /> */}
+            onChange={handleRadioChange}
+          />
           <DatePickerFB
             id="birthDate"
             nameLabel="Date of Birth"

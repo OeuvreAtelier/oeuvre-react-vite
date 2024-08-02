@@ -29,8 +29,6 @@ export default function CreateEditStore({ address }) {
   }
 
   useEffect(() => {
-    // const token = secureLocalStorage.getItem("token")
-    // console.log("Token:", token)
     if (state !== null) {
       dispatch(fetchAddressesByUserId(state.artist.id))
       if (state.artist.store) {

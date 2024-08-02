@@ -23,12 +23,12 @@ export const fetchArtists = createAsyncThunk(
 
 export const fetchArtistByUserId = createAsyncThunk(
   "artists/fetchArtistByUserId",
-  async (userId, { rejectedWithValue }) => {
+  async ({ userId }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get(`/users/${userId}`)
       return response.data
     } catch (error) {
-      return rejectedWithValue(error.response.data)
+      return rejectWithValue(error.response.data)
     }
   }
 )

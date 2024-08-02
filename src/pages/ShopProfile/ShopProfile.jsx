@@ -16,7 +16,6 @@ export default function ShopProfile() {
 
   const dispatch = useDispatch()
 
-  console.log("Artist ID:", artist.id)
   useEffect(() => {
     const token = secureLocalStorage.getItem("token")
     const decodedToken = jwtDecode(token)
@@ -25,8 +24,6 @@ export default function ShopProfile() {
     dispatch(fetchStoreByUserId(artist.id))
     dispatch(fetchMerchandisesByUserId({ userId: artist.id, page: 1 }))
   }, [dispatch])
-
-  console.log("Store Shop Profile:", store)
 
   return (
     <div className="bg-slate-100">

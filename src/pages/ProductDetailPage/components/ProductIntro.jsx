@@ -50,8 +50,11 @@ export default function ProductIntro() {
 
   // I NEED THIS
   console.log("Artist ID B406 PRODUCT INTRO:", state.merchandise.user.id)
+  // I NEED THIS TOO
+  console.log("Own ID:", state.artist.id)
 
   const viewedArtistId = state.merchandise.user.id
+  const ownId = state.artist.id
 
   return (
     <>
@@ -127,11 +130,13 @@ export default function ProductIntro() {
                 {
                   state.artist.id === state.merchandise.user.id
                     ? navigate("/view-store")
-                    : navigate("/view-2-store", {
-                        state: {
-                          viewedArtistId,
-                        },
-                      })
+                    : null
+                  // navigate("/view-2-store", {
+                  //     state: {
+                  //       viewedArtistId,
+                  //       ownId,
+                  //     },
+                  //   })
                 }
               }}
             >
@@ -142,10 +147,18 @@ export default function ProductIntro() {
               Stock: {state.merchandise.stock}
             </p>
             <div>
-              <IconButton
+              {/* <IconButton
                 btnName="Bookmark Item"
                 btnIcon={faBookmark}
                 onClick={() => {}}
+                color="bg-white"
+                hoverColor="bg-gray-300"
+                textColor="text-gray-600"
+              /> */}
+              <IconButton
+                btnName="View Reviews"
+                btnIcon={faList}
+                onClick={handleOpenModal}
                 color="bg-white"
                 hoverColor="bg-gray-300"
                 textColor="text-gray-600"
@@ -178,14 +191,6 @@ export default function ProductIntro() {
                   })
                 }
               }}
-            />
-            <IconButton
-              btnName="View Reviews"
-              btnIcon={faList}
-              onClick={handleOpenModal}
-              color="bg-white"
-              hoverColor="bg-gray-300"
-              textColor="text-gray-600"
             />
           </div>
         </div>

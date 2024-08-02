@@ -9,7 +9,7 @@ export default function DatePickerFB({
 }) {
   return (
     <div>
-      <Label htmlFor={id} className="sm-semibold-gray block mb-3 -mt-3">
+      <Label htmlFor={id} className="sm-semibold-gray block mb-3 -mt-2">
         {nameLabel}
       </Label>
       <Datepicker
@@ -17,7 +17,7 @@ export default function DatePickerFB({
         onSelectedDateChanged={handleDateChange}
         id={id}
         name={id}
-        className="w-full pb-3 mb-3"
+        className="w-full pb-3"
         value={value}
         minDate={new Date(1945, 8, 17)}
         maxDate={new Date(2024, 8, 6)}
