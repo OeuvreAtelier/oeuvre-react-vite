@@ -221,12 +221,12 @@ export default function AddEditContainer() {
             nameInput="description"
             placeholder="Describe your product here..."
             value={
-                state?.merchandise
-                  ? 
+                // state?.merchandise
+                //   ? 
                   // JSON.stringify(
-                      state.merchandise.description.description
+                      // state.merchandise.description.description
                     // ).slice(1, -1)
-                  :
+                  // :
                 formData.description
             }
             onChange={handleChange}
