@@ -20,6 +20,7 @@ export default function AddToCart({
         <p className="lg-semibold-black me-4">Rp{price}</p>
       </div>
       <IconButton
+      id="btn-cart"
         btnName={name}
         btnIcon={icon}
         onClick={onClick}

@@ -124,10 +124,10 @@ export default function ProductList({ artist, merchandises }) {
           show={openModal}
           onClose={() => setOpenModal(false)}
           text="Do you want to delete this merchandise?"
-          yes="Yes"
-          no="No"
-          onYesClick={handleDelete}
-          onNoClick={() => setOpenModal(false)}
+          leftClick="Yes"
+          rightClick="No"
+          onLeftClick={handleDelete}
+          onRightClick={() => setOpenModal(false)}
           isHidden={false}
         />
         {merchandises.length === 0 ? (

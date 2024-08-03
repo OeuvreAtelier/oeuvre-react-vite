@@ -18,6 +18,10 @@ export default function AddEditContainer() {
   const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  })
+
+  useEffect(() => {
     console.log("State AddEdit:", state)
     if (state !== null) {
       if (state.merchandise) {
@@ -221,13 +225,13 @@ export default function AddEditContainer() {
             nameInput="description"
             placeholder="Describe your product here..."
             value={
-                // state?.merchandise
-                //   ? 
-                  // JSON.stringify(
-                      // state.merchandise.description.description
-                    // ).slice(1, -1)
-                  // :
-                formData.description
+              // state?.merchandise
+              //   ?
+              // JSON.stringify(
+              // state.merchandise.description.description
+              // ).slice(1, -1)
+              // :
+              formData.description
             }
             onChange={handleChange}
           />

@@ -39,7 +39,7 @@ export default function StoreHeader({ artist, viewedArtist }) {
             src={
               viewedArtist.imagePicture
                 ? viewedArtist.imagePicture.path
-                : "https://i.imgur.com/LGvqTph.jpeg"
+                : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
             }
             alt="profile"
           />
@@ -78,6 +78,7 @@ export default function StoreHeader({ artist, viewedArtist }) {
           textColor="text-gray-600"
         /> */}
         <IconButton
+          id="email"
           btnName="Email"
           btnIcon={faMailBulk}
           onClick={() => {

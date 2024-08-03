@@ -12,15 +12,18 @@ import Animation from "../../../assets/nothing.json"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import TextButton from "../../../shared/components/TextButton"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../../context/AuthContext"
 
 export default function DiscoverProductList({ artist, merchandises }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
   const { paging: totalPages } = useSelector((state) => state.merchandises)
+  const { isLoggedIn } = useAuth()
 
   useEffect(() => {
     dispatch(fetchMerchandises({ page: currentPage }))
+    window.scrollTo(0, 0)
   }, [dispatch, currentPage])
 
   const handlePageChange = (page) => {
@@ -275,6 +278,7 @@ export default function DiscoverProductList({ artist, merchandises }) {
               </Accordion.Panel>
             </Accordion>
             <TextButton
+              id="searchBtn"
               btnName="Search Results"
               onClick={handleSearch}
               btnColor="bg-indigo-500"
@@ -282,6 +286,7 @@ export default function DiscoverProductList({ artist, merchandises }) {
               hoverColor="bg-indigo-700"
             />
             <TextButton
+              id="resetBtn"
               btnName="Reset Search"
               onClick={resetSearchFilter}
               btnColor="bg-indigo-500"
@@ -292,7 +297,13 @@ export default function DiscoverProductList({ artist, merchandises }) {
         </div>
         <div className="w-3/4 flex flex-col ps-4">
           <div className="flex flex-col">
-            <h1 className="xl-semibold-black">Hello, {artist.firstName}!</h1>
+            <h1 className="xl-semibold-black">
+              {isLoggedIn && artist.firstName
+                ? `Hello, ${artist.firstName}!`
+                : isLoggedIn && artist.firstName === null
+                ? "Hello, user!"
+                : "Hello, guest!"}
+            </h1>
             <p className="md-gray mb-6">
               Here are our best selection of products to choose.
             </p>

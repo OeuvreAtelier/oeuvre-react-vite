@@ -128,6 +128,7 @@ export default function CreateEditStore({ address }) {
             </p>
             {address.length < 5 ? (
               <TextButton
+                id="addAddress"
                 btnName={"Add Address (max. 5)"}
                 onClick={handleOpenModal}
                 btnColor={"bg-sky-600"}

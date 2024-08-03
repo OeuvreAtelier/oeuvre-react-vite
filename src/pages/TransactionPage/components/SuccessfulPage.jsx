@@ -1,6 +1,5 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import TextButton from "../../../shared/components/TextButton"
 import Lottie from "lottie-react"
 import ThankYou from "../../../../public/thanks.json"
 import { Button } from "flowbite-react"

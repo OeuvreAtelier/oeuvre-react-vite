@@ -2,6 +2,7 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function IconButton({
+  id,
   btnName,
   btnIcon,
   onClick,
@@ -11,6 +12,7 @@ export default function IconButton({
 }) {
   return (
     <button
+      id={id}
       onClick={onClick}
       className={`shadow-md ${color} ${textColor} p-3 me-3 rounded-lg border hover:${hoverColor} hover:cursor-pointer`}
     >

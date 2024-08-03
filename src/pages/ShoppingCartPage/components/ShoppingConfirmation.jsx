@@ -30,6 +30,10 @@ export default function ShoppingConfirmation({ address }) {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  })
+
+  useEffect(() => {
     if (state !== null) {
       dispatch(fetchAddressesByUserId(state.artist.id))
       setFormData({
@@ -41,6 +45,18 @@ export default function ShoppingConfirmation({ address }) {
       navigate("/discover")
     }
   }, [navigate, state])
+
+  useEffect(() => {
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"
+    let scriptTag = document.createElement("script")
+    scriptTag.src = midtransScriptUrl
+    const myMidtransClientKey = "SB-Mid-client-jteTefOIUDR5NWJQ"
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey)
+    document.body.appendChild(scriptTag)
+    return () => {
+      document.body.removeChild(scriptTag)
+    }
+  }, [])
 
   const handleRadioChange = (event) => {
     const { name, value } = event.target
@@ -56,9 +72,28 @@ export default function ShoppingConfirmation({ address }) {
     e.preventDefault()
     try {
       const action = createTransaction(formData)
-      await dispatch(action).unwrap()
-      clearCart()
-      navigate("/success")
+      const transactionResponse = await dispatch(action).unwrap()
+      console.log("Transaction response:", transactionResponse)
+      const token = transactionResponse.data.payment.token
+      if (!token) {
+        throw new Error("Error getting token!")
+      }
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          console.log("Payment successful:", result)
+          clearCart()
+          navigate("/success")
+        },
+        onPending: function (result) {
+          console.log("Payment pending:", result)
+        },
+        onError: function (result) {
+          console.log("Payment error:", result)
+        },
+        onClose: function () {
+          console.log("Customer closed the popup without finishing the payment")
+        },
+      })
     } catch (error) {
       console.error("Error creating transaction!", error)
       alert("Error creating transaction!", error)
@@ -183,6 +218,7 @@ export default function ShoppingConfirmation({ address }) {
               {cartItems.length > 0 ? (
                 <div className="flex flex-col items-center my-5">
                   <TextButton
+                    id="clear-cart"
                     btnName="Clear Cart"
                     onClick={() => {
                       handleClearCart()
@@ -213,7 +249,8 @@ export default function ShoppingConfirmation({ address }) {
                     (console.log("Address:", address),
                     (
                       <p className="text-white py-2 ps-4 bg-red-500 rounded-lg">
-                        No address found, you can create an address in your profile page.
+                        No address found, you can create an address in your
+                        profile page.
                       </p>
                     ))
                   ) : (
@@ -240,15 +277,6 @@ export default function ShoppingConfirmation({ address }) {
                       ))}
                     </div>
                   )}
-                  {/* {address.length < 5 ? (
-                    <TextButton
-                      btnName={"Add Address (max. 5)"}
-                      onClick={handleOpenModal}
-                      btnColor={"bg-sky-600"}
-                      textColor={"text-white"}
-                      hoverColor={"bg-sky-700"}
-                    />
-                  ) : null} */}
                 </fieldset>
               </div>
             </div>
@@ -260,30 +288,15 @@ export default function ShoppingConfirmation({ address }) {
                 <p className="md-gray">Payment Method</p>
                 <p className="md-black">Midtrans</p>
               </div>
-              <div className="flex flex-row justify-between mb-3 me-3">
-                <p className="md-gray">Subtotal</p>
-                <p className="md-black">Rp{numberWithDots(getCartTotal())}</p>
-              </div>
-              <div className="flex flex-row justify-between mb-3 me-3">
-                <p className="md-gray">11% VAT</p>
-                <p className="md-black">
-                  Rp{numberWithDots(getCartTotal() * 0.11)}
-                </p>
-              </div>
-              <div className="flex flex-row justify-between mb-5 me-3">
-                <p className="md-gray">Service Fees</p>
-                <p className="md-black">Rp1.000</p>
-              </div>
               <div className="flex flex-row justify-between mb-5 me-3">
                 <p className="md-semibold-gray">Total Amount</p>
                 <p className="md-semibold-black">
                   Rp
-                  {numberWithDots(
-                    getCartTotal() + getCartTotal() * 0.11 + 1000
-                  )}
+                  {numberWithDots(getCartTotal())}
                 </p>
               </div>
               <IconButton
+                id="pay-button"
                 btnName="Pay Now"
                 btnIcon={faCashRegister}
                 color="bg-indigo-700"

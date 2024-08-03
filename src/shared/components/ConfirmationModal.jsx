@@ -7,10 +7,10 @@ export default function ConfirmationModal({
   show,
   onClose,
   text,
-  yes,
-  no,
-  onYesClick,
-  onNoClick,
+  leftClick,
+  rightClick,
+  onLeftClick,
+  onRightClick,
   isHidden,
 }) {
   return (
@@ -27,11 +27,11 @@ export default function ConfirmationModal({
             {text}
           </h3>
           <div className={`flex justify-center gap-4 ${isHidden === true ? "hidden" : ""}`}>
-            <Button color="gray" onClick={onYesClick}>
-              {yes}
+            <Button color="gray" onClick={onLeftClick}>
+              {leftClick}
             </Button>
-            <Button color="blue" onClick={onNoClick}>
-              {no}
+            <Button color="blue" onClick={onRightClick}>
+              {rightClick}
             </Button>
           </div>
         </div>

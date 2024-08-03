@@ -17,8 +17,8 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
   const { logout } = useAuth()
   const navigate = useNavigate()
 
-  console.log("Address Drawer:", address)
-  console.log("Artist Drawer:", artist)
+  // console.log("Address Drawer:", address)
+  // console.log("Artist Drawer:", artist)
 
   const handleLogout = async () => {
     await logout()
@@ -39,10 +39,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
       >
         <div className="flex flex-row bg-white p-4 rounded-lg mb-2 me-3">
           <div className="bg-white size-16 rounded-full me-4">
-            <img
-              src="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-              alt="profile"
-            />
+            <img src="https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg" alt="profile" />
           </div>
           <div className="flex flex-col justify-center">
             <p className="lg-semibold-black">
@@ -52,6 +49,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           </div>
         </div>
         <IconButton
+          id="btn-profile"
           btnName="Profile"
           btnIcon={faUserCircle}
           color="bg-white"
@@ -62,6 +60,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-discover"
           btnName="Discover Items"
           btnIcon={faShop}
           color="bg-white"
@@ -72,6 +71,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-cart"
           btnName="My Cart"
           btnIcon={faShoppingCart}
           color="bg-white"
@@ -97,6 +97,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         /> */}
         <IconButton
+          id="btn-history"
           btnName="Transaction History"
           btnIcon={faHistory}
           color="bg-white"
@@ -107,6 +108,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-rate-review"
           btnName="Rate & Review"
           btnIcon={faStar}
           color="bg-white"
@@ -117,6 +119,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-logout"
           btnName="Log Out"
           btnIcon={faSignOut}
           color="bg-white"

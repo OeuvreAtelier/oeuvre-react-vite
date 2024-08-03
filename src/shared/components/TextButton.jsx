@@ -1,6 +1,7 @@
 import React from "react"
 
 export default function TextButton({
+  id,
   btnName,
   onClick,
   btnColor,
@@ -9,6 +10,7 @@ export default function TextButton({
 }) {
   return (
     <button
+      id={id}
       onClick={onClick}
       className={`${btnColor} ${textColor} rounded-lg border hover:${hoverColor} hover:cursor-pointer mb-1 px-2`}
     >
