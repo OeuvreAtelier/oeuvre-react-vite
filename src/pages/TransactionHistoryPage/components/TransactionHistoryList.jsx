@@ -25,6 +25,50 @@ export default function TransactionHistoryList({
     dispatch(fetchTransactionsByUserId(artist.id))
   }, [dispatch])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  })
+
+  useEffect(() => {
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"
+    let scriptTag = document.createElement("script")
+    scriptTag.src = midtransScriptUrl
+    const myMidtransClientKey = "SB-Mid-client-jteTefOIUDR5NWJQ"
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey)
+    document.body.appendChild(scriptTag)
+    return () => {
+      document.body.removeChild(scriptTag)
+    }
+  }, [])
+
+  const handlePayment = (selectedToken) => {
+    try {
+      const token = selectedToken
+      if (!token) {
+        throw new Error("Error getting token!")
+      }
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          console.log("Payment successful:", result)
+          clearCart()
+          navigate("/success")
+        },
+        onPending: function (result) {
+          console.log("Payment pending:", result)
+        },
+        onError: function (result) {
+          console.log("Payment error:", result)
+        },
+        onClose: function () {
+          console.log("Customer closed the popup without finishing the payment")
+        },
+      })
+    } catch (error) {
+      console.error("Cannot pay for the selected transaction!", error)
+      alert("Cannot pay for the selected transaction!", error)
+    }
+  }
+
   console.log("Artist ID HISTORY:", artist.id)
   console.log("Transaction Length:", transaction.length)
   return (
@@ -32,7 +76,7 @@ export default function TransactionHistoryList({
       <div className="flex flex-row justify-center mx-10">
         <div className="w-1/4 px-5 flex flex-col gap-4">
           <IconButton
-          id="bookmark"
+            id="bookmark"
             btnName="Bookmarks"
             btnIcon={faBookmark}
             color="bg-white"
@@ -79,8 +123,9 @@ export default function TransactionHistoryList({
                   trxDate={JSON.stringify(trx.transactionDate).slice(1, 11)}
                   paymentStatus={trx.payment.transactionStatus.toUpperCase()}
                   onClick={() => {
-                    alert("Clicked!")
+                    handlePayment(trx.payment.token)
                   }}
+                  address={`${trx.address.detail}, ${trx.address.city}, ${trx.address.state}, ${trx.address.country} ${trx.address.postalCode}`}
                   children={
                     <>
                       {trx.transactionDetails.map((trxDetail) => (

@@ -30,6 +30,10 @@ export default function ShoppingConfirmation({ address }) {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  })
+
+  useEffect(() => {
     if (state !== null) {
       dispatch(fetchAddressesByUserId(state.artist.id))
       setFormData({
@@ -43,20 +47,12 @@ export default function ShoppingConfirmation({ address }) {
   }, [navigate, state])
 
   useEffect(() => {
-    // You can also change below url value to any script url you wish to load,
-    // for example this is snap.js for Sandbox Env (Note: remove `.sandbox` from url if you want to use production version)
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"
-
     let scriptTag = document.createElement("script")
     scriptTag.src = midtransScriptUrl
-
-    // Optional: set script attribute, for example snap.js have data-client-key attribute
-    // (change the value according to your client-key)
     const myMidtransClientKey = "SB-Mid-client-jteTefOIUDR5NWJQ"
     scriptTag.setAttribute("data-client-key", myMidtransClientKey)
-
     document.body.appendChild(scriptTag)
-
     return () => {
       document.body.removeChild(scriptTag)
     }
@@ -75,12 +71,9 @@ export default function ShoppingConfirmation({ address }) {
     console.log("Processing transaction:", formData)
     e.preventDefault()
     try {
-      // Creating transaction, including the token
       const action = createTransaction(formData)
       const transactionResponse = await dispatch(action).unwrap()
       console.log("Transaction response:", transactionResponse)
-
-      // Fetching the transaction based on id, then pick the token
       const token = transactionResponse.data.payment.token
       if (!token) {
         throw new Error("Error getting token!")
@@ -93,15 +86,12 @@ export default function ShoppingConfirmation({ address }) {
         },
         onPending: function (result) {
           console.log("Payment pending:", result)
-          // navigate("/success")
         },
         onError: function (result) {
           console.log("Payment error:", result)
-          // navigate("/success")
         },
         onClose: function () {
           console.log("Customer closed the popup without finishing the payment")
-          // navigate("/success")
         },
       })
     } catch (error) {
@@ -287,15 +277,6 @@ export default function ShoppingConfirmation({ address }) {
                       ))}
                     </div>
                   )}
-                  {/* {address.length < 5 ? (
-                    <TextButton
-                      btnName={"Add Address (max. 5)"}
-                      onClick={handleOpenModal}
-                      btnColor={"bg-sky-600"}
-                      textColor={"text-white"}
-                      hoverColor={"bg-sky-700"}
-                    />
-                  ) : null} */}
                 </fieldset>
               </div>
             </div>

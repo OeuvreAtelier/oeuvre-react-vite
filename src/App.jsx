@@ -60,11 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/product-detail",
-        element: (
-          <ProtectedRoute>
-            <ProductDetailPage />
-          </ProtectedRoute>
-        ),
+        element: <ProductDetailPage />,
       },
       {
         path: "/transaction-history",
@@ -92,11 +88,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/discover",
-        element: (
-          <ProtectedRoute>
-            <DiscoverPage />
-          </ProtectedRoute>
-        ),
+        element: <DiscoverPage />,
       },
       {
         path: "/rate-review",

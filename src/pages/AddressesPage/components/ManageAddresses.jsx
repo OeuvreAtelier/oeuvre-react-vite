@@ -59,13 +59,12 @@ export default function ManageAddresses({ artist, addresses }) {
         show={openModal}
         onClose={() => setOpenModal(false)}
         text="Do you want to delete this address?"
-        yes="Yes"
-        no="No"
-        onYesClick={handleDelete}
-        onNoClick={() => setOpenModal(false)}
+        leftClick="Yes"
+        rightClick="No"
+        onLeftClick={handleDelete}
+        onRightClick={() => setOpenModal(false)}
         isHidden={false}
       />
-
       {addresses.length === 0 ? (
         <div className="bg-slate-100 pt-28">
           <EmptyContent

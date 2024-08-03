@@ -57,11 +57,11 @@ export default function Navbar() {
             {isLoggedIn ? (
               <AvatarFB
                 img={
-                  "https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
+                  "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
                 }
                 username="Enigma"
                 onClick={() => toggleDrawer()}
-                size="10"
+                size="full"
               />
             ) : (
               <button
@@ -90,6 +90,12 @@ export default function Navbar() {
                 title="About"
                 onClick={() => {
                   navigate("/about")
+                }}
+              />
+              <NavbarButton
+                title="Discover"
+                onClick={() => {
+                  navigate("/discover")
                 }}
               />
             </ul>

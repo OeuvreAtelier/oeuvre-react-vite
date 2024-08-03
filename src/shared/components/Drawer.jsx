@@ -39,10 +39,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
       >
         <div className="flex flex-row bg-white p-4 rounded-lg mb-2 me-3">
           <div className="bg-white size-16 rounded-full me-4">
-            <img
-              src="https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg"
-              alt="profile"
-            />
+            <img src="https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg" alt="profile" />
           </div>
           <div className="flex flex-col justify-center">
             <p className="lg-semibold-black">
@@ -52,7 +49,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           </div>
         </div>
         <IconButton
-        id="btn-profile"
+          id="btn-profile"
           btnName="Profile"
           btnIcon={faUserCircle}
           color="bg-white"
@@ -100,7 +97,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         /> */}
         <IconButton
-        id="btn-history"
+          id="btn-history"
           btnName="Transaction History"
           btnIcon={faHistory}
           color="bg-white"

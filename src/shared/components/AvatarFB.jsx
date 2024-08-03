@@ -7,7 +7,7 @@ export default function AvatarFB({ img, username, onClick, size }) {
       img={img}
       alt={`${username}'s avatar`}
       onClick={onClick}
-      className={`hover:cursor-pointer w-10 h-${size}`}
+      className={`hover:cursor-pointer`}
       rounded
     />
   )

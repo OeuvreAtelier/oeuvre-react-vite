@@ -61,7 +61,7 @@ export default function ProfileHeader({ artist, store }) {
             src={
               artist.imagePicture
                 ? artist.imagePicture.path
-                : "https://i.imgur.com/LGvqTph.jpeg"
+                : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
             }
             alt="profile"
           />
@@ -81,7 +81,7 @@ export default function ProfileHeader({ artist, store }) {
       <div className="card-border-shadow-bottom p-6 mb-6">
         <p className="md-semibold-black mb-8">
           {store === null
-            ? "You can add the description by creating your store first."
+            ? null
             : store.description}
         </p>
         {store === null ? null : (
