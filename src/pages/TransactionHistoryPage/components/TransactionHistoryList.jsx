@@ -136,12 +136,18 @@ export default function TransactionHistoryList({
                           quantity={trxDetail.quantity}
                           initPrice={trxDetail.product.price}
                           isHidden={
-                            trx.payment.transactionStatus === "paid"
+                            (trx.payment.transactionStatus === "settlement")
                               ? false
                               : true
                           }
                           onClick={() => {
-                            navigate("/rate-review")
+                            navigate("/rate-review", {
+                              state: {
+                                artist: artist,
+                                merchandises: merchandises,
+                                trxDetail: trxDetail,
+                              },
+                            })
                           }}
                         />
                       ))}

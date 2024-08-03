@@ -25,11 +25,13 @@ export const fetchReviewsByUserId = createAsyncThunk(
   }
 )
 
+// USE THIS
 export const fetchReviewsByProductId = createAsyncThunk(
   "review/fetchReviewsByProductId",
-  async (productId, { rejectedWithValue }) => {
+  async ({productId, page}, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/reviews/product/${productId}`)
+      const response = await axiosInstance.get(`/reviews/product/${productId}?page=${page}`)
+      console.log("PAGE (SLICE):", page)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
@@ -43,6 +45,7 @@ const reviewSlice = createSlice({
     statusCode: null,
     message: null,
     data: [],
+    paging: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -58,6 +61,7 @@ const reviewSlice = createSlice({
       .addCase(fetchReviewsByProductId.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
+        state.paging = action.payload.paging
       })
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),

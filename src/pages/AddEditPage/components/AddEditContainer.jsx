@@ -18,10 +18,6 @@ export default function AddEditContainer() {
   const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  })
-
-  useEffect(() => {
     console.log("State AddEdit:", state)
     if (state !== null) {
       if (state.merchandise) {

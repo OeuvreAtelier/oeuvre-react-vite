@@ -22,6 +22,8 @@ export default function ShopProfile() {
     const decodedUserAccountId = decodedToken.sub
     dispatch(fetchArtists(decodedUserAccountId))
     dispatch(fetchStoreByUserId(artist.id))
+    console.log("Artist id: ", artist.id)
+
     dispatch(fetchMerchandisesByUserId({ userId: artist.id, page: 1 }))
   }, [dispatch])
 
