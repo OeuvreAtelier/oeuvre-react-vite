@@ -3,7 +3,6 @@ import NavbarButton from "./NavbarButton"
 import Logo from "./Logo"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
-import AvatarFB from "./AvatarFB"
 import Drawer from "./Drawer"
 import { useDispatch, useSelector } from "react-redux"
 import { jwtDecode } from "jwt-decode"
@@ -22,7 +21,7 @@ export default function Navbar() {
       const token = secureLocalStorage.getItem("token")
       const decodedToken = jwtDecode(token)
       const decodedUserId = decodedToken.sub
-      
+
       dispatch(fetchArtists(decodedUserId))
     }, [dispatch])
   }
@@ -55,13 +54,13 @@ export default function Navbar() {
           />
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {isLoggedIn ? (
-              <AvatarFB
-                img={
+              <img
+                className="bg-indigo-500 ms-12 size-12 rounded-full object-cover align-middle items-center hover:cursor-pointer"
+                onClick={() => toggleDrawer()}
+                src={
                   "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
                 }
-                username="Enigma"
-                onClick={() => toggleDrawer()}
-                size="full"
+                alt="profile"
               />
             ) : (
               <button

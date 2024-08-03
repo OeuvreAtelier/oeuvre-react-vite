@@ -38,9 +38,13 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
         } bg-slate-50 w-80 flex flex-col gap-3`}
       >
         <div className="flex flex-row bg-white p-4 rounded-lg mb-2 me-3">
-          <div className="bg-white size-16 rounded-full me-4">
-            <img src="https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg" alt="profile" />
-          </div>
+          <img
+            className="bg-indigo-500 me-4 mt-1 size-12 rounded-full object-cover align-middle items-center"
+            src={
+              "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+            }
+            alt="profile"
+          />
           <div className="flex flex-col justify-center">
             <p className="lg-semibold-black">
               {artist.firstName} {artist.lastName}
