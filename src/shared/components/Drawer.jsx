@@ -17,9 +17,6 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
   const { logout } = useAuth()
   const navigate = useNavigate()
 
-  // console.log("Address Drawer:", address)
-  // console.log("Artist Drawer:", artist)
-
   const handleLogout = async () => {
     await logout()
     navigate("/login")
@@ -41,14 +38,14 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           <img
             className="bg-indigo-500 me-4 mt-1 size-12 rounded-full object-cover align-middle items-center"
             src={
-              "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+              artist.imagePicture
+                ? artist.imagePicture?.path
+                : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
             }
             alt="profile"
           />
           <div className="flex flex-col justify-center">
-            <p className="lg-semibold-black">
-              {artist.firstName} {artist.lastName}
-            </p>
+            <p className="lg-semibold-black">{artist.displayName}</p>
             <p className="md-gray">{artist.email}</p>
           </div>
         </div>

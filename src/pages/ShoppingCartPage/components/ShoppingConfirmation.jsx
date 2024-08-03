@@ -58,35 +58,41 @@ export default function ShoppingConfirmation({ address }) {
   }
 
   const handleSubmit = async (e) => {
-    console.log("Processing transaction:", formData)
-    e.preventDefault()
-    try {
-      const action = createTransaction(formData)
-      const transactionResponse = await dispatch(action).unwrap()
-      console.log("Transaction response:", transactionResponse)
-      const token = transactionResponse.data.payment.token
-      if (!token) {
-        throw new Error("Error getting token!")
+    if (cartItems.length === 0) {
+      alert("Cart is empty!")
+    } else {
+      console.log("Processing transaction:", formData)
+      e.preventDefault()
+      try {
+        const action = createTransaction(formData)
+        const transactionResponse = await dispatch(action).unwrap()
+        console.log("Transaction response:", transactionResponse)
+        const token = transactionResponse.data.payment.token
+        if (!token) {
+          throw new Error("Error getting token!")
+        }
+        window.snap.pay(token, {
+          onSuccess: function (result) {
+            console.log("Payment successful:", result)
+            clearCart()
+            navigate("/success")
+          },
+          onPending: function (result) {
+            console.log("Payment pending:", result)
+          },
+          onError: function (result) {
+            console.log("Payment error:", result)
+          },
+          onClose: function () {
+            console.log(
+              "Customer closed the popup without finishing the payment"
+            )
+          },
+        })
+      } catch (error) {
+        console.error("Error creating transaction!", error)
+        alert("Error creating transaction!", error)
       }
-      window.snap.pay(token, {
-        onSuccess: function (result) {
-          console.log("Payment successful:", result)
-          clearCart()
-          navigate("/success")
-        },
-        onPending: function (result) {
-          console.log("Payment pending:", result)
-        },
-        onError: function (result) {
-          console.log("Payment error:", result)
-        },
-        onClose: function () {
-          console.log("Customer closed the popup without finishing the payment")
-        },
-      })
-    } catch (error) {
-      console.error("Error creating transaction!", error)
-      alert("Error creating transaction!", error)
     }
   }
 

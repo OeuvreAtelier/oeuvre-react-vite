@@ -18,7 +18,7 @@ export default function TransactionCardParent({
         </div>
         <div
           className={`xs-semibold-white px-2 py-1 mb-5 ${
-            paymentStatus === "PAID" ? "bg-green-500" : "bg-red-500"
+            paymentStatus === "SETTLEMENT" ? "bg-green-500" : "bg-red-500"
           } rounded-xl text-center`}
         >
           {paymentStatus}
@@ -27,7 +27,7 @@ export default function TransactionCardParent({
       <p className="xs-semibold-gray">Delivery Address</p>
       <p className="sm-semibold-black mb-4">{address}</p>
       {children}
-      {paymentStatus === "PAID" ? null : (
+      {paymentStatus === "SETTLEMENT" ? null : (
         <div className="flex flex-row justify-between items-center pt-3">
           <p className="sm-semibold-gray ms-2">
             The payment service is provided by Midtrans Payment Gateway.

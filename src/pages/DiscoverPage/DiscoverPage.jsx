@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux"
 export default function DiscoverPage() {
   const { data: artist } = useSelector((state) => state.artist)
   const { data: merchandises } = useSelector((state) => state.merchandises)
+  const { data: review } = useSelector((state) => state.review)
 
   return (
     <div className="bg-slate-100">
-      <DiscoverProductList artist={artist} merchandises={merchandises} />
+      <DiscoverProductList artist={artist} merchandises={merchandises} review={review}/>
       <Footer />
     </div>
   )

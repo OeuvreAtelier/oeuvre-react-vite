@@ -14,7 +14,7 @@ import TextButton from "../../../shared/components/TextButton"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../context/AuthContext"
 
-export default function DiscoverProductList({ artist, merchandises }) {
+export default function DiscoverProductList({ artist, merchandises, review }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
@@ -334,7 +334,7 @@ export default function DiscoverProductList({ artist, merchandises }) {
                   price={merchandise.price}
                   onClick={() => {
                     navigate("/product-detail", {
-                      state: { artist: artist, merchandise: merchandise },
+                      state: { artist: artist, merchandise: merchandise, review: review },
                     })
                   }}
                 />

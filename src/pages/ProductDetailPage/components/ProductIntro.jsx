@@ -15,23 +15,43 @@ import convertEnum from "../../../constants/convertEnum.js"
 import { CartContext } from "../../../context/CartContext.jsx"
 import ConfirmationModal from "../../../shared/components/ConfirmationModal.jsx"
 import { useAuth } from "../../../context/AuthContext.jsx"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchReviewsByProductId } from "../../../redux/features/reviewSlice"
 
 export default function ProductIntro() {
   const { cartItems, addToCart } = useContext(CartContext)
   const [openReview, setOpenReview] = useState(false)
   const { state } = useLocation()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [emptyStock, setEmptyStock] = useState(false)
   const [sameId, setSameId] = useState(false)
   const [checkLogin, setCheckLogin] = useState(false)
   const { isLoggedIn } = useAuth()
+  const [currentPage, setCurrentPage] = useState(1)
+  const reviews = state.review
 
   console.log("State PRODUCT INTRO:", state)
   console.log("State MERCHANDISE PRODUCT INTRO:", state.merchandise)
+  console.log("Product ID:", state.merchandise.id)
+  console.log("Reviews:", state.review)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   })
+
+  useEffect(() => {
+    dispatch(
+      fetchReviewsByProductId({
+        productId: state.merchandise.id,
+        page: currentPage,
+      })
+    )
+  }, [dispatch, currentPage])
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+  }
 
   const handleEmptyStock = () => {
     setEmptyStock(true)
@@ -103,18 +123,24 @@ export default function ProductIntro() {
           productName={state.merchandise.name}
           body={
             <>
-              <ReviewCard
-                avatar="https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
-                username="Mavuika"
-                rating={5}
-                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-              />
-              <ReviewCard
-                avatar="https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
-                username="Mavuika"
-                rating={5}
-                text="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-              />
+              {reviews.length === 0 ? (
+                <p className="sm-semibold-black text-center">No reviews yet.</p>
+              ) : (
+                <>
+                  {reviews.map((review) => (
+                    <ReviewCard
+                      avatar={
+                        review.user.imagePicture === null
+                          ? "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+                          : review.user.imagePicture.path
+                      }
+                      username={`${review.user.firstName} ${review.user.lastName}`}
+                      rating={review.rating}
+                      text={review.review}
+                    />
+                  ))}
+                </>
+              )}
             </>
           }
           btnOnClick={handleCloseReview}

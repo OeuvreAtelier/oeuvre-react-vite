@@ -32,7 +32,10 @@ export default function Navbar() {
     setIsDrawerOpen(!isDrawerOpen)
   }
 
+  console.log("Artist Navbar:", artist)
+
   return (
+    // <p>{artist.displayName}</p>
     <>
       {artist === null ? (
         <Drawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
@@ -58,7 +61,9 @@ export default function Navbar() {
                 className="bg-indigo-500 ms-12 size-12 rounded-full object-cover align-middle items-center hover:cursor-pointer"
                 onClick={() => toggleDrawer()}
                 src={
-                  "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+                  artist.imagePicture
+                    ? artist.imagePicture?.path
+                    : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
                 }
                 alt="profile"
               />

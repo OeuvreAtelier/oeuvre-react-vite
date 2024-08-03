@@ -136,7 +136,7 @@ export default function TransactionHistoryList({
                           quantity={trxDetail.quantity}
                           initPrice={trxDetail.product.price}
                           isHidden={
-                            trx.payment.transactionStatus === "paid"
+                            (trx.payment.transactionStatus === "settlement")
                               ? false
                               : true
                           }

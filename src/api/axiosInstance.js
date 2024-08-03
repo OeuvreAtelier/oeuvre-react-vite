@@ -4,6 +4,9 @@ import secureLocalStorage from "react-secure-storage"
 
 const axiosInstance = axios.create({
   baseURL: "/api/v3",
+  headers: {
+    "ngrok-skip-browser-warning": "any-value",
+  },
 })
 
 axiosInstance.interceptors.request.use((config) => {

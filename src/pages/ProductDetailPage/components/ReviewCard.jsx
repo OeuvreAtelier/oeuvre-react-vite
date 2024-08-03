@@ -7,9 +7,7 @@ export default function ReviewCard({ avatar, username, rating, text }) {
       <div className="flex flex-row justify-start align-middle gap-2 ">
         <img
           className="bg-indigo-500 size-9 mt-1 rounded-full object-cover align-middle items-center"
-          src={
-            "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
-          }
+          src={avatar}
           alt="profile"
         />
         <div className="flex flex-col ms-1">
@@ -24,7 +22,7 @@ export default function ReviewCard({ avatar, username, rating, text }) {
           </Rating>
         </div>
       </div>
-      <p className="sm-black text-justify mb-8">{text}</p>
+      <p className="sm-black mb-8">{text}</p>
     </div>
   )
 }

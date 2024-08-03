@@ -37,9 +37,6 @@ export default function ProfileHeader({ artist, store }) {
     })
   }
 
-  // console.log("Artist:", artist)
-  // console.log("Store:", store)
-
   return (
     <div className="mx-40">
       <section
