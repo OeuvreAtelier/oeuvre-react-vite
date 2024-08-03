@@ -1,5 +1,4 @@
 import React from "react"
-import IconButton from "./IconButton"
 import { faFileEdit, faTrash } from "@fortawesome/free-solid-svg-icons"
 import TextButton from "./TextButton"
 

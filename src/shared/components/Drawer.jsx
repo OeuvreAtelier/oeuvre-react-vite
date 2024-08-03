@@ -17,8 +17,8 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
   const { logout } = useAuth()
   const navigate = useNavigate()
 
-  console.log("Address Drawer:", address)
-  console.log("Artist Drawer:", artist)
+  // console.log("Address Drawer:", address)
+  // console.log("Artist Drawer:", artist)
 
   const handleLogout = async () => {
     await logout()
@@ -52,6 +52,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           </div>
         </div>
         <IconButton
+        id="btn-profile"
           btnName="Profile"
           btnIcon={faUserCircle}
           color="bg-white"
@@ -62,6 +63,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-discover"
           btnName="Discover Items"
           btnIcon={faShop}
           color="bg-white"
@@ -72,6 +74,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-cart"
           btnName="My Cart"
           btnIcon={faShoppingCart}
           color="bg-white"
@@ -97,6 +100,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         /> */}
         <IconButton
+        id="btn-history"
           btnName="Transaction History"
           btnIcon={faHistory}
           color="bg-white"
@@ -107,6 +111,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-rate-review"
           btnName="Rate & Review"
           btnIcon={faStar}
           color="bg-white"
@@ -117,6 +122,7 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           }}
         />
         <IconButton
+          id="btn-logout"
           btnName="Log Out"
           btnIcon={faSignOut}
           color="bg-white"

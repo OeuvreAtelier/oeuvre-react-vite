@@ -21,12 +21,17 @@ export default function ProductIntro() {
   const { state } = useLocation()
   const navigate = useNavigate()
   const [emptyStock, setEmptyStock] = useState(false)
+  const [sameId, setSameId] = useState(false)
 
-  // I NEED THIS TOO
+  console.log("State PRODUCT INTRO:", state)
   console.log("State MERCHANDISE PRODUCT INTRO:", state.merchandise)
 
   const handleEmptyStock = () => {
     setEmptyStock(true)
+  }
+
+  const handleSameId = () => {
+    setSameId(true)
   }
 
   function numberWithDots(x) {
@@ -62,6 +67,12 @@ export default function ProductIntro() {
         show={emptyStock}
         onClose={() => setEmptyStock(false)}
         text="Sorry, the product is sold out at the moment."
+        isHidden={true}
+      />
+      <ConfirmationModal
+        show={sameId}
+        onClose={() => setSameId(false)}
+        text="Sorry, you cannot buy your own product."
         isHidden={true}
       />
       <div className="flex flex-col">
@@ -181,6 +192,8 @@ export default function ProductIntro() {
               onClick={() => {
                 if (state.merchandise.stock === 0) {
                   handleEmptyStock()
+                } else if (state.artist.id === state.merchandise.user.id) {
+                  handleSameId()
                 } else {
                   addToCart(state.merchandise)
                   navigate("/shopping-cart", {

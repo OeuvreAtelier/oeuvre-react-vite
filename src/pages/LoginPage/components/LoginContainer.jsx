@@ -63,12 +63,14 @@ export default function EmailPasswordContainer() {
           />
           <div className="login-register">
             <TextButton
+              id="login"
               btnName="Log In"
               btnColor="bg-sky-500"
               textColor="text-white"
               hoverColor={"bg-sky-600"}
             />
             <TextButton
+              id="register"
               btnName="Register"
               onClick={() => {
                 navigate("/register")

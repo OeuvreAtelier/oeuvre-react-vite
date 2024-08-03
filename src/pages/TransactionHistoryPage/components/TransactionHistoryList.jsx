@@ -32,6 +32,7 @@ export default function TransactionHistoryList({
       <div className="flex flex-row justify-center mx-10">
         <div className="w-1/4 px-5 flex flex-col gap-4">
           <IconButton
+          id="bookmark"
             btnName="Bookmarks"
             btnIcon={faBookmark}
             color="bg-white"
@@ -41,6 +42,7 @@ export default function TransactionHistoryList({
             }}
           />
           <IconButton
+            id="history"
             btnName="Transaction History"
             btnIcon={faHistory}
             color="bg-white"
@@ -50,6 +52,7 @@ export default function TransactionHistoryList({
             }}
           />
           <IconButton
+            id="settings"
             btnName="Settings"
             btnIcon={faGear}
             color="bg-white"

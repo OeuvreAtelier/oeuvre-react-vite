@@ -78,6 +78,7 @@ export default function StoreHeader({ artist, viewedArtist }) {
           textColor="text-gray-600"
         /> */}
         <IconButton
+          id="email"
           btnName="Email"
           btnIcon={faMailBulk}
           onClick={() => {

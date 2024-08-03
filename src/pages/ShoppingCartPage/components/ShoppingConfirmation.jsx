@@ -42,6 +42,26 @@ export default function ShoppingConfirmation({ address }) {
     }
   }, [navigate, state])
 
+  useEffect(() => {
+    // You can also change below url value to any script url you wish to load,
+    // for example this is snap.js for Sandbox Env (Note: remove `.sandbox` from url if you want to use production version)
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"
+
+    let scriptTag = document.createElement("script")
+    scriptTag.src = midtransScriptUrl
+
+    // Optional: set script attribute, for example snap.js have data-client-key attribute
+    // (change the value according to your client-key)
+    const myMidtransClientKey = "SB-Mid-client-jteTefOIUDR5NWJQ"
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey)
+
+    document.body.appendChild(scriptTag)
+
+    return () => {
+      document.body.removeChild(scriptTag)
+    }
+  }, [])
+
   const handleRadioChange = (event) => {
     const { name, value } = event.target
     setFormData({
@@ -55,10 +75,35 @@ export default function ShoppingConfirmation({ address }) {
     console.log("Processing transaction:", formData)
     e.preventDefault()
     try {
+      // Creating transaction, including the token
       const action = createTransaction(formData)
-      await dispatch(action).unwrap()
-      clearCart()
-      navigate("/success")
+      const transactionResponse = await dispatch(action).unwrap()
+      console.log("Transaction response:", transactionResponse)
+
+      // Fetching the transaction based on id, then pick the token
+      const token = transactionResponse.data.payment.token
+      if (!token) {
+        throw new Error("Error getting token!")
+      }
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          console.log("Payment successful:", result)
+          clearCart()
+          navigate("/success")
+        },
+        onPending: function (result) {
+          console.log("Payment pending:", result)
+          // navigate("/success")
+        },
+        onError: function (result) {
+          console.log("Payment error:", result)
+          // navigate("/success")
+        },
+        onClose: function () {
+          console.log("Customer closed the popup without finishing the payment")
+          // navigate("/success")
+        },
+      })
     } catch (error) {
       console.error("Error creating transaction!", error)
       alert("Error creating transaction!", error)
@@ -183,6 +228,7 @@ export default function ShoppingConfirmation({ address }) {
               {cartItems.length > 0 ? (
                 <div className="flex flex-col items-center my-5">
                   <TextButton
+                    id="clear-cart"
                     btnName="Clear Cart"
                     onClick={() => {
                       handleClearCart()
@@ -213,7 +259,8 @@ export default function ShoppingConfirmation({ address }) {
                     (console.log("Address:", address),
                     (
                       <p className="text-white py-2 ps-4 bg-red-500 rounded-lg">
-                        No address found, you can create an address in your profile page.
+                        No address found, you can create an address in your
+                        profile page.
                       </p>
                     ))
                   ) : (
@@ -260,30 +307,15 @@ export default function ShoppingConfirmation({ address }) {
                 <p className="md-gray">Payment Method</p>
                 <p className="md-black">Midtrans</p>
               </div>
-              <div className="flex flex-row justify-between mb-3 me-3">
-                <p className="md-gray">Subtotal</p>
-                <p className="md-black">Rp{numberWithDots(getCartTotal())}</p>
-              </div>
-              <div className="flex flex-row justify-between mb-3 me-3">
-                <p className="md-gray">11% VAT</p>
-                <p className="md-black">
-                  Rp{numberWithDots(getCartTotal() * 0.11)}
-                </p>
-              </div>
-              <div className="flex flex-row justify-between mb-5 me-3">
-                <p className="md-gray">Service Fees</p>
-                <p className="md-black">Rp1.000</p>
-              </div>
               <div className="flex flex-row justify-between mb-5 me-3">
                 <p className="md-semibold-gray">Total Amount</p>
                 <p className="md-semibold-black">
                   Rp
-                  {numberWithDots(
-                    getCartTotal() + getCartTotal() * 0.11 + 1000
-                  )}
+                  {numberWithDots(getCartTotal())}
                 </p>
               </div>
               <IconButton
+                id="pay-button"
                 btnName="Pay Now"
                 btnIcon={faCashRegister}
                 color="bg-indigo-700"

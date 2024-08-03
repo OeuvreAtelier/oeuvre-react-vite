@@ -275,6 +275,7 @@ export default function DiscoverProductList({ artist, merchandises }) {
               </Accordion.Panel>
             </Accordion>
             <TextButton
+              id="searchBtn"
               btnName="Search Results"
               onClick={handleSearch}
               btnColor="bg-indigo-500"
@@ -282,6 +283,7 @@ export default function DiscoverProductList({ artist, merchandises }) {
               hoverColor="bg-indigo-700"
             />
             <TextButton
+              id="resetBtn"
               btnName="Reset Search"
               onClick={resetSearchFilter}
               btnColor="bg-indigo-500"

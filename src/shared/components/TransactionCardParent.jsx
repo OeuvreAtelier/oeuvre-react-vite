@@ -30,6 +30,7 @@ export default function TransactionCardParent({
             The total price above excludes 11% VAT as well as service fee of Rp1.000.
           </p>
           <TextButton
+            id="pay-button"
             btnName="Pay Now"
             btnColor="bg-indigo-500"
             textColor="text-white"

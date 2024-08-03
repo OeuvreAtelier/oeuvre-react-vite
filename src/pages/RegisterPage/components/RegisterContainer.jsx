@@ -137,12 +137,14 @@ export default function RegisterContainer() {
             />
             <div className="login-register">
               <TextButton
+                id="register"
                 btnName="Register"
                 btnColor="bg-sky-500"
                 textColor="text-white"
                 hoverColor={"bg-sky-600"}
               />
               <TextButton
+                id="login"
                 btnName="Log In"
                 onClick={() => {
                   navigate("/login")
