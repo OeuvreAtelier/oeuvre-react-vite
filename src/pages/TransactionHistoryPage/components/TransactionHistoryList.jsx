@@ -141,7 +141,13 @@ export default function TransactionHistoryList({
                               : true
                           }
                           onClick={() => {
-                            navigate("/rate-review")
+                            navigate("/rate-review", {
+                              state: {
+                                artist: artist,
+                                merchandises: merchandises,
+                                trxDetail: trxDetail,
+                              },
+                            })
                           }}
                         />
                       ))}
