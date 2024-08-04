@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react"
 import CardPictureTile from "../../../shared/components/CardPictureTile"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchMerchandises } from "../../../redux/features/productSlice"
+import { useNavigate } from "react-router-dom"
 
 export default function BestSeller() {
+  const { data: artist } = useSelector((state) => state.artist)
   const { data: merchandises } = useSelector((state) => state.merchandises)
+  const { data: review } = useSelector((state) => state.review)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(fetchMerchandises({ page: 1 }))
-      .then(console.log("Best seller: ", merchandises))
-  }, [])
+    dispatch(fetchMerchandises({ page: 1 })).then(
+      console.log("Best seller: ", merchandises)
+    )
+  })
 
-  // console.log("Best seller products:", merchandises)
   return (
     <div className="bg-slate-100 flex flex-col justify-center items-center pt-3">
       <p className="xxxl-semibold-black py-10 tracking-wide">Best Seller</p>
@@ -25,7 +29,15 @@ export default function BestSeller() {
             category={merchandise.category}
             seller={merchandise.user.displayName}
             price={merchandise.price}
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/product-detail", {
+                state: {
+                  artist: artist,
+                  merchandise: merchandise,
+                  review: review,
+                },
+              })
+            }}
           />
         ))}
       </div>
