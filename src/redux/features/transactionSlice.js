@@ -15,9 +15,9 @@ export const createTransaction = createAsyncThunk(
 
 export const fetchTransactionsByUserId = createAsyncThunk(
   "transaction/fetchTransactionsByUserId",
-  async (userId, { rejectedWithValue }) => {
+  async ({userId, page}, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/transactions/user/${userId}`)
+      const response = await axiosInstance.get(`/transactions/user/${userId}?page=${page}`)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)
@@ -43,6 +43,7 @@ const transactionSlice = createSlice({
     statusCode: null,
     message: null,
     data: [],
+    paging: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -54,6 +55,7 @@ const transactionSlice = createSlice({
       .addCase(fetchTransactionsByUserId.fulfilled, (state, action) => {
         state.statusCode = "succeeded"
         state.data = action.payload.data
+        state.paging = action.payload.paging
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.statusCode = "succeeded"

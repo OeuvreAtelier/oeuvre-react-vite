@@ -34,12 +34,12 @@ export default function AddToCart({
       </p>
       <p className="sm-black mb-4">
         The product will be shipped in X days after the seller packed and sealed
-        the item, to ensure that it will be delivered safely.
+        the item, and the airway bill will be sent to you via email.
       </p>
       <p className="sm-semibold-gray mb-2">2. Available to download</p>
       <p className="sm-black mb-4">
         You will be able to download the digital product at any time after
-        payment is confirmed.
+        the product is sent to your email.
       </p>
     </div>
   )
