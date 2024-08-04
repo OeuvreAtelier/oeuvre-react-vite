@@ -27,14 +27,11 @@ export default function ProductList({ artist, merchandises }) {
     dispatch(
       fetchMerchandisesByUserId({ userId: artist.id, page: currentPage })
     )
-  }, [dispatch, currentPage])
+  }, [dispatch, currentPage, artist])
 
   const handlePageChange = (page) => {
     setCurrentPage(page)
   }
-
-  console.log("Current Page (PL):", currentPage)
-  console.log("Total Pages (PL):", totalPages.totalPages)
 
   const handleEdit = (artist, merchandise) => {
     navigate("/register-update", {

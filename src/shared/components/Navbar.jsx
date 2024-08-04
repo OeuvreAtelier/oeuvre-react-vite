@@ -16,15 +16,15 @@ export default function Navbar() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  if (isLoggedIn === true) {
-    useEffect(() => {
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      console.log("Before: ", )
       const token = secureLocalStorage.getItem("token")
       const decodedToken = jwtDecode(token)
       const decodedUserId = decodedToken.sub
-
       dispatch(fetchArtists(decodedUserId))
-    }, [dispatch])
-  }
+    }
+  }, [])
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
@@ -32,7 +32,7 @@ export default function Navbar() {
     setIsDrawerOpen(!isDrawerOpen)
   }
 
-  console.log("Artist Navbar:", artist)
+  // console.log("Artist Navbar:", artist)
 
   return (
     // <p>{artist.displayName}</p>
@@ -58,13 +58,9 @@ export default function Navbar() {
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {isLoggedIn ? (
               <img
-                className="bg-indigo-500 ms-12 size-12 rounded-full object-cover align-middle items-center hover:cursor-pointer"
+                className="bg-black ms-12 size-12 rounded-full object-cover align-middle items-center hover:cursor-pointer"
                 onClick={() => toggleDrawer()}
-                src={
-                  artist.imagePicture
-                    ? artist.imagePicture?.path
-                    : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
-                }
+                src={artist.imagePicture?.path}
                 alt="profile"
               />
             ) : (
