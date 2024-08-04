@@ -77,9 +77,7 @@ export default function ProfileHeader({ artist, store }) {
       </section>
       <div className="card-border-shadow-bottom p-6 mb-6">
         <p className="md-semibold-black mb-8">
-          {store === null
-            ? null
-            : store.description}
+          {store === null ? null : store.description}
         </p>
         {store === null ? null : (
           <>
@@ -144,14 +142,16 @@ export default function ProfileHeader({ artist, store }) {
           hoverColor="bg-slate-100"
           textColor="text-gray-600"
         />
-        <IconButton
-          btnName="Manage Store"
-          btnIcon={faStoreAlt}
-          onClick={() => handleCreateManageStore(artist)}
-          color="bg-white"
-          hoverColor="bg-slate-100"
-          textColor="text-gray-600"
-        />
+        {store === null ? null : (
+          <IconButton
+            btnName="Manage Store"
+            btnIcon={faStoreAlt}
+            onClick={() => handleCreateManageStore(artist)}
+            color="bg-white"
+            hoverColor="bg-slate-100"
+            textColor="text-gray-600"
+          />
+        )}
       </div>
     </div>
   )

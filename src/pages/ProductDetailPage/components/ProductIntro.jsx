@@ -7,7 +7,6 @@ import {
   faWarning,
 } from "@fortawesome/free-solid-svg-icons"
 import AddToCart from "../../../shared/components/AddToCart"
-import { Rating } from "flowbite-react"
 import ScrollableModal from "./ScrollableModal"
 import ReviewCard from "./ReviewCard"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -160,12 +159,6 @@ export default function ProductIntro() {
                 alt="Product"
                 className="object-cover rounded-lg"
               />
-              <div className="absolute top-0 left-0 p-1 m-6 bg-white rounded-lg">
-                <Rating size="md">
-                  <Rating.Star color="#e0a910" />
-                  <p className="mx-1 lg-semibold-black">4.95</p>
-                </Rating>
-              </div>
             </div>
             <p className="lg-semibold-black mt-5">Description</p>
             <p className="md-black mt-2 mb-5 whitespace-pre-line">
@@ -184,18 +177,12 @@ export default function ProductIntro() {
               {convertEnum[state.merchandise.category]}
             </p>
             <p
-              className="md-semibold-black mb-1"
+              className="md-semibold-black mb-1 hover:underline hover:cursor-pointer"
               onClick={() => {
                 {
                   state.artist.id === state.merchandise.user.id
                     ? navigate("/view-store")
                     : null
-                  // navigate("/view-2-store", {
-                  //     state: {
-                  //       viewedArtistId,
-                  //       ownId,
-                  //     },
-                  //   })
                 }
               }}
             >

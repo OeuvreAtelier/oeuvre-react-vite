@@ -30,12 +30,6 @@ export default function CardPictureTileSmall({
             </div>
           </div>
         ) : null}
-        <div className="absolute bottom-0 right-0 p-1 m-2 bg-white rounded-lg">
-          <Rating>
-            <Rating.Star color="#e0a910" />
-            <p className="ms-1 xs-semibold-gray">4.95</p>
-          </Rating>
-        </div>
       </div>
       <div className="p-3 ms-1">
         <p className="xs-semibold-gray">{category}</p>

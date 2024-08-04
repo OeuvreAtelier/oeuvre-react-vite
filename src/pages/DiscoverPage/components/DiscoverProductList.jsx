@@ -13,6 +13,8 @@ import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import TextButton from "../../../shared/components/TextButton"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "../../../context/AuthContext"
+import categories from "../../../constants/categories"
+import types from "../../../constants/types"
 
 export default function DiscoverProductList({ artist, merchandises, review }) {
   const navigate = useNavigate()
@@ -33,8 +35,7 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
           page: currentPage,
         })
       )
-    } 
-    else {
+    } else {
       dispatch(
         fetchProductsByNameCategoryAndType({
           productName: "",
@@ -146,116 +147,17 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
                       />
                       <Label htmlFor="">All Categories</Label>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="AUDIO"
-                        name="category"
-                        value="AUDIO"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="AUDIO">Audio</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="COSPLAY"
-                        name="category"
-                        value="COSPLAY"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="COSPLAY">Cosplay</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="FASHION"
-                        name="category"
-                        value="FASHION"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="FASHION">Fashion</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="FIGURES"
-                        name="category"
-                        value="FIGURES"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="FIGURES">Figures, Plushies & Dolls</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="GAMES"
-                        name="category"
-                        value="GAMES"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="GAMES">Games</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="GOODS"
-                        name="category"
-                        value="GOODS"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="GOODS">Goods</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="ILLUSTRATION"
-                        name="category"
-                        value="ILLUSTRATION"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="ILLUSTRATION">Illustration</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="MUSIC"
-                        name="category"
-                        value="MUSIC"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="MUSIC">Music</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="NOVEL_BOOKS"
-                        name="category"
-                        value="NOVEL_BOOKS"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="NOVEL_BOOKS">Novel & Books</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="PHOTOGRAPH"
-                        name="category"
-                        value="PHOTOGRAPH"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="PHOTOGRAPH">Photograph</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="SOFTWARE_HARDWARE"
-                        name="category"
-                        value="SOFTWARE_HARDWARE"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="SOFTWARE_HARDWARE">
-                        Software & Hardware
-                      </Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="VIDEO"
-                        name="category"
-                        value="VIDEO"
-                        onChange={handleCategoryChange}
-                      />
-                      <Label htmlFor="VIDEO">Video</Label>
-                    </div>
+                    {categories.map(({ text, category }) => (
+                      <div className="flex items-center gap-2" key={category}>
+                        <Radio
+                          id={category}
+                          name="category"
+                          value={category}
+                          onChange={handleCategoryChange}
+                        />
+                        <Label htmlFor={category}>{text}</Label>
+                      </div>
+                    ))}
                   </fieldset>
                 </Accordion.Content>
               </Accordion.Panel>
@@ -273,24 +175,17 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
                       />
                       <Label htmlFor="">All Types</Label>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="DIGITAL"
-                        name="type"
-                        value="DIGITAL"
-                        onChange={handleTypeChange}
-                      />
-                      <Label htmlFor="DIGITAL">Digital</Label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio
-                        id="PHYSICAL"
-                        name="type"
-                        value="PHYSICAL"
-                        onChange={handleTypeChange}
-                      />
-                      <Label htmlFor="PHYSICAL">Physical</Label>
-                    </div>
+                    {types.map(({ text, type }) => (
+                      <div className="flex items-center gap-2" key={type}>
+                        <Radio
+                          id={type}
+                          name="type"
+                          value={type}
+                          onChange={handleCategoryChange}
+                        />
+                        <Label htmlFor={type}>{text}</Label>
+                      </div>
+                    ))}
                   </fieldset>
                 </Accordion.Content>
               </Accordion.Panel>
