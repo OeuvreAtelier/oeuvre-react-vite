@@ -9,7 +9,7 @@ import { CartContext } from "../../../context/CartContext"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import Animation from "../../../assets/shopping-cart.json"
 import TextButton from "../../../shared/components/TextButton"
-import { createTransaction } from "../../../redux/features/transactionSlice"
+import { createTransaction, fetchTransactionsByUserId } from "../../../redux/features/transactionSlice"
 import ConfirmationModal from "../../../shared/components/ConfirmationModal"
 
 export default function ShoppingConfirmation({ address }) {
@@ -99,6 +99,7 @@ export default function ShoppingConfirmation({ address }) {
         onSuccess: function (result) {
           console.log("Payment successful:", result)
           handleClearCart()
+          dispatch(fetchTransactionsByUserId(state.artist.id))
           navigate("/success")
         },
         onPending: function (result) {

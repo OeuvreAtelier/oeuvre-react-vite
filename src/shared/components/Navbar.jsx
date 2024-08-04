@@ -18,7 +18,6 @@ export default function Navbar() {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      console.log("Before: ")
       const token = secureLocalStorage.getItem("token")
       const decodedToken = jwtDecode(token)
       const decodedUserId = decodedToken.sub

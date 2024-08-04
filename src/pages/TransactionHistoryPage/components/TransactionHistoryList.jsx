@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import TransactionCard from "../../../shared/components/TransactionCard"
 import { useNavigate } from "react-router-dom"
 import TransactionCardParent from "../../../shared/components/TransactionCardParent"
@@ -19,17 +19,9 @@ export default function TransactionHistoryList({
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchTransactionsByUserId(artist.id))
-    dispatch(fetchReviewsByUserId(artist.id))
-  }, [dispatch])
-
-  console.log("Review: ", review)
-
-  useEffect(() => {
     window.scrollTo(0, 0)
-  })
-
-  useEffect(() => {
+    dispatch(fetchReviewsByUserId(artist.id))
+    
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"
     let scriptTag = document.createElement("script")
     scriptTag.src = midtransScriptUrl
