@@ -15,7 +15,9 @@ export const CartProvider = ({ children }) => {
     if (isItemInCart) {
       setCartItems(
         cartItems.map((cartItem) =>
-          cartItem.id === item.id
+          cartItem.type === "DIGITAL"
+            ? { ...cartItem, quantity: 1 }
+            : cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         )

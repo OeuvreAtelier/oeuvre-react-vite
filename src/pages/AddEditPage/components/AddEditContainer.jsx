@@ -183,12 +183,13 @@ export default function AddEditContainer() {
             onChange={handleNumber}
           />
           <TextInputWithHeaderFB
+            isDisabled={formData.type === "DIGITAL" ? true : false}
             id="stock"
             nameLabel="Stock"
             nameInput="stock"
             type="number"
             placeholder="Example: 45"
-            value={formData.stock}
+            value={formData.type === "DIGITAL" ? 9999999999 : formData.stock}
             onChange={handleNumber}
           />
           <div className="-mt-2 mb-4">
