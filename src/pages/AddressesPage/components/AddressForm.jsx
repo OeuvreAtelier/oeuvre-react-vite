@@ -94,11 +94,7 @@ export default function AddressForm({ isOpen, onClose }) {
         >
           X
         </div>
-        {state?.address ? (
-          <h1 className="xl-semibold-black text-center">Edit Address</h1>
-        ) : (
-          <h1 className="xl-semibold-black text-center">Add Address</h1>
-        )}
+        <h1 className="xl-semibold-black text-center">Update Address</h1>
         <form
           className="flex w-full flex-col gap-4 pt-6 px-4"
           onSubmit={handleSubmit}

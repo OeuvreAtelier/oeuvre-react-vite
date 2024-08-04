@@ -16,7 +16,7 @@ export default function CardText({
       <p className="sm-gray">{middleText}</p>
       <p className="sm-gray mb-4">{lowerText}</p>
       <TextButton
-        btnName="Edit"
+        btnName="Update"
         onClick={onEdit}
         btnColor="bg-sky-600"
         textColor="text-white"

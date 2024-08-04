@@ -25,11 +25,13 @@ export default function ShopProfile() {
       .then(dispatch(fetchStoreByUserId(artist.id)))
       .then(dispatch(fetchMerchandisesByUserId({ userId: artist.id, page: 1 })))
       .then(() => setIsLoading(false))
-  }, [dispatch, artist])
+  }, [])
 
   if (isLoading) {
     return <div>Loading...</div>
   }
+
+  console.log("artist profile: ", artist)
 
   return (
     <div className="bg-slate-100">

@@ -7,7 +7,6 @@ const AuthContext = createContext()
 const initialState = {
   isLoggedIn: !!secureLocalStorage.getItem("token"),
   token: secureLocalStorage.getItem("token"),
-  id: secureLocalStorage.getItem("id"),
   username: secureLocalStorage.getItem("username"),
 }
 
@@ -39,12 +38,11 @@ export const AuthProvider = ({ children }) => {
       const { data } = response.data
       if (data) {
         secureLocalStorage.setItem("token", data.token)
-        secureLocalStorage.setItem("id", data.id)
         secureLocalStorage.setItem("username", data.username)
         secureLocalStorage.setItem("isLoggedIn", true)
         dispatch({
           type: "LOGIN",
-          payload: { token: data.token, id: data.id, username: data.username },
+          payload: { token: data.token, username: data.username },
         })
         return true
       }
@@ -57,7 +55,6 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     secureLocalStorage.removeItem("token")
     secureLocalStorage.removeItem("isLoggedIn")
-    secureLocalStorage.removeItem("id")
     secureLocalStorage.removeItem("username")
     dispatch({ type: "LOGOUT" })
   }

@@ -33,9 +33,6 @@ export default function ProductList({ artist, merchandises }) {
     setCurrentPage(page)
   }
 
-  console.log("Current Page (PL):", currentPage)
-  console.log("Total Pages (PL):", totalPages.totalPages)
-
   const handleEdit = (artist, merchandise) => {
     navigate("/register-update", {
       state: {

@@ -16,15 +16,15 @@ export default function Navbar() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  if (isLoggedIn === true) {
-    useEffect(() => {
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      console.log("Before: ", )
       const token = secureLocalStorage.getItem("token")
       const decodedToken = jwtDecode(token)
       const decodedUserId = decodedToken.sub
-
       dispatch(fetchArtists(decodedUserId))
-    }, [dispatch])
-  }
+    }
+  }, [])
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
@@ -32,7 +32,7 @@ export default function Navbar() {
     setIsDrawerOpen(!isDrawerOpen)
   }
 
-  console.log("Artist Navbar:", artist)
+  // console.log("Artist Navbar:", artist)
 
   return (
     // <p>{artist.displayName}</p>
