@@ -15,6 +15,7 @@ export default function RateProduct() {
   const { state } = useLocation()
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (state !== null) {
       console.log("State RATE PRODUCT:", state)
       setFormData({
@@ -53,10 +54,10 @@ export default function RateProduct() {
     try {
       const action = createReview(formData)
       await dispatch(action).unwrap()
-      navigate("/")
+      navigate("/transaction-history")
     } catch (error) {
       console.error("Error submitting form:", error)
-      alert("Error submitting form:", error)
+      alert("Cannot submit review more than once!", error)
     }
   }
 
@@ -91,11 +92,7 @@ export default function RateProduct() {
             onSubmit={handleSubmit}
           >
             <h1 className="sm-semibold-black">Overall, how was the item?</h1>
-            <Rating
-              size="lg"
-              className="mb-3 -mt-2"
-              id="rating"
-            >
+            <Rating size="lg" className="mb-3 -mt-2" id="rating">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Rating.Star
                   key={star}

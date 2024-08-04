@@ -28,25 +28,26 @@ export default function ProductIntro() {
   const [checkLogin, setCheckLogin] = useState(false)
   const { isLoggedIn } = useAuth()
   const [currentPage, setCurrentPage] = useState(1)
-  const reviews = state.review
+  const { data: review } = useSelector((state) => state.review)
+  const { paging: totalPages } = useSelector((state) => state.review)
+  const [isLoading, setIsLoading] = useState(false)
+  // const reviews = state.review
 
   console.log("State PRODUCT INTRO:", state)
   console.log("State MERCHANDISE PRODUCT INTRO:", state.merchandise)
   console.log("Product ID:", state.merchandise.id)
-  console.log("Reviews:", state.review)
+  console.log("Reviews:", review)
 
   useEffect(() => {
     window.scrollTo(0, 0)
-  })
-
-  useEffect(() => {
+    setIsLoading(true)
     dispatch(
       fetchReviewsByProductId({
         productId: state.merchandise.id,
         page: currentPage,
       })
-    )
-  }, [dispatch, currentPage])
+    ).then(setIsLoading(false))
+  }, [currentPage])
 
   const handlePageChange = (page) => {
     setCurrentPage(page)
@@ -68,13 +69,6 @@ export default function ProductIntro() {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
-  useEffect(() => {
-    if (state !== null) {
-    } else {
-      navigate("/discover")
-    }
-  }, [navigate, state])
-
   const handleOpenReview = () => {
     setOpenReview(true)
   }
@@ -83,13 +77,16 @@ export default function ProductIntro() {
     setOpenReview(false)
   }
 
-  // I NEED THIS
+
   console.log("Artist ID B406 PRODUCT INTRO:", state.merchandise.user.id)
-  // I NEED THIS TOO
   console.log("Own ID:", state.artist.id)
 
   const viewedArtistId = state.merchandise.user.id
   const ownId = state.artist.id
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
 
   return (
     <>
@@ -122,22 +119,39 @@ export default function ProductIntro() {
           productName={state.merchandise.name}
           body={
             <>
-              {reviews.length === 0 ? (
+              {review.length === 0 ? (
                 <p className="sm-semibold-black text-center">No reviews yet.</p>
               ) : (
                 <>
-                  {reviews.map((review) => (
+                  {review.map((rev) => (
                     <ReviewCard
                       avatar={
-                        review.user.imagePicture === null
+                        rev.user.imagePicture === null
                           ? "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
-                          : review.user.imagePicture.path
+                          : rev.user.imagePicture.path
                       }
-                      username={`${review.user.firstName} ${review.user.lastName}`}
-                      rating={review.rating}
-                      text={review.review}
+                      username={`${rev.user.firstName} ${rev.user.lastName}`}
+                      rating={rev.rating}
+                      text={rev.review}
                     />
                   ))}
+                  <div className="flex flex-row gap-2 me-1 -mt-1 justify-end">
+                    {[...Array(totalPages.totalPages)].map((_, index) => (
+                      <div
+                        className={
+                          currentPage === index + 1
+                            ? `p-2 cursor-pointer rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold`
+                            : `p-2 cursor-pointer rounded-lg bg-white hover:bg-gray-100 text-gray-600`
+                        }
+                        key={index}
+                        onClick={() => handlePageChange(index + 1)}
+                        disabled={currentPage === index + 1}
+                      >
+                        {index + 1}
+                      </div>
+                    ))}
+                    {console.log("Current Page:", currentPage)}
+                  </div>
                 </>
               )}
             </>

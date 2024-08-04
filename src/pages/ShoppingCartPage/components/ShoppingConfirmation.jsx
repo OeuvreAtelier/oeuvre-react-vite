@@ -9,7 +9,10 @@ import { CartContext } from "../../../context/CartContext"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import Animation from "../../../assets/shopping-cart.json"
 import TextButton from "../../../shared/components/TextButton"
-import { createTransaction, fetchTransactionsByUserId } from "../../../redux/features/transactionSlice"
+import {
+  createTransaction,
+  fetchTransactionsByUserId,
+} from "../../../redux/features/transactionSlice"
 import ConfirmationModal from "../../../shared/components/ConfirmationModal"
 
 export default function ShoppingConfirmation({ address }) {
@@ -64,22 +67,26 @@ export default function ShoppingConfirmation({ address }) {
   }
 
   const appendLocalStorageData = () => {
-    const storedCartItems = localStorage.getItem("cartItems")
-    if (storedCartItems) {
-      const parsedCartItems = JSON.parse(storedCartItems)
-      const trxDetail = parsedCartItems.map((item) => {
-        return {
-          productId: item.id,
-          quantity: item.quantity,
-        }
-      })
-      setFormData({
-        ...formData,
-        transactionDetails: trxDetail,
-      })
+    if (formData.addressId === "") {
+      alert("Please select your address!")
+    } else {
+      const storedCartItems = localStorage.getItem("cartItems")
+      if (storedCartItems) {
+        const parsedCartItems = JSON.parse(storedCartItems)
+        const trxDetail = parsedCartItems.map((item) => {
+          return {
+            productId: item.id,
+            quantity: item.quantity,
+          }
+        })
+        setFormData({
+          ...formData,
+          transactionDetails: trxDetail,
+        })
 
-      console.log("Form:", formData)
-      handleConfirmPayment()
+        console.log("Form:", formData)
+        handleConfirmPayment()
+      }
     }
   }
 
@@ -100,7 +107,7 @@ export default function ShoppingConfirmation({ address }) {
           console.log("Payment successful:", result)
           handleClearCart()
           dispatch(fetchTransactionsByUserId(state.artist.id))
-          navigate("/success")
+          navigate("/discover")
         },
         onPending: function (result) {
           console.log("Payment pending:", result)
@@ -122,62 +129,9 @@ export default function ShoppingConfirmation({ address }) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
-  // const addToTransactionDetails = (item) => {
-  //   const isItemInDetails = formData.transactionDetails.find(
-  //     (detail) => detail.productId === item.id
-  //   )
-
-  //   if (isItemInDetails) {
-  //     addToCart(item)
-  //     setFormData({
-  //       ...formData,
-  //       transactionDetails: formData.transactionDetails.map((detail) =>
-  //         detail.productId === item.id
-  //           ? { ...detail, quantity: detail.quantity + 1 }
-  //           : detail
-  //       ),
-  //     })
-  //     console.log("Form:", formData)
-  //   } else {
-  //     setFormData({
-  //       ...formData,
-  //       transactionDetails: [
-  //         ...formData.transactionDetails,
-  //         { productId: item.id, quantity: 1 },
-  //       ],
-  //     })
-  //   }
-  // }
-
-  // const removeFromTransactionDetails = (item) => {
-  //   const isItemInDetails = formData.transactionDetails.find(
-  //     (detail) => detail.productId === item.id
-  //   )
-
-  //   if (isItemInDetails) {
-  //     removeFromCart(item)
-  //     setFormData({
-  //       ...formData,
-  //       transactionDetails: formData.transactionDetails.map((detail) =>
-  //         detail.productId === item.id
-  //           ? { ...detail, quantity: detail.quantity - 1 }
-  //           : detail
-  //       ),
-  //     })
-  //     console.log("Form:", formData)
-  //   } else {
-  //     setFormData({
-  //       ...formData,
-  //       transactionDetails: [
-  //         ...formData.transactionDetails,
-  //         { productId: item.id, quantity: 1 },
-  //       ],
-  //     })
-  //   }
-  // }
-
   const handleClearCart = () => {
     clearCart()
+    localStorage.removeItem("cartItems")
     setFormData({
       ...formData,
       transactionDetails: [],

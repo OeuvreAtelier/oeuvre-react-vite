@@ -56,7 +56,7 @@ export default function TransactionHistoryList() {
         onSuccess: function (result) {
           console.log("Payment successful:", result)
           clearCart()
-          navigate("/success")
+          navigate("/discover")
         },
         onPending: function (result) {
           console.log("Payment pending:", result)
