@@ -37,7 +37,11 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
         <div className="flex flex-row bg-white p-4 rounded-lg mb-2 me-3">
           <img
             className="bg-black me-4 mt-1 size-12 rounded-full object-cover align-middle items-center"
-            src={artist.imagePicture?.path}
+            src={
+              artist.imagePicture
+                ? artist.imagePicture.path
+                : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+            }
             alt="profile"
           />
           <div className="flex flex-col justify-center">
@@ -72,16 +76,6 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
             })
           }}
         />
-        {/* <IconButton
-          btnName="Bookmarks"
-          btnIcon={faBookmark}
-          color="bg-white"
-          textColor="text-gray-800"
-          onClick={() => {
-            toggleDrawer()
-            navigate("/bookmarks")
-          }}
-        /> */}
         <IconButton
           id="btn-history"
           btnName="Transaction History"
@@ -91,17 +85,6 @@ export default function Drawer({ isOpen, toggleDrawer, artist, address }) {
           onClick={() => {
             toggleDrawer()
             navigate("/transaction-history")
-          }}
-        />
-        <IconButton
-          id="btn-rate-review"
-          btnName="Rate & Review"
-          btnIcon={faStar}
-          color="bg-white"
-          textColor="text-gray-800"
-          onClick={() => {
-            toggleDrawer()
-            navigate("/rate-review")
           }}
         />
         <IconButton

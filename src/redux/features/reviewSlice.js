@@ -28,10 +28,12 @@ export const fetchReviewsByUserId = createAsyncThunk(
 // USE THIS
 export const fetchReviewsByProductId = createAsyncThunk(
   "review/fetchReviewsByProductId",
-  async ({productId, page}, { rejectedWithValue }) => {
+  async ({ productId, page }, { rejectedWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/reviews/product/${productId}?page=${page}`)
-      console.log("PAGE (SLICE):", page)
+      const response = await axiosInstance.get(
+        `/reviews/product/${productId}?page=${page}`
+      )
+      console.log("Page fetchReviewsByProductId:", page)
       return response.data
     } catch (error) {
       return rejectedWithValue(error.response.data)

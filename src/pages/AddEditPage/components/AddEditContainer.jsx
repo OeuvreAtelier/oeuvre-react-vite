@@ -9,6 +9,7 @@ import {
   updateProduct,
 } from "../../../redux/features/productSlice"
 import FileUploadButton from "../../../shared/components/FileUploadButton"
+import categories from "../../../constants/categories"
 
 export default function AddEditContainer() {
   const [formData, setFormData] = useState({})
@@ -164,18 +165,11 @@ export default function AddEditContainer() {
               className="pb-3"
             >
               <option value="">Select a category</option>
-              <option value="AUDIO">Audio</option>
-              <option value="COSPLAY">Cosplay</option>
-              <option value="FASHION">Fashion</option>
-              <option value="FIGURES">Figures, Plushies & Dolls</option>
-              <option value="GAMES">Games</option>
-              <option value="GOODS">Goods</option>
-              <option value="ILLUSTRATION">Illustration</option>
-              <option value="MUSIC">Music</option>
-              <option value="NOVEL_BOOKS">Novel & Books</option>
-              <option value="PHOTOGRAPH">Photograph</option>
-              <option value="SOFTWARE_HARDWARE">Software & Hardware</option>
-              <option value="VIDEO">Video</option>
+              {categories.map(({ text, category }) => (
+                <option key={category} value={category}>
+                  {text}
+                </option>
+              ))}
             </Select>
           </div>
           <TextInputWithHeaderFB

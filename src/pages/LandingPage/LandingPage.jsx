@@ -6,11 +6,10 @@ import BestSeller from "./components/BestSeller"
 import { useSelector } from "react-redux"
 
 export default function LandingPage() {
-  const { data: merchandises } = useSelector((state) => state.merchandises)
   return (
     <div className="bg-slate-100">
       <Hero />
-      <BestSeller merchandises={merchandises}/>
+      <BestSeller/>
       <Category />
       <Footer />
     </div>
