@@ -58,13 +58,9 @@ export default function Navbar() {
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {isLoggedIn ? (
               <img
-                className="bg-indigo-500 ms-12 size-12 rounded-full object-cover align-middle items-center hover:cursor-pointer"
+                className="bg-black ms-12 size-12 rounded-full object-cover align-middle items-center hover:cursor-pointer"
                 onClick={() => toggleDrawer()}
-                src={
-                  artist.imagePicture
-                    ? artist.imagePicture?.path
-                    : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
-                }
+                src={artist.imagePicture?.path}
                 alt="profile"
               />
             ) : (

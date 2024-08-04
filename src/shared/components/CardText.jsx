@@ -7,7 +7,7 @@ export default function CardText({
   middleText,
   lowerText,
   onEdit,
-  onDelete,
+  // onDelete,
 }) {
   return (
     <div className="card-border-shadow p-4 flex flex-col w-full">
@@ -21,12 +21,12 @@ export default function CardText({
         btnColor="bg-sky-600"
         textColor="text-white"
       />
-      <TextButton
+      {/* <TextButton
         btnName="Delete"
         onClick={onDelete}
         btnColor="bg-red-600"
         textColor="text-white"
-      />
+      /> */}
     </div>
   )
 }

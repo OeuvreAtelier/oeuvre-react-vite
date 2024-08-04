@@ -27,7 +27,7 @@ export default function ProductList({ artist, merchandises }) {
     dispatch(
       fetchMerchandisesByUserId({ userId: artist.id, page: currentPage })
     )
-  }, [dispatch, currentPage])
+  }, [dispatch, currentPage, artist])
 
   const handlePageChange = (page) => {
     setCurrentPage(page)

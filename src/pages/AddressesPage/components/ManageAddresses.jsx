@@ -100,7 +100,7 @@ export default function ManageAddresses({ artist, addresses }) {
                 middleText={`${address.state}, ${address.country} ${address.postalCode}`}
                 lowerText={address.phoneNumber}
                 onEdit={() => handleEdit(artist, address)}
-                onDelete={() => handleDeleteModal(address.id)}
+                // onDelete={() => handleDeleteModal(address.id)}
               />
             ))}
           </div>
