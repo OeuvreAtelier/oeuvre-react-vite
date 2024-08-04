@@ -25,6 +25,7 @@ export default function BestSeller() {
             category={merchandise.category}
             seller={merchandise.user.displayName}
             price={merchandise.price}
+            onClick={() => {}}
           />
         ))}
       </div>

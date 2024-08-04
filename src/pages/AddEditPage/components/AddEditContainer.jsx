@@ -10,6 +10,7 @@ import {
 } from "../../../redux/features/productSlice"
 import FileUploadButton from "../../../shared/components/FileUploadButton"
 import categories from "../../../constants/categories"
+import types from "../../../constants/types"
 
 export default function AddEditContainer() {
   const [formData, setFormData] = useState({})
@@ -205,8 +206,11 @@ export default function AddEditContainer() {
               required
             >
               <option value="">Select a type</option>
-              <option value="DIGITAL">Digital</option>
-              <option value="PHYSICAL">Physical</option>
+              {types.map(({ text, type }) => (
+                <option key={type} value={type}>
+                  {text}
+                </option>
+              ))}
             </Select>
           </div>
           <TextAreaWithHeaderFB
@@ -214,15 +218,7 @@ export default function AddEditContainer() {
             nameLabel="Description"
             nameInput="description"
             placeholder="Describe your product here..."
-            value={
-              // state?.merchandise
-              //   ?
-              // JSON.stringify(
-              // state.merchandise.description.description
-              // ).slice(1, -1)
-              // :
-              formData.description
-            }
+            value={formData.description}
             onChange={handleChange}
           />
           <div className="bg-slate-100 w-full h-96 rounded-lg">

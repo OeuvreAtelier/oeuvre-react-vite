@@ -123,8 +123,8 @@ export default function CreateEditStore({ address }) {
               Start selling products with us!
             </h1>
             <p className="md-black mt-2 mb-4">
-              You can do what you love and make money at the same time! Please
-              add your address first to create your store.
+              You can do what you love and make money at the same time! To add a
+              maximum of 5 addresses, click below.
             </p>
             {address.length < 5 ? (
               <TextButton
@@ -138,7 +138,7 @@ export default function CreateEditStore({ address }) {
             ) : null}
           </div>
           <div className="flex flex-col w-3/5">
-            <h1 className="xl-semibold-black mx-4 mt-4">Create Store</h1>
+            <h1 className="xl-semibold-black mx-4 mt-4">Create & Manage Store</h1>
             <form
               className="flex w-full flex-col gap-4 pt-6 px-4"
               onSubmit={handleSubmit}

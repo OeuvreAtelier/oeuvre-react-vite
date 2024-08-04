@@ -13,13 +13,11 @@ export default function TextInputWithHeaderFB({
 }) {
   return (
     <div>
-      <Label
-        htmlFor={id}
-        className="sm-semibold-gray block mb-3 -mt-3"
-      >
+      <Label htmlFor={id} className="sm-semibold-gray block mb-3 -mt-3">
         {nameLabel}
       </Label>
       <TextInput
+        maxLength={50}
         disabled={isDisabled}
         id={id}
         name={nameInput}

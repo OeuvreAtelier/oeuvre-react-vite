@@ -1,29 +1,29 @@
 import React, { useEffect } from "react"
 import TransactionCard from "../../../shared/components/TransactionCard"
-import IconButton from "../../../shared/components/IconButton"
-import {
-  faBookmark,
-  faGear,
-  faHistory,
-} from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
 import TransactionCardParent from "../../../shared/components/TransactionCardParent"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { fetchTransactionsByUserId } from "../../../redux/features/transactionSlice"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import Animation from "../../../assets/nothing.json"
+import { fetchReviewsByUserId } from "../../../redux/features/reviewSlice"
 
 export default function TransactionHistoryList({
   artist,
   merchandises,
   transaction,
+  // review,
 }) {
+  const { data: review } = useSelector((state) => state.review)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchTransactionsByUserId(artist.id))
+    dispatch(fetchReviewsByUserId(artist.id))
   }, [dispatch])
+
+  console.log("Review: ", review)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -69,13 +69,12 @@ export default function TransactionHistoryList({
     }
   }
 
-  console.log("Artist ID HISTORY:", artist.id)
   console.log("Transaction Length:", transaction.length)
   return (
     <div className="container mx-auto pt-28 pb-8">
       <div className="flex flex-row justify-center mx-10">
         <div className="w-1/4 px-5 flex flex-col gap-4">
-          <IconButton
+          {/* <IconButton
             id="bookmark"
             btnName="Bookmarks"
             btnIcon={faBookmark}
@@ -101,7 +100,7 @@ export default function TransactionHistoryList({
             btnIcon={faGear}
             color="bg-white"
             hoverColor="bg-slate-100"
-          />
+          /> */}
         </div>
         <div className="w-3/4 flex flex-col ps-4">
           <h1 className="text-2xl font-semibold mb-5">Transaction History</h1>
@@ -136,7 +135,8 @@ export default function TransactionHistoryList({
                           quantity={trxDetail.quantity}
                           initPrice={trxDetail.product.price}
                           isHidden={
-                            (trx.payment.transactionStatus === "settlement")
+                            trx.payment.transactionStatus === "settlement" &&
+                            trxDetail.invoice !== review.transactionDetail
                               ? false
                               : true
                           }
