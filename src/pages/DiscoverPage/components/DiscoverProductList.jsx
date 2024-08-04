@@ -62,7 +62,8 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
       search: "",
       category: "",
       type: "",
-    }).then(dispatch(fetchMerchandises({ page: currentPage })))
+    })
+    dispatch(fetchMerchandises({ page: currentPage }))
   }
 
   const handleKeyboardChange = (e) => {
