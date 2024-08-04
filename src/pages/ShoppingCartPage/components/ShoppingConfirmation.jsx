@@ -189,7 +189,11 @@ export default function ShoppingConfirmation({ address }) {
                         color="gray"
                         size={"sm"}
                         onClick={() => {
-                          if (item.quantity > item.stock - 1) return
+                          if (
+                            item.quantity > item.stock - 1 ||
+                            item.type === "DIGITAL"
+                          )
+                            return
                           // addToTransactionDetails(item)
                           addToCart(item)
                         }}

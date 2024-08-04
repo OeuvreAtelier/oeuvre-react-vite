@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     secureLocalStorage.removeItem("token")
     secureLocalStorage.removeItem("isLoggedIn")
     secureLocalStorage.removeItem("username")
+    localStorage.removeItem("cartItems")
     dispatch({ type: "LOGOUT" })
   }
 
