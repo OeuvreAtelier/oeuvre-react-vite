@@ -15,10 +15,6 @@ export default function RateProduct() {
   const { state } = useLocation()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  })
-
-  useEffect(() => {
     if (state !== null) {
       console.log("State RATE PRODUCT:", state)
       setFormData({
@@ -57,7 +53,7 @@ export default function RateProduct() {
     try {
       const action = createReview(formData)
       await dispatch(action).unwrap()
-      navigate("/discover")
+      navigate("/")
     } catch (error) {
       console.error("Error submitting form:", error)
       alert("Error submitting form:", error)

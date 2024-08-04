@@ -11,7 +11,7 @@ import { Accordion, Label, Radio } from "flowbite-react"
 import Animation from "../../../assets/nothing.json"
 import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import TextButton from "../../../shared/components/TextButton"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "../../../context/AuthContext"
 
 export default function DiscoverProductList({ artist, merchandises, review }) {
@@ -20,9 +20,30 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
   const [currentPage, setCurrentPage] = useState(1)
   const { paging: totalPages } = useSelector((state) => state.merchandises)
   const { isLoggedIn } = useAuth()
+  const { state } = useLocation()
 
   useEffect(() => {
-    dispatch(fetchMerchandises({ page: currentPage }))
+    if (state) {
+      const { category } = state
+      dispatch(
+        fetchProductsByNameCategoryAndType({
+          productName: "",
+          category: category,
+          type: "",
+          page: currentPage,
+        })
+      )
+    } 
+    else {
+      dispatch(
+        fetchProductsByNameCategoryAndType({
+          productName: "",
+          category: "",
+          type: "",
+          page: currentPage,
+        })
+      )
+    }
     window.scrollTo(0, 0)
   }, [dispatch, currentPage])
 
@@ -35,7 +56,7 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
     category: "",
     type: "",
   })
-  // Reset search
+
   const resetSearchFilter = () => {
     setForm({
       search: "",
@@ -45,7 +66,6 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
     dispatch(fetchMerchandises({ page: currentPage }))
   }
 
-  // Handling names
   const handleKeyboardChange = (e) => {
     const { name, value } = e.target
     setForm({
@@ -55,7 +75,6 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
     console.log(form)
   }
 
-  // Handling categories
   const handleCategoryChange = (e) => {
     const { name, value } = e.target
     setForm({
@@ -75,7 +94,6 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
     console.log("SELECTED RADIO (TYPE):", form.type)
   }
 
-  // Submit search and/or filter
   const handleSearch = (e) => {
     e.preventDefault()
     if (form.search === "" && form.category === "" && form.type === "") {
@@ -334,7 +352,11 @@ export default function DiscoverProductList({ artist, merchandises, review }) {
                   price={merchandise.price}
                   onClick={() => {
                     navigate("/product-detail", {
-                      state: { artist: artist, merchandise: merchandise, review: review },
+                      state: {
+                        artist: artist,
+                        merchandise: merchandise,
+                        review: review,
+                      },
                     })
                   }}
                 />

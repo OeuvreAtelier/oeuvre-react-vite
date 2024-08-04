@@ -168,12 +168,19 @@ export default function ProductIntro() {
               </div>
             </div>
             <p className="lg-semibold-black mt-5">Description</p>
-            <p className="md-black mt-2 mb-5">
+            <p className="md-black mt-2 mb-5 whitespace-pre-line">
               {state.merchandise.description.description}
             </p>
           </div>
           <div className="w-1/4 me-20 flex flex-col mb-5">
-            <p className="sm-semibold-gray mb-1">
+            <p
+              className="sm-semibold-gray mb-1 hover:underline hover:cursor-pointer"
+              onClick={() =>
+                navigate("/discover", {
+                  state: { category: state.merchandise.category },
+                })
+              }
+            >
               {convertEnum[state.merchandise.category]}
             </p>
             <p

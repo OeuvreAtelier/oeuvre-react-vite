@@ -18,7 +18,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      console.log("Before: ", )
+      console.log("Before: ")
       const token = secureLocalStorage.getItem("token")
       const decodedToken = jwtDecode(token)
       const decodedUserId = decodedToken.sub
@@ -60,7 +60,11 @@ export default function Navbar() {
               <img
                 className="bg-black ms-12 size-12 rounded-full object-cover align-middle items-center hover:cursor-pointer"
                 onClick={() => toggleDrawer()}
-                src={artist.imagePicture?.path}
+                src={
+                  artist.imagePicture
+                    ? artist.imagePicture.path
+                    : "https://ik.imagekit.io/muffincrunchy/oeuvre-images/user-picture/default_picture.jpg"
+                }
                 alt="profile"
               />
             ) : (

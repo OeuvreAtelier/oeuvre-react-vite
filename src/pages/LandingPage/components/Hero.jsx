@@ -1,12 +1,9 @@
-import React, { useEffect } from "react"
+import React from "react"
 import Logo from "../../../shared/components/Logo"
 import { Link, useNavigate } from "react-router-dom"
 
 export default function Hero() {
   const navigate = useNavigate()
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  })
   return (
     <section className="bg-top bg-no-repeat bg-[url('https://wallpapercave.com/wp/wp12471560.jpg')] bg-gray-700 bg-blend-multiply rounded-b-2xl">
       <div className="px-4 mx-auto max-w-screen-xl flex flex-col justify-start items-start py-48">
