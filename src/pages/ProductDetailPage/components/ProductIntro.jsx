@@ -7,7 +7,6 @@ import {
   faWarning,
 } from "@fortawesome/free-solid-svg-icons"
 import AddToCart from "../../../shared/components/AddToCart"
-import { Rating } from "flowbite-react"
 import ScrollableModal from "./ScrollableModal"
 import ReviewCard from "./ReviewCard"
 import { useLocation, useNavigate } from "react-router-dom"

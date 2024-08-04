@@ -10,6 +10,7 @@ import EmptyContentSmall from "../../../shared/components/EmptyContentSmall"
 import Animation from "../../../assets/shopping-cart.json"
 import TextButton from "../../../shared/components/TextButton"
 import { createTransaction } from "../../../redux/features/transactionSlice"
+import ConfirmationModal from "../../../shared/components/ConfirmationModal"
 
 export default function ShoppingConfirmation({ address }) {
   const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } =
@@ -18,6 +19,11 @@ export default function ShoppingConfirmation({ address }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { state } = useLocation()
+  const [confirmPayment, setConfirmPayment] = useState(false)
+
+  const handleConfirmPayment = () => {
+    setConfirmPayment(true)
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -57,42 +63,57 @@ export default function ShoppingConfirmation({ address }) {
     console.log("Form:", formData)
   }
 
-  const handleSubmit = async (e) => {
-    if (cartItems.length === 0) {
-      alert("Cart is empty!")
-    } else {
-      console.log("Processing transaction:", formData)
-      e.preventDefault()
-      try {
-        const action = createTransaction(formData)
-        const transactionResponse = await dispatch(action).unwrap()
-        console.log("Transaction response:", transactionResponse)
-        const token = transactionResponse.data.payment.token
-        if (!token) {
-          throw new Error("Error getting token!")
+  const appendLocalStorageData = () => {
+    const storedCartItems = localStorage.getItem("cartItems")
+    if (storedCartItems) {
+      const parsedCartItems = JSON.parse(storedCartItems)
+      const trxDetail = parsedCartItems.map((item) => {
+        return {
+          productId: item.id,
+          quantity: item.quantity,
         }
-        window.snap.pay(token, {
-          onSuccess: function (result) {
-            console.log("Payment successful:", result)
-            clearCart()
-            navigate("/success")
-          },
-          onPending: function (result) {
-            console.log("Payment pending:", result)
-          },
-          onError: function (result) {
-            console.log("Payment error:", result)
-          },
-          onClose: function () {
-            console.log(
-              "Customer closed the popup without finishing the payment"
-            )
-          },
-        })
-      } catch (error) {
-        console.error("Error creating transaction!", error)
-        alert("Error creating transaction!", error)
+      })
+      setFormData({
+        ...formData,
+        transactionDetails: trxDetail,
+      })
+
+      console.log("Form:", formData)
+      handleConfirmPayment()
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    setConfirmPayment(false)
+    console.log("Processing transaction:", formData)
+    e.preventDefault()
+    try {
+      const action = createTransaction(formData)
+      const transactionResponse = await dispatch(action).unwrap()
+      console.log("Transaction response:", transactionResponse)
+      const token = transactionResponse.data.payment.token
+      if (!token) {
+        throw new Error("Error getting token!")
       }
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          console.log("Payment successful:", result)
+          handleClearCart()
+          navigate("/success")
+        },
+        onPending: function (result) {
+          console.log("Payment pending:", result)
+        },
+        onError: function (result) {
+          console.log("Payment error:", result)
+        },
+        onClose: function () {
+          console.log("Customer closed the popup without finishing the payment")
+        },
+      })
+    } catch (error) {
+      console.error("Error creating transaction!", error)
+      alert("Error creating transaction!", error)
     }
   }
 
@@ -100,59 +121,59 @@ export default function ShoppingConfirmation({ address }) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
-  const addToTransactionDetails = (item) => {
-    const isItemInDetails = formData.transactionDetails.find(
-      (detail) => detail.productId === item.id
-    )
+  // const addToTransactionDetails = (item) => {
+  //   const isItemInDetails = formData.transactionDetails.find(
+  //     (detail) => detail.productId === item.id
+  //   )
 
-    if (isItemInDetails) {
-      addToCart(item)
-      setFormData({
-        ...formData,
-        transactionDetails: formData.transactionDetails.map((detail) =>
-          detail.productId === item.id
-            ? { ...detail, quantity: detail.quantity + 1 }
-            : detail
-        ),
-      })
-      console.log("Form:", formData)
-    } else {
-      setFormData({
-        ...formData,
-        transactionDetails: [
-          ...formData.transactionDetails,
-          { productId: item.id, quantity: 1 },
-        ],
-      })
-    }
-  }
+  //   if (isItemInDetails) {
+  //     addToCart(item)
+  //     setFormData({
+  //       ...formData,
+  //       transactionDetails: formData.transactionDetails.map((detail) =>
+  //         detail.productId === item.id
+  //           ? { ...detail, quantity: detail.quantity + 1 }
+  //           : detail
+  //       ),
+  //     })
+  //     console.log("Form:", formData)
+  //   } else {
+  //     setFormData({
+  //       ...formData,
+  //       transactionDetails: [
+  //         ...formData.transactionDetails,
+  //         { productId: item.id, quantity: 1 },
+  //       ],
+  //     })
+  //   }
+  // }
 
-  const removeFromTransactionDetails = (item) => {
-    const isItemInDetails = formData.transactionDetails.find(
-      (detail) => detail.productId === item.id
-    )
+  // const removeFromTransactionDetails = (item) => {
+  //   const isItemInDetails = formData.transactionDetails.find(
+  //     (detail) => detail.productId === item.id
+  //   )
 
-    if (isItemInDetails) {
-      removeFromCart(item)
-      setFormData({
-        ...formData,
-        transactionDetails: formData.transactionDetails.map((detail) =>
-          detail.productId === item.id
-            ? { ...detail, quantity: detail.quantity - 1 }
-            : detail
-        ),
-      })
-      console.log("Form:", formData)
-    } else {
-      setFormData({
-        ...formData,
-        transactionDetails: [
-          ...formData.transactionDetails,
-          { productId: item.id, quantity: 1 },
-        ],
-      })
-    }
-  }
+  //   if (isItemInDetails) {
+  //     removeFromCart(item)
+  //     setFormData({
+  //       ...formData,
+  //       transactionDetails: formData.transactionDetails.map((detail) =>
+  //         detail.productId === item.id
+  //           ? { ...detail, quantity: detail.quantity - 1 }
+  //           : detail
+  //       ),
+  //     })
+  //     console.log("Form:", formData)
+  //   } else {
+  //     setFormData({
+  //       ...formData,
+  //       transactionDetails: [
+  //         ...formData.transactionDetails,
+  //         { productId: item.id, quantity: 1 },
+  //       ],
+  //     })
+  //   }
+  // }
 
   const handleClearCart = () => {
     clearCart()
@@ -164,6 +185,16 @@ export default function ShoppingConfirmation({ address }) {
 
   return (
     <>
+      <ConfirmationModal
+        show={confirmPayment}
+        onClose={() => setConfirmPayment(false)}
+        text="You will be redirected to Midtrans, where you can select which payment method you want to choose."
+        leftClick="Cancel"
+        rightClick="Okay"
+        onLeftClick={() => setConfirmPayment(false)}
+        onRightClick={handleSubmit}
+        isHidden={false}
+      />
       <div className="container mx-auto pt-28 pb-8">
         <h1 className="xxl-semibold-black mb-6 mx-16">My Shopping Cart</h1>
         <div className="flex flex-row justify-center mx-10">
@@ -189,7 +220,10 @@ export default function ShoppingConfirmation({ address }) {
                       <Button
                         color="gray"
                         size={"sm"}
-                        onClick={() => removeFromTransactionDetails(item)}
+                        // onClick={() => removeFromTransactionDetails(item)}
+                        onClick={() => {
+                          removeFromCart(item)
+                        }}
                       >
                         <div className="text-sm">-</div>
                       </Button>
@@ -201,7 +235,8 @@ export default function ShoppingConfirmation({ address }) {
                         size={"sm"}
                         onClick={() => {
                           if (item.quantity > item.stock - 1) return
-                          addToTransactionDetails(item)
+                          // addToTransactionDetails(item)
+                          addToCart(item)
                         }}
                       >
                         <div className="text-sm">+</div>
@@ -296,7 +331,7 @@ export default function ShoppingConfirmation({ address }) {
                 btnIcon={faCashRegister}
                 color="bg-indigo-700"
                 textColor="text-white"
-                onClick={handleSubmit}
+                onClick={appendLocalStorageData}
               />
             </div>
           </div>
