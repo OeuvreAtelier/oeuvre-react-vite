@@ -90,14 +90,16 @@ export default function ManageAddresses({ artist, addresses }) {
           ) : null}
 
           <h1 className="xxl-semibold-black mt-28 mb-2">My Saved Addresses</h1>
-          <p className="sm-semibold-gray mb-7">Note: You can only save up to 5 addresses.</p>
+          <p className="sm-semibold-gray mb-7">
+            Note: You can only save up to 5 addresses.
+          </p>
           <div className="grid grid-cols-5 grid-rows-1 gap-3 px-10">
             {addresses.map((address) => (
               <CardText
                 key={address.id}
                 heading={address.detail}
                 upperText={address.city}
-                middleText={`${address.state}, ${address.country} ${address.postalCode}`}
+                middleText={`${address.state} ${address.postalCode}, ${address.country}`}
                 lowerText={address.phoneNumber}
                 onEdit={() => handleEdit(artist, address)}
                 // onDelete={() => handleDeleteModal(address.id)}

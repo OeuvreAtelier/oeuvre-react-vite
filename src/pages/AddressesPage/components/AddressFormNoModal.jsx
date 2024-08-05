@@ -33,7 +33,7 @@ export default function AddressFormNoModal() {
       } else {
         setFormData({
           userId: state.artist.id,
-          country: "",
+          country: "Indonesia",
           state: "",
           city: "",
           detail: "",
@@ -91,6 +91,7 @@ export default function AddressFormNoModal() {
           onSubmit={handleSubmit}
         >
           <TextInputWithHeaderFB
+          isDisabled={true}
             id="country"
             nameInput="country"
             nameLabel="Country/Region"
@@ -113,7 +114,7 @@ export default function AddressFormNoModal() {
             nameInput="city"
             nameLabel="City"
             type="text"
-            placeholder="Example: South Jakarta"
+            placeholder="Example: Jakarta Selatan"
             value={formData.city}
             onChange={handleChange}
           />
@@ -121,7 +122,7 @@ export default function AddressFormNoModal() {
             id="detail"
             nameInput="detail"
             nameLabel="Detailed Address"
-            placeholder="Example: 10 Downing Street, Croydon Borough, Stamford Bridge, etc."
+            placeholder="Example: Pejaten Village Mall"
             value={formData.detail}
             onChange={handleChange}
           />
@@ -129,8 +130,8 @@ export default function AddressFormNoModal() {
             id="postalCode"
             nameInput="postalCode"
             nameLabel="Postal/Zip Code"
-            type="text"
-            placeholder="Example: 12345, SW1A 2AA, etc."
+            type="number"
+            placeholder="Example: 12345"
             value={formData.postalCode}
             onChange={handleChange}
           />

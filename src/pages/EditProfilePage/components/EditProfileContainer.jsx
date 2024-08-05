@@ -65,10 +65,13 @@ export default function EditProfileContainer() {
   }
 
   const handleDateChange = (date) => {
-    setSelectedDate(date)
+    const newDate = new Date(date)
+    newDate.setDate(newDate.getDate() + 1)
+    setSelectedDate(newDate)
+    const formattedDate = newDate.toISOString().split("T")[0]
     setFormData({
       ...formData,
-      birthDate: date.toISOString().split("T")[0],
+      birthDate: formattedDate,
     })
     console.log(formData)
   }

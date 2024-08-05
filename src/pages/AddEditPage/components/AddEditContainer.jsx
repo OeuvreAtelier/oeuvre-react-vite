@@ -189,7 +189,7 @@ export default function AddEditContainer() {
             nameInput="stock"
             type="number"
             placeholder="Example: 45"
-            value={formData.type === "DIGITAL" ? 9999999999 : formData.stock}
+            value={formData.type === "DIGITAL" ? 99 : formData.stock}
             onChange={handleNumber}
           />
           <div className="-mt-2 mb-4">

@@ -15,7 +15,7 @@ export default function TextAreaWithHeaderFB({
         {nameLabel}
       </Label>
       <Textarea
-        maxLength={100}
+        maxLength={300}
         className="w-full pb-3 mb-3"
         id={id}
         name={nameInput}

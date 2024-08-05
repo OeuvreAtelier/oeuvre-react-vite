@@ -1,5 +1,5 @@
 import { Datepicker, Label } from "flowbite-react"
-import React, { useState } from "react"
+import React from "react"
 
 export default function DatePickerFB({
   id,
@@ -13,6 +13,8 @@ export default function DatePickerFB({
         {nameLabel}
       </Label>
       <Datepicker
+        language="id"
+        placeholder="Pick a Date"
         icon={null}
         onSelectedDateChanged={handleDateChange}
         id={id}

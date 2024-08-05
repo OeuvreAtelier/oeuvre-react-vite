@@ -21,7 +21,7 @@ export default function TransactionCardParent({
             paymentStatus === "SETTLEMENT" ? "bg-green-500" : "bg-red-500"
           } rounded-xl text-center`}
         >
-          {paymentStatus}
+          {paymentStatus === "SETTLEMENT" ? "PAID" : paymentStatus}
         </div>
       </div>
       <p className="xs-semibold-gray">Delivery Address</p>
