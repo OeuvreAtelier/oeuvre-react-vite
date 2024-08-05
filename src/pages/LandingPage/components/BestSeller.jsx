@@ -15,7 +15,7 @@ export default function BestSeller() {
     dispatch(fetchMerchandises({ page: 1 })).then(
       console.log("Best seller: ", merchandises)
     )
-  })
+  }, [])
 
   return (
     <div className="bg-slate-100 flex flex-col justify-center items-center pt-3">

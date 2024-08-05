@@ -20,7 +20,7 @@ const categories = [
   { icon: faDollyBox, text: "Figures, Plushies & Dolls", category: "FIGURES" },
   { icon: faGamepad, text: "Games", category: "GAMES" },
   { icon: faCartFlatbed, text: "Goods", category: "GOODS" },
-  { icon: faDemocrat, text: "Illustrations", category: "ILLUSTRATIONS" },
+  { icon: faDemocrat, text: "Illustration", category: "ILLUSTRATION" },
   { icon: faMusic, text: "Music", category: "MUSIC" },
   {
     icon: faBookJournalWhills,
